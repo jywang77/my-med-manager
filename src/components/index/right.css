@@ -1,0 +1,52 @@
+.right {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  margin-top: 5%;
+}
+
+/* form, buttons */
+
+input {
+  width: 50%;
+  padding: 5px;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 3px solid #354f52;
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  background-color: transparent;
+  color: #cad2c5;
+  outline: none;
+}
+
+::placeholder {
+  color: #cad2c5;
+  opacity: 0.5;
+  font-family: "Roboto", sans-serif;
+}
+
+.button {
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  background-color: transparent;
+  color: #cad2c5;
+  border: none;
+  margin-bottom: 15px;
+}
+
+.button:hover {
+  color: #84a98c;
+}
+
+.error {
+  color: #7d2725;
+}
+
+.confirm {
+  color: #8dd37f;
+}
+
+.hidden {
+  display: none;
+}

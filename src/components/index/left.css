@@ -1,0 +1,37 @@
+.left {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  width: 55%;
+}
+
+/* my */
+.h0 {
+  color: #cad2c5;
+  font-family: "Roboto", sans-serif;
+  font-size: 14vh;
+  margin: 0;
+  line-height: 0.9;
+  margin-top: 5%;
+}
+
+/* med manager */
+.h1 {
+  color: #cad2c5;
+  font-family: "Roboto", sans-serif;
+  font-size: 14vh;
+  margin: 0;
+  line-height: 0.8;
+}
+
+/* a simple medication planner ... */
+.h2 {
+  color: #84a98c;
+  font-family: "Roboto", sans-serif;
+  font-size: 5vh;
+  font-style: italic;
+  padding-top: 15px;
+  line-height: 1;
+  max-width: 40vw;
+  margin: 0 0 0 auto;
+}

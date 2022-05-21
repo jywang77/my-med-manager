@@ -1,0 +1,16 @@
+.main {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  min-height: 90vh;
+  gap: 30px;
+  /* image */
+  background-image: url("home.png");
+  background-size: 45vh 45vh;
+  background-repeat: no-repeat;
+  background-position: 18% 17%;
+}

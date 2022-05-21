@@ -1,0 +1,143 @@
+/* learn more */
+
+.learnMore {
+  min-height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.learnMoreButton {
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  background-color: transparent;
+  color: #cad2c5;
+  opacity: 0.5;
+  border: none;
+  margin-bottom: 15px;
+  padding-left: 35px;
+  background-image: url("images/down.svg");
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  background-position: 0 5px;
+}
+
+.learnMoreButton:hover {
+  opacity: 1;
+}
+
+/* bottom section */
+
+.bottom {
+  /* display: none; */
+  background: rgb(202, 210, 197);
+  background: linear-gradient(
+    0deg,
+    rgba(202, 210, 197, 1) 70%,
+    rgba(82, 121, 111, 1) 100%
+  );
+}
+
+.h3 {
+  color: #52796f;
+  font-family: "Roboto", sans-serif;
+  font-size: 30pt;
+}
+
+.containerBottom {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 80vw;
+}
+
+/* container 1 / about */
+
+.about {
+  margin-top: 20%;
+}
+
+.containerBottom1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+p {
+  color: #2f3e46;
+  font-family: "Roboto", sans-serif;
+  font-size: larger;
+}
+
+/* container 2 / contact me */
+
+.containerBottom2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.emailButton {
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  background-color: transparent;
+  color: #2f3e46;
+  border: none;
+  margin: 15px 0;
+  padding-left: 35px;
+  background-image: url("images/email.svg");
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  background-position: 0 5px;
+}
+
+.linkedinButton {
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  background-color: transparent;
+  color: #2f3e46;
+  border: none;
+  margin: 15px 0;
+  padding-left: 35px;
+  background-image: url("images/linkedin.svg");
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  background-position: 0 5px;
+}
+
+.emailButton:hover,
+.linkedinButton:hover {
+  opacity: 0.5;
+}
+
+/* container 3 / credits */
+
+.containerBottom3 {
+  display: flex;
+  flex-direction: column;
+}
+
+/* back to top */
+
+.containerBottom4 {
+  display: flex;
+  justify-content: center;
+}
+
+.top {
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  background-color: transparent;
+  color: #52796f;
+  border: none;
+  margin-bottom: 15px;
+  padding-left: 35px;
+  background-image: url("images/up.svg");
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  background-position: 0 5px;
+}
+
+.top:hover {
+  opacity: 0.5;
+}
