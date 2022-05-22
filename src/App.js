@@ -1,5 +1,5 @@
 import "./App.css";
-import { Home } from "./container/index/home";
+import { Home } from "./container/home/home";
 import { CreateAccount } from "./container/create-account/create-account";
 import { Routes, Route } from "react-router-dom";
 

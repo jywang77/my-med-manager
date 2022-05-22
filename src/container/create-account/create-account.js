@@ -1,6 +1,6 @@
-import { Left } from "../../components/index/left";
+import { Left } from "../../components/home/left";
 import { RightCreate } from "../../components/create-account/right-create";
-import "../index/home.css";
+import "../home/home.css";
 
 export const CreateAccount = () => {
   return (

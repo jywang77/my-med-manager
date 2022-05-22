@@ -77,7 +77,7 @@ p {
   justify-content: space-evenly;
 }
 
-.emailButton {
+.contactButton {
   font-size: 30px;
   font-family: "Roboto", sans-serif;
   background-color: transparent;
@@ -85,28 +85,24 @@ p {
   border: none;
   margin: 15px 0;
   padding-left: 35px;
-  background-image: url("images/email.svg");
   background-repeat: no-repeat;
   background-size: 25px 25px;
   background-position: 0 5px;
+}
+
+.emailButton {
+  background-image: url("images/email.svg");
 }
 
 .linkedinButton {
-  font-size: 30px;
-  font-family: "Roboto", sans-serif;
-  background-color: transparent;
-  color: #2f3e46;
-  border: none;
-  margin: 15px 0;
-  padding-left: 35px;
   background-image: url("images/linkedin.svg");
-  background-repeat: no-repeat;
-  background-size: 25px 25px;
-  background-position: 0 5px;
 }
 
-.emailButton:hover,
-.linkedinButton:hover {
+.githubButton {
+  background-image: url("images/github.png");
+}
+
+.contactButton:hover {
   opacity: 0.5;
 }
 

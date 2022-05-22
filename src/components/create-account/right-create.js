@@ -1,4 +1,4 @@
-import "../index/right.css";
+import "../home/right.css";
 
 export const RightCreate = () => {
   return (

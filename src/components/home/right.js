@@ -1,6 +1,12 @@
 import "./right.css";
 
-export const Right = () => {
+export const Right = ({ username, setUsername }) => {
+  // const setMyUsername = (event) => {
+  //   event.preventDefault();
+
+  //   setUsername(event.target.value);
+  // };
+
   return (
     <div className="right">
       {/* form */}
@@ -13,6 +19,9 @@ export const Right = () => {
             type="text"
             autoFocus
             placeholder="username"
+            // value={username}
+            // onChange={setMyUsername}
+            // onChange={(event) => setUsername(event.target.value)}
             required
           />
         </div>

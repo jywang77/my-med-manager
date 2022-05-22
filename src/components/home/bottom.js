@@ -1,13 +1,36 @@
 import "./bottom.css";
+import down from "./images/down.svg";
+import up2 from "./images/up2.svg";
 
 export const Bottom = () => {
+  const showBottom = () => {
+    const learnMoreButton = document.querySelector(".learnMoreButton");
+    const bottom = document.querySelector(".bottom");
+
+    if (bottom.style.display === "block") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      learnMoreButton.style.backgroundImage = `url(${down})`;
+      setTimeout(() => {
+        bottom.style.display = "none";
+      }, 700);
+    } else {
+      bottom.style.display = "block";
+      learnMoreButton.style.backgroundImage = `url(${up2})`;
+      learnMoreButton.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <div>
       {/* learn more */}
       <div class="learnMore">
-        <button class="learnMoreButton">learn more</button>
+        <button class="learnMoreButton" onClick={showBottom}>
+          learn more
+        </button>
       </div>
-      <div class="bottom">
+      <div class="bottom" style={{ display: "none" }}>
         <div class="containerBottom">
           <div class="h3 about">about</div>
           <div class="containerBottom1">
@@ -35,7 +58,9 @@ export const Bottom = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button class="emailButton">jyw.wang@mail.utoronto.ca</button>
+                <button class="emailButton contactButton">
+                  jyw.wang@mail.utoronto.ca
+                </button>
               </a>
             </div>
             <div>
@@ -44,7 +69,18 @@ export const Bottom = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button class="linkedinButton">LinkedIn Profile</button>
+                <button class="linkedinButton contactButton">
+                  LinkedIn Profile
+                </button>
+              </a>
+            </div>
+            <div>
+              <a
+                href="https://github.com/jywang77/my-med-manager"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <button class="githubButton contactButton">GitHub</button>
               </a>
             </div>
           </div>
@@ -58,7 +94,7 @@ export const Bottom = () => {
               <br />
               This project is non-profit. Icons and pictures used on this site
               (that are not created by myself) are from free-use sources. Icon
-              and image credits will nonetheless be linked below:
+              and image sources will nonetheless be linked below:
               <br />
               <br />
               <a
@@ -83,6 +119,14 @@ export const Bottom = () => {
                 rel="noopener noreferrer"
               >
                 LinkedIn icon
+              </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon/github_2111425?term=github&related_id=2111425"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GitHub icon
               </a>
             </p>
           </div>
