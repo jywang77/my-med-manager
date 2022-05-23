@@ -22,6 +22,10 @@ export const Bottom = () => {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div>
       {/* learn more */}
@@ -39,10 +43,10 @@ export const Bottom = () => {
               My name is Joy Wang, and I am a pharmacy student with an interest
               in the intersection between technology and pharmacy practice. I
               coded myMedManager during summer 2022 using HTML, CSS, JavaScript
-              and React. The website layout and user interface was also designed
-              by me. Certain images on this site (e.g. the home page) were hand
-              drawn by myself on Clip Studio Paint and a digital drawing tablet.
-              The logo was created by myself on Adobe Illustrator. Creating this
+              and React. I used Figma to help me design the user interface.
+              Certain images on this site (e.g. the home page) were hand drawn
+              by myself on Clip Studio Paint and a digital drawing tablet. The
+              logo was created by myself on Adobe Illustrator. Creating this
               website was very rewarding for me because I could blend my
               interests in technology, art, and design with my pharmacy
               knowledge. If you would like to contact me to learn more about
@@ -133,9 +137,9 @@ export const Bottom = () => {
           <p></p>
           {/* back to top */}
           <div class="containerBottom4">
-            <a href="#top">
-              <button class="top">back to top</button>
-            </a>
+            <button class="top" onClick={scrollToTop}>
+              back to top
+            </button>
           </div>
         </div>
       </div>

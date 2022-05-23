@@ -14,6 +14,7 @@ export const Right = ({ username, setUsername }) => {
         <div>
           <p class="error hidden">Error: Username or password is incorrect.</p>
           <p class="confirm hidden">Account created successfully.</p>
+          <p class="inputText">username</p>
           <input
             class="input"
             type="text"
@@ -26,6 +27,7 @@ export const Right = ({ username, setUsername }) => {
           />
         </div>
         <div>
+          <p class="inputText">password</p>
           <input
             class="input"
             type="password"
@@ -41,7 +43,7 @@ export const Right = ({ username, setUsername }) => {
       </form>
       <div>
         <a href="create-account">
-          <button class="button">create account</button>
+          <button class="button2">create account</button>
         </a>
       </div>
     </div>

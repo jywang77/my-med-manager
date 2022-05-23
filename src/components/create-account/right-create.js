@@ -7,6 +7,7 @@ export const RightCreate = () => {
       <form>
         <div>
           <p class="error hidden">Error: Username already in use.</p>
+          <p class="inputText">username</p>
           <input
             class="input"
             type="text"
@@ -17,9 +18,11 @@ export const RightCreate = () => {
         </div>
         <div>
           <p class="error hidden">Error: Email already in use.</p>
+          <p class="inputText">email</p>
           <input class="input" type="email" placeholder="email" required />
         </div>
         <div>
+          <p class="inputText">password</p>
           <input
             class="input"
             type="password"
@@ -29,6 +32,7 @@ export const RightCreate = () => {
         </div>
         <div>
           <p class="error hidden">Error: Passwords do not match.</p>
+          <p class="inputText">confirm password</p>
           <input
             class="input"
             type="password"
@@ -44,7 +48,7 @@ export const RightCreate = () => {
       </div>
       <div>
         <a href="/">
-          <button class="button">back to log in</button>
+          <button class="button2">back to log in</button>
         </a>
       </div>
     </div>

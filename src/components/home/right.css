@@ -20,6 +20,21 @@ input {
   outline: none;
 }
 
+.inputText,
+.button2 {
+  color: #84a98c;
+  font-weight: 700;
+  font-style: italic;
+  margin: 0;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+}
+
+.button2:hover {
+  color: #cad2c5;
+}
+
 ::placeholder {
   color: #cad2c5;
   opacity: 0.5;
