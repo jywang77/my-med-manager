@@ -1,30 +1,21 @@
 import "./right.css";
 
 export const Right = ({ username, setUsername }) => {
-  // const setMyUsername = (event) => {
-  //   event.preventDefault();
-
-  //   setUsername(event.target.value);
-  // };
-
   return (
     <div className="right">
       {/* form */}
       <form>
         <div>
-          <p className="error hidden">
+          <p className="error err4">
             Error: Username or password is incorrect.
           </p>
-          <p className="confirm hidden">Account created successfully.</p>
+          <p className="confirm success">Account created successfully.</p>
           <p className="inputText">username</p>
           <input
             className="input"
             type="text"
             autoFocus
             placeholder="username"
-            // value={username}
-            // onChange={setMyUsername}
-            // onChange={(event) => setUsername(event.target.value)}
             required
           />
         </div>
