@@ -1,0 +1,36 @@
+.navBar {
+  background: #cad2c5;
+  height: 100%;
+  width: 75px;
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  margin: 20px;
+  max-width: 35px;
+  width: auto;
+  height: auto;
+}
+
+.colorChange {
+  filter: invert(20%) sepia(24%) saturate(497%) hue-rotate(156deg)
+    brightness(93%) contrast(89%);
+}
+
+.colorChange:hover {
+  filter: invert(45%) sepia(4%) saturate(2411%) hue-rotate(114deg)
+    brightness(93%) contrast(86%);
+}
+
+.logo,
+.logout {
+  height: 10vh;
+}
+
+.middle {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
