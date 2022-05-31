@@ -29,15 +29,15 @@ export const Bottom = () => {
   return (
     <div>
       {/* learn more */}
-      <div class="learnMore">
-        <button class="learnMoreButton" onClick={showBottom}>
+      <div className="learnMore">
+        <button className="learnMoreButton" onClick={showBottom}>
           learn more
         </button>
       </div>
-      <div class="bottom" style={{ display: "none" }}>
-        <div class="containerBottom">
-          <div class="h3 about">about</div>
-          <div class="containerBottom1">
+      <div className="bottom" style={{ display: "none" }}>
+        <div className="containerBottom">
+          <div className="h3 about">about</div>
+          <div className="containerBottom1">
             {/* about */}
             <p>
               My name is Joy Wang, and I am a pharmacy student with an interest
@@ -54,15 +54,15 @@ export const Bottom = () => {
             </p>
           </div>
           {/* contact me */}
-          <div class="h3">contact me</div>
-          <div class="containerBottom2">
+          <div className="h3">contact me</div>
+          <div className="containerBottom2">
             <div>
               <a
                 href="mailto:jyw.wang@mail.utoronto.ca"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button class="emailButton contactButton">
+                <button className="emailButton contactButton">
                   jyw.wang@mail.utoronto.ca
                 </button>
               </a>
@@ -73,7 +73,7 @@ export const Bottom = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button class="linkedinButton contactButton">
+                <button className="linkedinButton contactButton">
                   LinkedIn Profile
                 </button>
               </a>
@@ -84,13 +84,13 @@ export const Bottom = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <button class="githubButton contactButton">GitHub</button>
+                <button className="githubButton contactButton">GitHub</button>
               </a>
             </div>
           </div>
           {/* acknowledgements */}
-          <div class="h3">acknowledgements</div>
-          <div class="containerBottom3">
+          <div className="h3">acknowledgements</div>
+          <div className="containerBottom3">
             <p>
               Michael Chen, for being my coding mentor and for helping me with
               troubleshooting bugs.
@@ -136,8 +136,8 @@ export const Bottom = () => {
           </div>
           <p></p>
           {/* back to top */}
-          <div class="containerBottom4">
-            <button class="top" onClick={scrollToTop}>
+          <div className="containerBottom4">
+            <button className="top" onClick={scrollToTop}>
               back to top
             </button>
           </div>

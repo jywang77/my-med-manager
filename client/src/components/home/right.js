@@ -12,11 +12,13 @@ export const Right = ({ username, setUsername }) => {
       {/* form */}
       <form>
         <div>
-          <p class="error hidden">Error: Username or password is incorrect.</p>
-          <p class="confirm hidden">Account created successfully.</p>
-          <p class="inputText">username</p>
+          <p className="error hidden">
+            Error: Username or password is incorrect.
+          </p>
+          <p className="confirm hidden">Account created successfully.</p>
+          <p className="inputText">username</p>
           <input
-            class="input"
+            className="input"
             type="text"
             autoFocus
             placeholder="username"
@@ -27,23 +29,23 @@ export const Right = ({ username, setUsername }) => {
           />
         </div>
         <div>
-          <p class="inputText">password</p>
+          <p className="inputText">password</p>
           <input
-            class="input"
+            className="input"
             type="password"
             placeholder="password"
             required
           />
         </div>
         <div>
-          <button type="submit" class="button">
+          <button type="submit" className="button">
             log in
           </button>
         </div>
       </form>
       <div>
         <a href="create-account">
-          <button class="button2">create account</button>
+          <button className="button2">create account</button>
         </a>
       </div>
     </div>
