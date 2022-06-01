@@ -132,6 +132,62 @@ export const Bottom = () => {
               >
                 GitHub icon
               </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon-font/home_3917033"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Home icon
+              </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon-font/calendar_3917244 "
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Calendar icon
+              </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon-font/edit_3917361"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Edit icon
+              </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon-font/settings_3917058"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Settings icon
+              </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon-font/sign-out_3917349"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Log out icon
+              </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon-font/trash_3917378"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Trash icon
+              </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon-font/exclamation_3917663"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Alert icon
+              </a>
             </p>
           </div>
           <p></p>

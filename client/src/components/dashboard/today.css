@@ -1,0 +1,75 @@
+.schedule {
+  display: flex;
+  flex-direction: column;
+  margin: 3vw;
+  margin-top: 15vh;
+}
+
+.greeting {
+  color: #cad2c5;
+  font-family: "Roboto", sans-serif;
+  font-size: 50pt;
+  font-weight: 400;
+  margin: 0;
+}
+
+.greeting2 {
+  color: #cad2c5;
+  font-family: "Roboto", sans-serif;
+  font-size: 30pt;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+.green {
+  color: #84a98c;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 25px;
+}
+
+.medication {
+  display: flex;
+  flex-direction: column;
+}
+
+.medName {
+  font-weight: 500;
+}
+
+.instructions {
+  margin-left: 20px;
+  font-weight: 300;
+}
+
+.medTime {
+  color: #84a98c;
+  font-family: "Roboto", sans-serif;
+  font-size: 30pt;
+  font-weight: 400;
+  width: 15vw;
+}
+
+.medication {
+  color: #cad2c5;
+  font-family: "Roboto", sans-serif;
+  font-size: 20pt;
+  font-weight: 400;
+  width: 40vw;
+}
+
+.checkbox {
+  margin: 0;
+  background-color: transparent;
+  height: 20pt;
+  display: grid;
+}
