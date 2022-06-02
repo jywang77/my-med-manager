@@ -188,6 +188,14 @@ export const Bottom = () => {
               >
                 Alert icon
               </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon-font/check_3917749"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Checkmark
+              </a>
             </p>
           </div>
           <p></p>

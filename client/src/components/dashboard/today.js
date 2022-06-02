@@ -50,36 +50,37 @@ export const Today = () => {
           {day} <span className="green">{month}</span> {date}
         </div>
         <div className="table">
+          {/* breakfast */}
           <div className="row">
             <div className="medTime">breakfast</div>
             <div className="medication">
               <div className="medName">
-                {/* <input type="checkbox" className="checkbox" /> */}
-                ramipril 5mg
+                <input type="checkbox" />
+                <label>ramipril 5mg</label>
               </div>
-              <div classname="instructions">take 1 capsule once daily</div>
+              <div className="instructions">take 1 capsule once daily</div>
             </div>
           </div>
-          <div className="row">
-            <div className="medTime">lunch</div>
-            <div className="medication">
-              <div className="medName">no medications</div>
-              <div classname="instructions">no medications</div>
-            </div>
-          </div>
-
+          {/* dinner */}
           <div className="row">
             <div className="medTime">dinner</div>
             <div className="medication">
-              <div className="medName">metformin 500mg</div>
-              <div classname="instructions">take 2 tablets once daily</div>
+              <div className="medName">
+                <input type="checkbox" />
+                <label>metformin 500mg</label>
+              </div>
+              <div className="instructions">take 2 tablets once daily</div>
             </div>
           </div>
+          {/* bedtime */}
           <div className="row">
             <div className="medTime">bedtime</div>
             <div className="medication">
-              <div className="medName">zolpidem 10mg</div>
-              <div classname="instructions">
+              <div className="medName">
+                <input type="checkbox" />
+                <label>zolpidem 10mg</label>
+              </div>
+              <div className="instructions">
                 take 1 tablet at bedtime if needed for sleep
               </div>
             </div>

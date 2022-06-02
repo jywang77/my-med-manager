@@ -1,5 +1,7 @@
 import img from "./dashboard.png";
 import "./reminder.css";
+// importing today.css for checkbox formatting
+import "./today.css";
 import alert from "./alert.svg";
 
 export const Reminder = () => {
@@ -12,8 +14,14 @@ export const Reminder = () => {
             <span className="red"> refill </span>
             <img className="alert" src={alert} alt="" />
           </legend>
-          <div className="refillMed">metformin 500mg</div>
-          <div className="refillMed">zolpidem 10mg</div>
+          <div className="refillMed">
+            <input type="checkbox" />
+            <label>metformin 500mg</label>
+          </div>
+          <div className="refillMed">
+            <input type="checkbox" />
+            <label>zolpidem 10mg</label>
+          </div>
         </fieldset>
       </div>
       <div>

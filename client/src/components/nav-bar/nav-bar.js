@@ -5,6 +5,7 @@ import calendar from "./images/calendar.svg";
 import edit from "./images/edit.svg";
 import settings from "./images/settings.svg";
 import logout from "./images/logout.svg";
+import arrow from "./images/triangle.svg";
 
 export const NavBar = () => {
   return (
@@ -15,25 +16,45 @@ export const NavBar = () => {
         </a>
       </div>
       <div className="middle">
-        <div>
+        <div className="navButton">
           <a href="/dashboard">
-            <img className="icon colorChange" src={home} alt="home" />
+            <div>
+              <img className="icon colorChange current" src={home} alt="home" />
+            </div>
           </a>
+          <div>
+            <img className="arrow" src={arrow} alt="arrow" />
+          </div>
         </div>
-        <div>
+        <div className="navButton">
           <a href="/calendar">
-            <img className="icon colorChange" src={calendar} alt="calendar" />
+            <div>
+              <img className="icon colorChange" src={calendar} alt="calendar" />
+            </div>
           </a>
+          <div>
+            <img className="arrow" src={arrow} alt="arrow" />
+          </div>
         </div>
-        <div>
+        <div className="navButton">
           <a href="/my-medications">
-            <img className="icon colorChange" src={edit} alt="edit" />
+            <div>
+              <img className="icon colorChange" src={edit} alt="edit" />
+            </div>
           </a>
+          <div>
+            <img className="arrow" src={arrow} alt="arrow" />
+          </div>
         </div>
-        <div>
+        <div className="navButton">
           <a href="/settings">
-            <img className="icon colorChange" src={settings} alt="settings" />
+            <div>
+              <img className="icon colorChange" src={settings} alt="settings" />
+            </div>
           </a>
+          <div>
+            <img className="arrow" src={arrow} alt="arrow" />
+          </div>
         </div>
       </div>
       <div className="logout">

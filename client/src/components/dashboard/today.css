@@ -1,8 +1,8 @@
 .schedule {
   display: flex;
   flex-direction: column;
-  margin: 3vw;
   margin-top: 15vh;
+  margin-left: 125px;
 }
 
 .greeting {
@@ -40,6 +40,7 @@
 .medication {
   display: flex;
   flex-direction: column;
+  margin-top: 10px;
 }
 
 .medName {
@@ -47,7 +48,7 @@
 }
 
 .instructions {
-  margin-left: 20px;
+  margin-left: 60pt;
   font-weight: 300;
 }
 
@@ -67,9 +68,31 @@
   width: 40vw;
 }
 
-.checkbox {
-  margin: 0;
-  background-color: transparent;
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
   height: 20pt;
-  display: grid;
+  width: 20pt;
+  background-color: transparent;
+  border-radius: 5px;
+  border: 4px solid #84a98c;
+  vertical-align: top;
+  margin-bottom: 0;
+  margin-right: 15px;
+}
+
+input[type="checkbox"]:hover {
+  background-color: rgba(202, 210, 197, 0.2);
+}
+
+input[type="checkbox"]:checked {
+  background-color: #84a98c;
+  /* checkmark */
+  background-image: url("check.svg");
+  background-size: 14pt 14pt;
+  background-repeat: no-repeat;
+}
+
+input[type="checkbox"]:checked + label {
+  text-decoration: line-through #cad2c5 solid 3px;
 }

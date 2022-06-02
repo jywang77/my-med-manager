@@ -4,6 +4,12 @@
   width: 75px;
   display: flex;
   flex-direction: column;
+  position: fixed;
+}
+
+.navButton {
+  display: flex;
+  flex-direction: row;
 }
 
 .icon {
@@ -31,4 +37,16 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.current {
+  filter: invert(45%) sepia(4%) saturate(2411%) hue-rotate(114deg)
+    brightness(93%) contrast(86%);
+}
+
+.arrow {
+  height: 15px;
+  position: fixed;
+  left: 60px;
+  margin-top: 30px;
 }
