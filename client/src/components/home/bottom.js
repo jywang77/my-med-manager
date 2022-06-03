@@ -196,6 +196,14 @@ export const Bottom = () => {
               >
                 Checkmark
               </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon-font/add_3914248"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Plus icon
+              </a>
             </p>
           </div>
           <p></p>

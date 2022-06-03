@@ -1,9 +1,43 @@
 import "./settings-component.css";
+import { useState, useEffect } from "react";
 
 export const SettingsComponent = () => {
   const firstName = "demo";
   const username = "demo";
   const email = "demo@demo.com";
+
+  // Confirm password
+
+  const [password, setPassword] = useState({
+    firstPassword: "",
+    secondPassword: "",
+  });
+
+  const setFirst = (event) => {
+    setPassword({ ...password, firstPassword: event.target.value });
+  };
+
+  const setSecond = (event) => {
+    setPassword({ ...password, secondPassword: event.target.value });
+  };
+
+  const [matchPassword, setMatchPassword] = useState(true);
+
+  useEffect(() => {
+    if (password.firstPassword === password.secondPassword) {
+      setMatchPassword(true);
+    } else {
+      setMatchPassword(false);
+    }
+  }, [password]);
+
+  // Make sure form requirements are fulfilled before allowing you to submit the form
+  const handleSubmit = (e) => {
+    if (!matchPassword) {
+      e.preventDefault();
+      document.querySelector(".err5").style.display = "block";
+    }
+  };
 
   return (
     <div className="background">
@@ -21,7 +55,9 @@ export const SettingsComponent = () => {
           <div className="name">
             <div className="currentName">
               <div className="bold">Your current name: {firstName}</div>
-              <div className="successMessage">Changed successfully.</div>
+              <div className="successMessage success1">
+                Changed successfully.
+              </div>
             </div>
             <div>
               <form>
@@ -44,7 +80,9 @@ export const SettingsComponent = () => {
           <div className="username">
             <div className="currentUsername">
               <div className="bold">Your current username: {username}</div>
-              <div className="successMessage">Changed successfully.</div>
+              <div className="successMessage success2">
+                Changed successfully.
+              </div>
             </div>
             <div>
               <form>
@@ -65,7 +103,7 @@ export const SettingsComponent = () => {
             <span>change password</span>
           </div>
           <div className="password">
-            <form>
+            <form onSubmit={handleSubmit} className="passwordForm">
               <div>
                 Current password:
                 <input
@@ -81,6 +119,7 @@ export const SettingsComponent = () => {
                   className="changeSettings"
                   type="password"
                   placeholder="enter new password here"
+                  onChange={setFirst}
                   required
                 />
               </div>
@@ -90,6 +129,7 @@ export const SettingsComponent = () => {
                   className="changeSettings"
                   type="password"
                   placeholder="confirm new password here"
+                  onChange={setSecond}
                   required
                 />
               </div>
@@ -97,8 +137,11 @@ export const SettingsComponent = () => {
                 change
               </button>
             </form>
-            <div className="successMessage">Changed successfully.</div>
-            <div className="error">Error: Passwords do not match.</div>
+            <div className="successMessage success3">Changed successfully.</div>
+            <div className="error err5">Error: Passwords do not match.</div>
+            <div className="error err7">
+              Error: New password cannot be current password.
+            </div>
           </div>
           <div className="h5">
             <span>change email</span>
@@ -127,8 +170,10 @@ export const SettingsComponent = () => {
               <button className="changeButton" type="submit">
                 change
               </button>
-              <div className="successMessage">Changed successfully.</div>
-              <div className="error">Error: Current email incorrect.</div>
+              <div className="successMessage success4">
+                Changed successfully.
+              </div>
+              <div className="error err6">Error: Current email incorrect.</div>
             </form>
           </div>
         </div>

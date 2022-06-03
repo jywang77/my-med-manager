@@ -43,11 +43,11 @@ body {
   display: flex;
   flex-direction: row;
   margin-bottom: 1vh;
+  align-items: center;
 }
 
 .successMessage {
   color: #84a98c;
-  display: none;
 }
 
 .changeButton {
@@ -94,4 +94,17 @@ button.changeButton:active {
 
 .bold {
   font-weight: 700;
+}
+
+.err5,
+.err6,
+.err7 {
+  display: none;
+}
+
+.success1,
+.success2,
+.success3,
+.success4 {
+  display: none;
 }

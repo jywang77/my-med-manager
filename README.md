@@ -20,3 +20,9 @@ Go to localhost://3001
 
 cd client
 npm start
+
+# To do
+
+- make the tab name change
+- navBar changes depending on what page you're on
+- Finish calendar and my medications page
