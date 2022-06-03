@@ -50,3 +50,10 @@
   left: 60px;
   margin-top: 30px;
 }
+
+.tab1,
+.tab2,
+.tab3,
+.tab4 {
+  display: none;
+}

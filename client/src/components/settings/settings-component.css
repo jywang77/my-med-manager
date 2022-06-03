@@ -1,0 +1,97 @@
+.settingsContainer {
+  margin: 2.5%;
+}
+
+.h4 {
+  font-family: "Roboto", sans-serif;
+  color: #52796f;
+  font-size: 40pt;
+  margin-bottom: 1%;
+}
+
+.h5 {
+  font-family: "Roboto", sans-serif;
+  color: #52796f;
+  font-size: 23pt;
+  margin-bottom: 15pt;
+  margin-top: 15pt;
+}
+
+.h5 span {
+  background-color: #cad2c5;
+  padding-right: 20px;
+}
+
+.h5:after {
+  content: "";
+  position: absolute;
+  left: 2.5%;
+  right: 2.5%;
+  margin-top: 11pt;
+  border-top: 3px solid #84a98c;
+  z-index: -1;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: #2f3e46;
+  font-size: large;
+}
+
+.name,
+.username {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1vh;
+}
+
+.successMessage {
+  color: #84a98c;
+  display: none;
+}
+
+.changeButton {
+  border: none;
+  background-color: #84a98c;
+  border-radius: 10px;
+  font-size: 15pt;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  padding: 4px 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+button.changeButton:active {
+  background-color: gray;
+}
+
+.changeSettings {
+  border: none;
+  background-color: rgba(47, 62, 70, 0.5);
+  font-size: large;
+  border-radius: 10px;
+  margin: 5px 10px 0px 10px;
+  padding: 4px;
+  color: white;
+  width: 20vw;
+}
+
+.currentName,
+.currentUsername {
+  width: 30vw;
+}
+
+.nameDescription {
+  margin-bottom: 1vh;
+}
+
+.password {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1vh;
+}
+
+.bold {
+  font-weight: 700;
+}
