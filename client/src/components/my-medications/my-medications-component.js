@@ -1,7 +1,7 @@
 import "./my-medications-component.css";
 import "../settings/settings-component.css";
-import add from "./add.svg";
-import edit from "./edit.svg";
+import add from "./images/add.svg";
+import edit from "./images/edit.svg";
 
 export const MyMedicationsComponent = () => {
   const drugName = "ramipril";

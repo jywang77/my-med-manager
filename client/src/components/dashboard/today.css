@@ -78,7 +78,6 @@ input[type="checkbox"] {
   border: 4px solid #84a98c;
   vertical-align: top;
   margin-bottom: 0;
-  margin-right: 15px;
 }
 
 input[type="checkbox"]:hover {
@@ -93,6 +92,10 @@ input[type="checkbox"]:checked {
   background-repeat: no-repeat;
 }
 
-input[type="checkbox"]:checked + label {
+input[type="checkbox"]:checked + .medLabel {
   text-decoration: line-through #cad2c5 solid 3px;
+}
+
+.medLabel {
+  margin-left: 15px;
 }

@@ -1,0 +1,196 @@
+.add {
+  background-color: #cad2c5;
+  position: fixed;
+  height: 95vh;
+  width: 40vw;
+  min-width: 600px;
+  border-radius: 50px;
+  box-shadow: 0.5vw 1vh 10px #2f3e46;
+  right: 100px;
+  margin-left: 50%;
+  margin-top: 2.5vh;
+  margin-bottom: 2.5vh;
+  margin-right: 5vh;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  z-index: 1;
+}
+
+.margin {
+  margin: 5%;
+}
+
+.edit {
+  display: none;
+}
+
+.delete {
+  height: 40pt;
+  filter: invert(21%) sepia(26%) saturate(2946%) hue-rotate(333deg)
+    brightness(91%) contrast(90%);
+}
+
+body {
+  font-size: large;
+}
+
+.addInput {
+  border: none;
+  background-color: rgba(47, 62, 70, 0.5);
+  font-size: large;
+  border-radius: 10px;
+  margin: 5px 10px 0px 10px;
+  padding: 4px;
+  color: white;
+}
+
+.doseType,
+.doseFrequency {
+  border: none;
+  background-color: rgba(47, 62, 70, 0.5);
+  font-size: large;
+  border-radius: 10px;
+  padding: 4px;
+  color: white;
+  margin-right: 10px;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 10pt;
+}
+
+.startDate,
+.refillDate {
+  border: none;
+  background-color: rgba(47, 62, 70, 0.5);
+  font-size: large;
+  border-radius: 10px;
+  padding: 4px;
+  color: white;
+  margin-right: 10px;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 10pt;
+  width: 130px;
+}
+
+.addInstructions {
+  display: flex;
+  flex-direction: column;
+}
+
+.largeInput {
+  border: none;
+  background-color: rgba(47, 62, 70, 0.5);
+  font-size: large;
+  border-radius: 10px;
+  margin: 4px 0px 0px 0px;
+  padding: 4px;
+  color: white;
+  height: 80px;
+  font-family: "Roboto", sans-serif;
+  margin-bottom: 10pt;
+  max-width: 100%;
+  min-width: 100%;
+}
+
+.addMedName {
+  width: 60%;
+}
+
+.addMedDose {
+  width: 20%;
+}
+
+.addMedFrequency,
+.remindDate {
+  width: 50px;
+  margin-bottom: 0;
+}
+
+.doseFrequency {
+  margin-bottom: 0;
+}
+
+.checkboxMedTimeContainer,
+.checkboxMedDayContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkboxMedTime,
+.checkboxMedDay {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 10pt;
+}
+
+.addMedTime:checked + .addMedLabel,
+.addMedDay:checked + .addMedLabel {
+  font-weight: 700;
+}
+
+.addMedLabel {
+  padding-left: 5px;
+}
+
+.addRefill {
+  margin-top: 10pt;
+  margin-bottom: 10pt;
+}
+
+.presetDays {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.addButtonsBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cancelSave {
+  display: flex;
+  flex-direction: row;
+}
+
+.cancel {
+  color: #52796f;
+  opacity: 0.5;
+  margin-right: 20px;
+  margin-top: 5px;
+}
+
+.cancel:hover {
+  text-decoration: underline solid 2px #52796f;
+  opacity: 1;
+}
+
+.deleteButton {
+  background-color: transparent;
+  border: none;
+  opacity: 0.5;
+  visibility: hidden;
+}
+
+.deleteButton:hover {
+  opacity: 1;
+}
+
+.submitButton {
+  border: none;
+  background-color: #84a98c;
+  border-radius: 10px;
+  font-size: 15pt;
+  font-family: "Roboto", sans-serif;
+  color: white;
+  padding: 4px 20px;
+}
+
+button.submitButton:active {
+  background-color: gray;
+}

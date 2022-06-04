@@ -56,7 +56,7 @@ export const Today = () => {
             <div className="medication">
               <div className="medName">
                 <input type="checkbox" />
-                <label>ramipril 5mg</label>
+                <label className="medLabel">ramipril 5mg</label>
               </div>
               <div className="instructions">take 1 capsule once daily</div>
             </div>
@@ -67,7 +67,7 @@ export const Today = () => {
             <div className="medication">
               <div className="medName">
                 <input type="checkbox" />
-                <label>metformin 500mg</label>
+                <label className="medLabel">metformin 500mg</label>
               </div>
               <div className="instructions">take 2 tablets once daily</div>
             </div>
@@ -78,7 +78,7 @@ export const Today = () => {
             <div className="medication">
               <div className="medName">
                 <input type="checkbox" />
-                <label>zolpidem 10mg</label>
+                <label className="medLabel">zolpidem 10mg</label>
               </div>
               <div className="instructions">
                 take 1 tablet at bedtime if needed for sleep
