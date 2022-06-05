@@ -5,6 +5,20 @@ import { AddMedication } from "../../components/my-medications/add-medication";
 import { EditMedication } from "../../components/my-medications/edit-medication";
 
 export const MyMedications = () => {
+  // show add medications container
+
+  // const showAdd = () => {
+  //   const addContainer = document.querySelector(".add");
+
+  //   if (addContainer.style.display === "flex") {
+  //     addContainer.style.display === "none";
+  //   } else {
+  //     addContainer.style.display === "flex";
+  //   }
+  // };
+
+  // show edit medications container
+
   return (
     <div className="dashboard">
       <NavBar />
