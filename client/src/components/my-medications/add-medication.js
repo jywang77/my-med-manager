@@ -1,11 +1,11 @@
 import "./add-medication.css";
 import trash from "./images/trash.svg";
-import React from "react";
+import { useState } from "react";
 
-export const AddMedication = () => {
+export const AddMedication = ({ setShowAdd }) => {
   // set default value of certain variables
-  const [checked, setChecked] = React.useState(true);
-  const [reminder, setReminder] = React.useState(3);
+  const [checked, setChecked] = useState(true);
+  const [reminder, setReminder] = useState(3);
 
   return (
     <div className="add">
@@ -285,7 +285,9 @@ export const AddMedication = () => {
               <img className="delete" src={trash} alt="delete" />
             </button>
             <div className="cancelSave">
-              <div className="cancel">cancel</div>
+              <div className="cancel" onClick={() => setShowAdd(false)}>
+                cancel
+              </div>
               <div>
                 <button type="submit" className="submitButton">
                   save changes

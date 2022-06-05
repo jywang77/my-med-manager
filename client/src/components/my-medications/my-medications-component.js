@@ -2,6 +2,9 @@ import "./my-medications-component.css";
 import "../settings/settings-component.css";
 import add from "./images/add.svg";
 import edit from "./images/edit.svg";
+import { AddMedication } from "./add-medication";
+import { EditMedication } from "./edit-medication";
+import { useState } from "react";
 
 export const MyMedicationsComponent = () => {
   const drugName = "ramipril";
@@ -10,77 +13,96 @@ export const MyMedicationsComponent = () => {
   const refillDate = "06/05/2022";
   const note = "for blood pressure, target is 140/90 mmHg";
 
+  const [showAdd, setShowAdd] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+
   return (
-    <div className="background">
-      <div className="editContainer">
-        <div className="heading">
-          <div className="h4">my medications</div>
-          <div>
-            <button className="addButton">
-              <img className="addIcon" src={add} alt="add medication" />
-            </button>
+    <div>
+      <div className="background">
+        <div className="editContainer">
+          <div className="heading">
+            <div className="h4">my medications</div>
+            <div>
+              <button
+                className="addButton"
+                onClick={() => setShowAdd((prev) => !prev)}
+              >
+                <img className="addIcon" src={add} alt="add medication" />
+              </button>
+            </div>
           </div>
+          <div className="medList">
+            <div className="medDetails">
+              <div className="h6">
+                {drugName} {drugDose}
+              </div>
+              <div>{instructions}</div>
+              <div>
+                <span className="bold">refill date:</span> {refillDate}
+              </div>
+              <div>
+                <span className="bold">notes:</span> {note}
+              </div>
+            </div>
+            <div>
+              <button
+                className="editButton"
+                onClick={() => setShowEdit((prev) => !prev)}
+              >
+                <img className="editIcon" src={edit} alt="edit medication" />
+              </button>
+            </div>
+          </div>
+          {/* can delete */}
+          <div className="medList">
+            <div className="medDetails">
+              <div className="h6">
+                {drugName} {drugDose}
+              </div>
+              <div>{instructions}</div>
+              <div>
+                <span className="bold">refill date:</span> {refillDate}
+              </div>
+              <div>
+                <span className="bold">notes:</span> {note}
+              </div>
+            </div>
+            <div>
+              <button
+                className="editButton"
+                onClick={() => setShowEdit((prev) => !prev)}
+              >
+                <img className="editIcon" src={edit} alt="edit medication" />
+              </button>
+            </div>
+          </div>
+          <div className="medList">
+            <div className="medDetails">
+              <div className="h6">
+                {drugName} {drugDose}
+              </div>
+              <div>{instructions}</div>
+              <div>
+                <span className="bold">refill date:</span> {refillDate}
+              </div>
+              <div>
+                <span className="bold">notes:</span> {note}
+              </div>
+            </div>
+            <div>
+              <button
+                className="editButton"
+                onClick={() => setShowEdit((prev) => !prev)}
+              >
+                <img className="editIcon" src={edit} alt="edit medication" />
+              </button>
+            </div>
+          </div>
+          {/* can delete */}
         </div>
-        <div className="medList">
-          <div className="medDetails">
-            <div className="h6">
-              {drugName} {drugDose}
-            </div>
-            <div>{instructions}</div>
-            <div>
-              <span className="bold">refill date:</span> {refillDate}
-            </div>
-            <div>
-              <span className="bold">notes:</span> {note}
-            </div>
-          </div>
-          <div>
-            <button className="editButton">
-              <img className="editIcon" src={edit} alt="edit medication" />
-            </button>
-          </div>
-        </div>
-        {/* can delete */}
-        <div className="medList">
-          <div className="medDetails">
-            <div className="h6">
-              {drugName} {drugDose}
-            </div>
-            <div>{instructions}</div>
-            <div>
-              <span className="bold">refill date:</span> {refillDate}
-            </div>
-            <div>
-              <span className="bold">notes:</span> {note}
-            </div>
-          </div>
-          <div>
-            <button className="editButton">
-              <img className="editIcon" src={edit} alt="edit medication" />
-            </button>
-          </div>
-        </div>
-        <div className="medList">
-          <div className="medDetails">
-            <div className="h6">
-              {drugName} {drugDose}
-            </div>
-            <div>{instructions}</div>
-            <div>
-              <span className="bold">refill date:</span> {refillDate}
-            </div>
-            <div>
-              <span className="bold">notes:</span> {note}
-            </div>
-          </div>
-          <div>
-            <button className="editButton">
-              <img className="editIcon" src={edit} alt="edit medication" />
-            </button>
-          </div>
-        </div>
-        {/* can delete */}
       </div>
+      {showAdd && <AddMedication setShowAdd={setShowAdd} />}
+      {showEdit && <EditMedication setShowEdit={setShowEdit} />}
     </div>
   );
 };
