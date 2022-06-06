@@ -23,7 +23,5 @@ npm start
 
 # To do
 
-- make the tab name change
 - navBar changes depending on what page you're on
 - Finish calendar
-- format scroll bar?
