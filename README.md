@@ -23,5 +23,5 @@ npm start
 
 # To do
 
-- navBar changes depending on what page you're on
+- NavBar: icons shift weirdly and don't change colour when clicked
 - Finish calendar

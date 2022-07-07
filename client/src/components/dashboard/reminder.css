@@ -36,3 +36,7 @@ fieldset {
   right: 0px;
   bottom: 0px;
 }
+
+.refillMed {
+  min-width: 300px;
+}

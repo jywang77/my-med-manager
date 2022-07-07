@@ -13,21 +13,7 @@
   flex-direction: row;
 }
 
-.icon {
-  margin: 20px;
-  width: 35px;
-}
-
-.colorChange {
-  filter: invert(20%) sepia(24%) saturate(497%) hue-rotate(156deg)
-    brightness(93%) contrast(89%);
-}
-
-.colorChange:hover {
-  filter: invert(45%) sepia(4%) saturate(2411%) hue-rotate(114deg)
-    brightness(93%) contrast(86%);
-}
-
+/* header/footer */
 .logo,
 .logout {
   height: 10vh;
@@ -40,23 +26,146 @@
   justify-content: center;
 }
 
-.current {
-  filter: invert(45%) sepia(4%) saturate(2411%) hue-rotate(114deg)
-    brightness(93%) contrast(86%);
+/* icon */
+
+.icon {
+  width: 40px;
+  margin-left: 17.5px;
+  margin-right: 17.5px;
+  margin-top: 20px;
 }
 
-.arrow {
-  height: 15px;
-  position: fixed;
-  left: 60px;
-  margin-top: 30px;
+/* dashboard */
+
+.icon1 {
+  background-image: url("images/home.svg");
+  background-position: center;
+  background-size: 35px 35px;
+  background-repeat: no-repeat;
+  width: 75px;
+  height: 75px;
+  border: none;
+  background-color: transparent;
 }
 
-.tab1,
-.tab2,
-.tab3,
-.tab4 {
-  display: block;
+.icon1-active {
+  background-image: url("images/home2.svg"), url("images/triangle.svg");
+  background-position: center, right;
+  background-size: 35px 35px, 15px 15px;
+  background-repeat: no-repeat;
+  width: 75px;
+  height: 75px;
+  border: none;
+  background-color: transparent;
+  z-index: 1;
+}
+
+.icon1:hover {
+  background-image: url("images/home2.svg");
+}
+
+/* calendar */
+
+.icon2 {
+  background-image: url("images/calendar.svg");
+  background-position: center;
+  background-size: 35px 35px;
+  background-repeat: no-repeat;
+  width: 75px;
+  height: 75px;
+  border: none;
+  background-color: transparent;
+}
+
+.icon2-active {
+  background-image: url("images/calendar2.svg"), url("images/triangle.svg");
+  background-position: center, right;
+  background-size: 35px 35px, 15px 15px;
+  background-repeat: no-repeat;
+  width: 75px;
+  height: 75px;
+  border: none;
+  background-color: transparent;
+  z-index: 1;
+}
+
+.icon2:hover {
+  background-image: url("images/calendar2.svg");
+}
+
+/* my medications */
+
+.icon3 {
+  background-image: url("images/edit.svg");
+  background-position: center;
+  background-size: 35px 35px;
+  background-repeat: no-repeat;
+  width: 75px;
+  height: 75px;
+  border: none;
+  background-color: transparent;
+}
+
+.icon3-active {
+  background-image: url("images/edit2.svg"), url("images/triangle.svg");
+  background-position: center, right;
+  background-size: 35px 35px, 15px 15px;
+  background-repeat: no-repeat;
+  width: 75px;
+  height: 75px;
+  border: none;
+  background-color: transparent;
+  z-index: 1;
+}
+
+.icon3:hover {
+  background-image: url("images/edit2.svg");
+}
+
+/* settings */
+
+.icon4 {
+  background-image: url("images/settings.svg");
+  background-position: center;
+  background-size: 35px 35px;
+  background-repeat: no-repeat;
+  width: 75px;
+  height: 75px;
+  border: none;
+  background-color: transparent;
+}
+
+.icon4-active {
+  background-image: url("images/settings2.svg"), url("images/triangle.svg");
+  background-position: center, right;
+  background-size: 35px 35px, 15px 15px;
+  background-repeat: no-repeat;
+  width: 75px;
+  height: 75px;
+  border: none;
+  background-color: transparent;
+  z-index: 1;
+}
+
+.icon4:hover {
+  background-image: url("images/settings2.svg");
+}
+
+/* logout */
+
+.logoutButton {
+  background-image: url("images/logout.svg");
+  background-position: center;
+  background-size: 35px 35px;
+  background-repeat: no-repeat;
+  width: 75px;
+  height: 75px;
+  border: none;
+  background-color: transparent;
+}
+
+.logoutButton:hover {
+  background-image: url("images/logout2.svg");
 }
 
 /* tooltip */
@@ -70,15 +179,16 @@
   left: 70px;
   white-space: nowrap;
   margin-top: 20px;
-
   opacity: 0;
+  z-index: 1;
 }
 
 .logOutTooltip {
   top: 90%;
 }
 
-.colorChange:hover ~ .tooltipText {
+.navButton:hover > .tooltipText,
+.logout:hover > .tooltipText {
   transition: opacity 0.3s;
   opacity: 1;
 }
