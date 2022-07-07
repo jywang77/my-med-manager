@@ -23,5 +23,4 @@ npm start
 
 # To do
 
-- NavBar: icons shift weirdly and don't change colour when clicked
 - Finish calendar
