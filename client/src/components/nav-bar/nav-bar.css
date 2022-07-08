@@ -37,10 +37,6 @@
 
 /* dashboard */
 
-.noButton {
-  visibility: hidden;
-}
-
 .icon1 {
   background-image: url("images/home.svg");
   background-position: center;

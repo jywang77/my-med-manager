@@ -15,9 +15,9 @@ export const NavBar = () => {
         <div className="navButton">
           <NavLink
             to="/dashboard"
-            className={({ isActive }) => (isActive ? "icon1-active" : "icon1")}
+            className={({ isActive }) => (isActive ? "icon1-active" : "")}
           >
-            <button className="noButton" />
+            <button className="icon1" />
           </NavLink>
           <span className="tooltipText">dashboard</span>
         </div>
@@ -25,9 +25,9 @@ export const NavBar = () => {
         <div className="navButton">
           <NavLink
             to="/calendar"
-            className={({ isActive }) => (isActive ? "icon2-active" : "icon2")}
+            className={({ isActive }) => (isActive ? "icon2-active" : "")}
           >
-            <button className="noButton" />
+            <button className="icon2" />
           </NavLink>
           <span className="tooltipText">calendar</span>
         </div>
@@ -35,9 +35,9 @@ export const NavBar = () => {
         <div className="navButton">
           <NavLink
             to="/my-medications"
-            className={({ isActive }) => (isActive ? "icon3-active" : "icon3")}
+            className={({ isActive }) => (isActive ? "icon3-active" : "")}
           >
-            <button className="noButton" />
+            <button className="icon3" />
           </NavLink>
           <span className="tooltipText">my medications</span>
         </div>
@@ -45,9 +45,9 @@ export const NavBar = () => {
         <div className="navButton">
           <NavLink
             to="/settings"
-            className={({ isActive }) => (isActive ? "icon4-active" : "icon4")}
+            className={({ isActive }) => (isActive ? "icon4-active" : "")}
           >
-            <button className="noButton" />
+            <button className="icon4" />
           </NavLink>
           <span className="tooltipText">settings</span>
         </div>
