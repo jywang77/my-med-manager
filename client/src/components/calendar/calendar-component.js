@@ -8,7 +8,7 @@ export const CalendarComponent = () => {
   return (
     <div className="background">
       <div className="calendarContainer">
-        <Calendar calendarType="US" showNeighboringMonth="false" />
+        <Calendar calendarType="US" />
       </div>
       <div className="legend">
         <div className="calenders">

@@ -13,7 +13,8 @@ db.users.find()
 
 # Running the back end
 
-npm run devStart
+cd server
+npm run dev
 Go to localhost://3001
 
 # Running the front end
@@ -24,4 +25,3 @@ npm start
 # To do
 
 - Finish calendar
-- API from back end is not being called in App.js

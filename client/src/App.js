@@ -13,21 +13,21 @@ function App() {
 
   const [backendData, setBackendData] = useState([{}]);
 
-  useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((data) => {
-        setBackendData(data);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("/api")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setBackendData(data);
+  //     });
+  // }, []);
 
   return (
     <div className="App">
-      {typeof backendData.users === "undefined" ? (
+      {/* {backendData.length > 0 ? (
         <p>Loading...</p>
       ) : (
         backendData.users.map((user, i) => <p key={i}>{user}</p>)
-      )}
+      )} */}
 
       {/* end of back end */}
 
