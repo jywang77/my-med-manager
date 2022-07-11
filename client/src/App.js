@@ -6,12 +6,12 @@ import { Calendar } from "./container/calendar/calendar";
 import { MyMedications } from "./container/my-medications/my-medications";
 import { Settings } from "./container/settings/settings";
 import { Routes, Route } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 
 function App() {
-  // back end
+  // ----------- back end --------------
 
-  const [backendData, setBackendData] = useState([{}]);
+  // const [backendData, setBackendData] = useState([{}]);
 
   // useEffect(() => {
   //   fetch("/api")
@@ -29,7 +29,7 @@ function App() {
         backendData.users.map((user, i) => <p key={i}>{user}</p>)
       )} */}
 
-      {/* end of back end */}
+      {/* --------------- end of back end -------------------- */}
 
       <Routes>
         <Route path="/" element={<Home />} />

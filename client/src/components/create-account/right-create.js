@@ -1,44 +1,61 @@
 import "../home/right.css";
 import { useState, useEffect } from "react";
+import Axios from "axios";
 
 export const RightCreate = () => {
-  // Confirm password
-
-  const [password, setPassword] = useState({
-    firstPassword: "",
-    secondPassword: "",
+  // grabbing information entered into create account form and sending to back end
+  const createRoute = "http://localhost:3001/users/create";
+  const [createUser, setCreateUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+    password2: "",
   });
 
-  const setFirst = (event) => {
-    setPassword({ ...password, firstPassword: event.target.value });
-  };
+  function handle(e) {
+    const handleCreateUser = { ...createUser };
+    handleCreateUser[e.target.id] = e.target.value;
+    setCreateUser(handleCreateUser);
+  }
 
-  const setSecond = (event) => {
-    setPassword({ ...password, secondPassword: event.target.value });
-  };
+  // confirm password
 
   const [matchPassword, setMatchPassword] = useState(true);
 
   useEffect(() => {
-    if (password.firstPassword === password.secondPassword) {
+    if (createUser.password === createUser.password2) {
       setMatchPassword(true);
     } else {
       setMatchPassword(false);
     }
-  }, [password]);
+  }, [createUser]);
 
-  // Make sure form requirements are fulfilled before allowing you to submit the form
-  const handleSubmit = (e) => {
+  // make sure form requirements are fulfilled before allowing you to submit the form
+
+  function submit(e) {
     if (!matchPassword) {
       e.preventDefault();
       document.querySelector(".err3").style.display = "block";
+    } else {
+      e.preventDefault();
+      Axios.post(createRoute, {
+        username: createUser.username,
+        email: createUser.email,
+        password: createUser.password,
+      });
+      // .then((res) => {
+      //   console.log(res.createUser);
+      // })
+      // .catch((err) => {
+      //   console.error(err.createUser);
+      // });
     }
-  };
+  }
 
   return (
     <div className="right">
       {/* form */}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => submit(e)}>
         <div>
           <p className="error err1">Error: Username already in use.</p>
           <p className="inputText">username</p>
@@ -48,12 +65,24 @@ export const RightCreate = () => {
             autoFocus
             placeholder="username"
             required
+            // recording info to send to back end
+            onChange={(e) => handle(e)}
+            id="username"
+            value={createUser.username}
           />
         </div>
         <div>
           <p className="error err2">Error: Email already in use.</p>
           <p className="inputText">email</p>
-          <input className="input" type="email" placeholder="email" required />
+          <input
+            className="input"
+            type="email"
+            placeholder="email"
+            required // recording info to send to back end
+            onChange={(e) => handle(e)}
+            id="email"
+            value={createUser.email}
+          />
         </div>
         <div>
           <p className="inputText">password</p>
@@ -61,8 +90,11 @@ export const RightCreate = () => {
             className="input"
             type="password"
             placeholder="password"
-            onChange={setFirst}
             required
+            // recording info to send to back end
+            onChange={(e) => handle(e)}
+            id="password"
+            value={createUser.password}
           />
         </div>
         <div>
@@ -72,8 +104,11 @@ export const RightCreate = () => {
             className="input"
             type="password"
             placeholder="confirm password"
-            onChange={setSecond}
             required
+            // recording info to send to back end
+            onChange={(e) => handle(e)}
+            id="password2"
+            value={createUser.password2}
           />
         </div>
         <button type="submit" className="button">
