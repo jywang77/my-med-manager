@@ -20,8 +20,10 @@ app.use(
 
 // importing routes
 const usersRouter = require("./routes/users");
+const medsRouter = require("./routes/meds");
 
 app.use("/users", usersRouter);
+app.use("/meds", medsRouter);
 
 // port
 app.listen(3001, () => {
