@@ -1,6 +1,19 @@
+const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const app = express();
+
+// connect to mongodb database
+mongoose.connect(
+  "mongodb+srv://admin:moeX15jHKnqiO8nd@cluster0.n2ad1.mongodb.net/?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  () => {
+    console.log("Mongoose is connected");
+  }
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -12,11 +25,6 @@ app.use(
     credentials: true,
   })
 );
-
-// test
-// app.get("/api", (req, res) => {
-//   res.json({ users: ["userOne", "userTwo", "userThree"] });
-// });
 
 // importing routes
 const usersRouter = require("./routes/users");

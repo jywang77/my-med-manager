@@ -1,47 +1,70 @@
+// imports
 const express = require("express");
-const router = express.Router();
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
+const passport = require("passport");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const session = require("express-session");
+const User = require("../resources/userSchema");
 
-// empty array for dev purposes
-const allUsers = [];
+const router = express.Router();
+
+// middleware
+router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: true }));
+router.use(
+  session({
+    secret: "secretcode",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+router.use(cookieParser("secretcode"));
+router.use(passport.initialize());
+router.use(passport.session());
+require("../resources/passportConfig")(passport);
 
 // login
-router.route("/login").post((req, res) => {
-  const loginUser = {
-    username: req.body.username,
-    password: req.body.password,
-  };
-
-  console.log("User logged in: " + JSON.stringify(loginUser));
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    if (!user) console.log("Incorrect username or password");
+    else {
+      req.logIn(user, (err) => {
+        if (err) throw err;
+        console.log(
+          "Successfully authenticated user: " +
+            JSON.stringify(req.body.username)
+        );
+      });
+    }
+  })(req, res, next);
 });
 
 // create account
-router.route("/create").post(async (req, res) => {
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+router.post("/create", (req, res) => {
+  User.findOne({ username: req.body.username }, async (err, doc) => {
+    if (err) throw err;
+    if (doc) console.log("Username already exists.");
+    if (!doc) {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-    const createUser = {
-      id: Date.now().toString(),
-      username: req.body.username,
-      email: req.body.email,
-      password: hashedPassword,
-    };
+      const newUser = new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: hashedPassword,
+      });
 
-    allUsers.push(createUser);
-    console.log("User created: " + JSON.stringify(createUser));
-  } catch {
-    console.error("Error: user could not be created.");
-  }
+      await newUser.save();
+      console.log("User created: " + JSON.stringify(newUser));
+    }
+  });
 });
 
-// access individual users
-router
-  .route("/id/:id")
-  .get((req, res) => {
-    res.send(`Get user with ID ${req.params.id}`);
-  })
-  .delete((req, res) => {
-    res.send(`Delete user with ID ${req.params.id}`);
-  });
+// stores the info of the current user that is logged in
+router.get("/current", (req, res) => {
+  res.send(req.user);
+});
 
 module.exports = router;

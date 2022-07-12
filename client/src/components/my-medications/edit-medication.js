@@ -55,7 +55,7 @@ export const EditMedication = ({ setShowEdit }) => {
                   id="morning"
                   value="morning"
                 />
-                <label for="morning" className="addMedLabel">
+                <label htmlFor="morning" className="addMedLabel">
                   morning
                 </label>
               </div>
@@ -66,7 +66,7 @@ export const EditMedication = ({ setShowEdit }) => {
                   id="breakfast"
                   value="breakfast"
                 />
-                <label for="breakfast" className="addMedLabel">
+                <label htmlFor="breakfast" className="addMedLabel">
                   breakfast
                 </label>
               </div>
@@ -77,7 +77,7 @@ export const EditMedication = ({ setShowEdit }) => {
                   id="lunch"
                   value="lunch"
                 />
-                <label for="lunch" className="addMedLabel">
+                <label htmlFor="lunch" className="addMedLabel">
                   lunch
                 </label>
               </div>
@@ -88,7 +88,7 @@ export const EditMedication = ({ setShowEdit }) => {
                   id="dinner"
                   value="dinner"
                 />
-                <label for="dinner" className="addMedLabel">
+                <label htmlFor="dinner" className="addMedLabel">
                   dinner
                 </label>
               </div>
@@ -99,7 +99,7 @@ export const EditMedication = ({ setShowEdit }) => {
                   id="bedtime"
                   value="bedtime"
                 />
-                <label for="bedtime" className="addMedLabel">
+                <label htmlFor="bedtime" className="addMedLabel">
                   bedtime
                 </label>
               </div>
@@ -119,7 +119,7 @@ export const EditMedication = ({ setShowEdit }) => {
                 defaultChecked={checked}
                 onChange={() => setChecked(!checked)}
               />
-              <label for="sun" className="addMedLabel">
+              <label htmlFor="sun" className="addMedLabel">
                 Sun
               </label>
             </div>
@@ -132,7 +132,7 @@ export const EditMedication = ({ setShowEdit }) => {
                 defaultChecked={checked}
                 onChange={() => setChecked(!checked)}
               />
-              <label for="mon" className="addMedLabel">
+              <label htmlFor="mon" className="addMedLabel">
                 Mon
               </label>
             </div>
@@ -145,7 +145,7 @@ export const EditMedication = ({ setShowEdit }) => {
                 defaultChecked={checked}
                 onChange={() => setChecked(!checked)}
               />
-              <label for="tues" className="addMedLabel">
+              <label htmlFor="tues" className="addMedLabel">
                 Tues
               </label>
             </div>
@@ -158,7 +158,7 @@ export const EditMedication = ({ setShowEdit }) => {
                 defaultChecked={checked}
                 onChange={() => setChecked(!checked)}
               />
-              <label for="wed" className="addMedLabel">
+              <label htmlFor="wed" className="addMedLabel">
                 Wed
               </label>
             </div>
@@ -171,7 +171,7 @@ export const EditMedication = ({ setShowEdit }) => {
                 defaultChecked={checked}
                 onChange={() => setChecked(!checked)}
               />
-              <label for="thurs" className="addMedLabel">
+              <label htmlFor="thurs" className="addMedLabel">
                 Thurs
               </label>
             </div>
@@ -184,7 +184,7 @@ export const EditMedication = ({ setShowEdit }) => {
                 defaultChecked={checked}
                 onChange={() => setChecked(!checked)}
               />
-              <label for="fri" className="addMedLabel">
+              <label htmlFor="fri" className="addMedLabel">
                 Fri
               </label>
             </div>
@@ -197,7 +197,7 @@ export const EditMedication = ({ setShowEdit }) => {
                 defaultChecked={checked}
                 onChange={() => setChecked(!checked)}
               />
-              <label for="sat" className="addMedLabel">
+              <label htmlFor="sat" className="addMedLabel">
                 Sat
               </label>
             </div>
