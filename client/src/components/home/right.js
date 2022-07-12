@@ -4,7 +4,6 @@ import { useState } from "react";
 
 export const Right = () => {
   // grabbing information entered into login form (username and password) and sending to back end
-  const loginRoute = "http://localhost:3001/users/login";
   const [user, setUser] = useState({
     username: "",
     password: "",
@@ -18,16 +17,15 @@ export const Right = () => {
 
   function submit(e) {
     e.preventDefault();
-    Axios.post(loginRoute, {
-      username: user.username,
-      password: user.password,
-    });
-    // .then((res) => {
-    //   console.log(res.user);
-    // })
-    // .catch((err) => {
-    //   console.error(err.user);
-    // });
+    Axios({
+      method: "POST",
+      data: {
+        username: user.username,
+        password: user.password,
+      },
+      withCredentials: true,
+      url: "http://localhost:3001/users/login",
+    }).then((res) => console.log(res));
   }
 
   return (

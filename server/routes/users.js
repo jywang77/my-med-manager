@@ -29,11 +29,11 @@ require("../resources/passportConfig")(passport);
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
-    if (!user) console.log("Incorrect username or password");
+    if (!user) res.send("Incorrect username or password");
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        console.log(
+        res.send(
           "Successfully authenticated user: " +
             JSON.stringify(req.body.username)
         );
@@ -43,23 +43,29 @@ router.post("/login", (req, res, next) => {
 });
 
 // create account
-router.post("/create", (req, res) => {
-  User.findOne({ username: req.body.username }, async (err, doc) => {
-    if (err) throw err;
-    if (doc) console.log("Username already exists.");
-    if (!doc) {
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-      const newUser = new User({
-        username: req.body.username,
-        email: req.body.email,
-        password: hashedPassword,
-      });
+router.post("/create", async (req, res) => {
+  const existingUsername = await User.findOne({ username: req.body.username });
+  const existingEmail = await User.findOne({ email: req.body.email });
 
-      await newUser.save();
-      console.log("User created: " + JSON.stringify(newUser));
-    }
-  });
+  if (existingUsername) {
+    res.send("Username already exists");
+  }
+  if (existingEmail) {
+    res.send("Email already exists");
+  }
+  if (!existingUsername && !existingEmail) {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    const newUser = new User({
+      username: req.body.username,
+      email: req.body.email,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+    res.send("User created: " + JSON.stringify(newUser));
+  }
 });
 
 // stores the info of the current user that is logged in

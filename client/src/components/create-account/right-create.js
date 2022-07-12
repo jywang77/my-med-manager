@@ -4,7 +4,6 @@ import Axios from "axios";
 
 export const RightCreate = () => {
   // grabbing information entered into create account form and sending to back end
-  const createRoute = "http://localhost:3001/users/create";
   const [createUser, setCreateUser] = useState({
     username: "",
     email: "",
@@ -38,17 +37,16 @@ export const RightCreate = () => {
       document.querySelector(".err3").style.display = "block";
     } else {
       e.preventDefault();
-      Axios.post(createRoute, {
-        username: createUser.username,
-        email: createUser.email,
-        password: createUser.password,
-      });
-      // .then((res) => {
-      //   console.log(res.createUser);
-      // })
-      // .catch((err) => {
-      //   console.error(err.createUser);
-      // });
+      Axios({
+        method: "POST",
+        data: {
+          username: createUser.username,
+          email: createUser.email,
+          password: createUser.password,
+        },
+        withCredentials: true,
+        url: "http://localhost:3001/users/create",
+      }).then((res) => console.log(res));
     }
   }
 
