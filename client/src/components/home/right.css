@@ -56,16 +56,13 @@
 
 .error {
   color: #7d2725;
+  display: none;
 }
 
 .confirm {
   color: #8dd37f;
 }
 
-.err1,
-.err2,
-.err3,
-.err4,
-.success {
-  display: none;
+.show {
+  display: block !important;
 }

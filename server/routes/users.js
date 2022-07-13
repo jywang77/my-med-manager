@@ -29,31 +29,30 @@ require("../resources/passportConfig")(passport);
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
-    if (!user) res.send("Incorrect username or password");
+    if (!user) res.send(false);
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        res.send(
-          "Successfully authenticated user: " +
-            JSON.stringify(req.body.username)
-        );
+        res.send(true);
       });
     }
   })(req, res, next);
 });
 
 // create account
-
 router.post("/create", async (req, res) => {
   const existingUsername = await User.findOne({ username: req.body.username });
   const existingEmail = await User.findOne({ email: req.body.email });
 
-  if (existingUsername) {
-    res.send("Username already exists");
+  if (existingUsername || existingEmail) {
+    const usernameEmail = {
+      uniqueUsername: existingUsername,
+      uniqueEmail: existingEmail,
+    };
+
+    res.send(usernameEmail);
   }
-  if (existingEmail) {
-    res.send("Email already exists");
-  }
+
   if (!existingUsername && !existingEmail) {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -71,6 +70,11 @@ router.post("/create", async (req, res) => {
 // stores the info of the current user that is logged in
 router.get("/current", (req, res) => {
   res.send(req.user);
+});
+
+// logout
+router.get("/logout", (req, res) => {
+  res.send("logout route");
 });
 
 module.exports = router;

@@ -18,7 +18,6 @@ export const RightCreate = () => {
   }
 
   // confirm password
-
   const [matchPassword, setMatchPassword] = useState(true);
 
   useEffect(() => {
@@ -29,12 +28,16 @@ export const RightCreate = () => {
     }
   }, [createUser]);
 
-  // make sure form requirements are fulfilled before allowing you to submit the form
+  // conditions for showing/hiding error messages
+  const [uniqueUsername, setUniqueUsername] = useState(null);
+  const [uniqueEmail, setUniqueEmail] = useState(null);
 
+  // make sure form requirements are fulfilled before allowing you to submit the form
   function submit(e) {
     if (!matchPassword) {
+      // displays error messages if passwords don't match
       e.preventDefault();
-      document.querySelector(".err3").style.display = "block";
+      document.querySelector(".confirmPassword").style.display = "block";
     } else {
       e.preventDefault();
       Axios({
@@ -46,7 +49,10 @@ export const RightCreate = () => {
         },
         withCredentials: true,
         url: "http://localhost:3001/users/create",
-      }).then((res) => console.log(res));
+      }).then((res) => {
+        setUniqueUsername(res.data.uniqueUsername);
+        setUniqueEmail(res.data.uniqueEmail);
+      });
     }
   }
 
@@ -55,7 +61,9 @@ export const RightCreate = () => {
       {/* form */}
       <form onSubmit={(e) => submit(e)}>
         <div>
-          <p className="error err1">Error: Username already in use.</p>
+          <p className={"error" + (uniqueUsername ? " show" : "")}>
+            Error: Username already in use.
+          </p>
           <p className="inputText">username</p>
           <input
             className="input"
@@ -70,7 +78,9 @@ export const RightCreate = () => {
           />
         </div>
         <div>
-          <p className="error err2">Error: Email already in use.</p>
+          <p className={"error" + (uniqueEmail ? " show" : "")}>
+            Error: Email already in use.
+          </p>
           <p className="inputText">email</p>
           <input
             className="input"
@@ -96,7 +106,9 @@ export const RightCreate = () => {
           />
         </div>
         <div>
-          <p className="error err3">Error: Passwords do not match.</p>
+          <p className="error confirmPassword">
+            Error: Passwords do not match.
+          </p>
           <p className="inputText">confirm password</p>
           <input
             className="input"

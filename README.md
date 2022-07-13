@@ -26,3 +26,5 @@ npm start
 
 - Finish calendar
 - Authenticate redirect
+- Logout
+- Update secret code (users.js)
