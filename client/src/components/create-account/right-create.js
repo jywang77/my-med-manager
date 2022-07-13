@@ -1,6 +1,7 @@
 import "../home/right.css";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const RightCreate = () => {
   // grabbing information entered into create account form and sending to back end
@@ -31,6 +32,10 @@ export const RightCreate = () => {
   // conditions for showing/hiding error messages
   const [uniqueUsername, setUniqueUsername] = useState(null);
   const [uniqueEmail, setUniqueEmail] = useState(null);
+  const [success, setSuccess] = useState(false);
+
+  // redirect
+  const navigate = useNavigate();
 
   // make sure form requirements are fulfilled before allowing you to submit the form
   function submit(e) {
@@ -52,6 +57,12 @@ export const RightCreate = () => {
       }).then((res) => {
         setUniqueUsername(res.data.uniqueUsername);
         setUniqueEmail(res.data.uniqueEmail);
+
+        if (res.data === true) {
+          setSuccess(res.data);
+
+          setTimeout(() => navigate("/"), 1500);
+        }
       });
     }
   }
@@ -129,6 +140,10 @@ export const RightCreate = () => {
         <a href="/">
           <button className="button2">back to log in</button>
         </a>
+        <p className={"confirm" + (success ? " show" : "")}>
+          Account created successfully. <br />
+          Redirecting back to log in page...
+        </p>
       </div>
     </div>
   );

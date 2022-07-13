@@ -61,6 +61,7 @@
 
 .confirm {
   color: #8dd37f;
+  display: none;
 }
 
 .show {

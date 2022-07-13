@@ -63,7 +63,7 @@ router.post("/create", async (req, res) => {
     });
 
     await newUser.save();
-    res.send("User created: " + JSON.stringify(newUser));
+    res.send(true);
   }
 });
 
@@ -73,7 +73,7 @@ router.get("/current", (req, res) => {
 });
 
 // logout
-router.get("/logout", (req, res) => {
+router.post("/logout", (req, res) => {
   res.send("logout route");
 });
 

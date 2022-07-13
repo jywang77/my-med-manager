@@ -1,6 +1,7 @@
 import "./right.css";
 import Axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Right = () => {
   // grabbing information entered into login form (username and password) and sending to back end
@@ -9,13 +10,17 @@ export const Right = () => {
     password: "",
   });
 
-  const [correctLogin, setCorrectLogin] = useState(true);
-
   function handle(e) {
     const loginUser = { ...user };
     loginUser[e.target.id] = e.target.value;
     setUser(loginUser);
   }
+
+  // show error message for incorrect username/password
+  const [correctLogin, setCorrectLogin] = useState(true);
+
+  // redirect
+  const navigate = useNavigate();
 
   function submit(e) {
     e.preventDefault();
@@ -29,6 +34,10 @@ export const Right = () => {
       url: "http://localhost:3001/users/login",
     }).then((res) => {
       setCorrectLogin(res.data);
+
+      if (res.data === true) {
+        navigate("/dashboard");
+      }
     });
   }
 
@@ -40,7 +49,6 @@ export const Right = () => {
           <p className={"error" + (correctLogin ? "" : " show")}>
             Error: Username or password is incorrect.
           </p>
-          {/* <p className="confirm success">Account created successfully.</p> */}
           <p className="inputText">username</p>
           <input
             className="input"
