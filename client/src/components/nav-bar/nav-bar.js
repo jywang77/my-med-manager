@@ -1,8 +1,22 @@
 import "./nav-bar.css";
 import logo from "./images/favicon.svg";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const NavBar = () => {
+  // redirect
+  const navigate = useNavigate();
+
+  function logOut() {
+    axios.get("http://localhost:3001/users/logout").then((res) => {
+      console.log(res.data);
+      // if (res.data === false) {
+      //   navigate("/");
+      // }
+    });
+  }
+
   return (
     <div className="navBar">
       <div className="logo">
@@ -54,9 +68,7 @@ export const NavBar = () => {
       </div>
       {/* log out */}
       <div className="logout">
-        <NavLink to="/">
-          <button className="logoutButton" />
-        </NavLink>
+        <button onClick={logOut} className="logoutButton" />
         <span className="tooltipText logOutTooltip">log out</span>
       </div>
     </div>

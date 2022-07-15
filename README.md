@@ -11,7 +11,6 @@ npm start
 
 # To do
 
-- Logout
-- Authenticate user to unlock hidden paths
-- Update secret code (users.js)
+- Logout --> doesn't seem to actually be logging out
+- Authenticate user to unlock hidden paths -> if(req.isAuthenticated()) --> page goes blank for some reason
 - Finish calendar

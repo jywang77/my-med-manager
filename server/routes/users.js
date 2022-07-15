@@ -2,27 +2,11 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const session = require("express-session");
 const User = require("../resources/userSchema");
 
 const router = express.Router();
 
 // middleware
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: true }));
-router.use(
-  session({
-    secret: "secretcode",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-
-router.use(cookieParser("secretcode"));
-router.use(passport.initialize());
-router.use(passport.session());
 require("../resources/passportConfig")(passport);
 
 // login
@@ -67,14 +51,21 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// stores the info of the current user that is logged in
-router.get("/current", (req, res) => {
-  res.send(req.user);
+// logout
+router.get("/logout", (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      throw err;
+    }
+    res.send(req.isAuthenticated());
+    console.log(req.session);
+  });
 });
 
-// logout
-router.post("/logout", (req, res) => {
-  res.send("logout route");
+// stores the info of the current user that is logged in
+router.get("/current", (req, res) => {
+  // res.send(req.session);
+  res.send(req.isAuthenticated());
 });
 
 module.exports = router;
