@@ -43,7 +43,6 @@ export const Right = () => {
 
   return (
     <div className="right">
-      {/* form */}
       <form onSubmit={(e) => submit(e)}>
         <div>
           <p className={"error" + (correctLogin ? "" : " show")}>
