@@ -58,13 +58,11 @@ router.get("/logout", (req, res) => {
       throw err;
     }
     res.send(req.isAuthenticated());
-    console.log(req.session);
   });
 });
 
 // stores the info of the current user that is logged in
 router.get("/current", (req, res) => {
-  // res.send(req.session);
   res.send(req.isAuthenticated());
 });
 

@@ -9,11 +9,14 @@ export const NavBar = () => {
   const navigate = useNavigate();
 
   function logOut() {
-    axios.get("http://localhost:3001/users/logout").then((res) => {
-      console.log(res.data);
-      // if (res.data === false) {
-      //   navigate("/");
-      // }
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/users/logout",
+    }).then((res) => {
+      if (!res.data) {
+        navigate("/");
+      }
     });
   }
 

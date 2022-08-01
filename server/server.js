@@ -14,7 +14,7 @@ const app = express();
 const {
   PORT = 3001,
   NODE_ENV = "development",
-  SESS_LIFETIME = 1000 * 60 * 60 * 24 * 7, // 1 week
+  SESS_LIFETIME = 1000 * 60 * 60 * 24, // 1 day
 } = process.env;
 
 const IN_PROD = NODE_ENV === "production";
@@ -57,6 +57,7 @@ app.use(
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 require("./resources/passportConfig")(passport);
@@ -66,6 +67,7 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: "http://localhost:3000",
+    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
     credentials: true,
   })
 );

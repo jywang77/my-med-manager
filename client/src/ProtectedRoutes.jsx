@@ -1,10 +1,10 @@
 import { Navigate, Outlet } from "react-router";
-import { axios } from "axios";
-import { useState, useEffect } from "react";
+// import { axios } from "axios";
+// import { useState, useEffect } from "react";
 
 const useAuth = () => {
   // grabbing whether the user is authenticated from back end
-  const [isAuth, setIsAuth] = useState(true);
+  // const [isAuth, setIsAuth] = useState(true);
 
   // useEffect(() => {
   //   axios
@@ -13,7 +13,7 @@ const useAuth = () => {
   //     .catch((err) => console.err(err));
   // }, []);
 
-  const user = { loggedIn: isAuth };
+  const user = { loggedIn: true };
   return user && user.loggedIn;
 };
 
