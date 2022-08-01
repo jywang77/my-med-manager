@@ -1,4 +1,3 @@
-// imports
 const mongoose = require("mongoose");
 const express = require("express");
 const session = require("express-session");
@@ -39,20 +38,23 @@ const sessionStore = MongoStore.create({
 
 app.use(
   session({
-    key: "user_sid",
     name: "myMedManager",
-    resave: false,
-    saveUninitialized: false,
     secret: process.env.SESS_SECRET,
     store: sessionStore,
+    saveUninitialized: false,
+    resave: false,
     cookie: {
-      maxAge: SESS_LIFETIME,
-      sameSite: true,
-      secure: IN_PROD,
-      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24,
     },
   })
 );
+
+app.use((req, res, next) => {
+  // For debug, doesnt do anything
+  console.log(req.session);
+  console.log(req.user);
+  next();
+});
 
 // middleware
 app.use(express.json());
@@ -60,7 +62,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(passport.initialize());
 app.use(passport.session());
-require("./resources/passportConfig")(passport);
+
 app.use(cookieParser());
 
 // allows communication with localhost 3000

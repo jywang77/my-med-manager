@@ -6,12 +6,14 @@ const useAuth = () => {
   // grabbing whether the user is authenticated from back end
   // const [isAuth, setIsAuth] = useState(true);
 
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3001/users/current")
-  //     .then((res) => setIsAuth(res.data))
-  //     .catch((err) => console.err(err));
-  // }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/users/current")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.err(err));
+  }, []);
 
   const user = { loggedIn: true };
   return user && user.loggedIn;

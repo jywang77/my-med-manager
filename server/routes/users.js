@@ -1,25 +1,27 @@
-// imports
 const express = require("express");
-const bcrypt = require("bcryptjs");
 const passport = require("passport");
+const { genPassword } = require("../resources/passwordUtils");
 const User = require("../resources/userSchema");
 
 const router = express.Router();
 
-// middleware
-require("../resources/passportConfig")(passport);
-
 // login
-router.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) throw err;
-    if (!user) res.send(false);
-    else {
-      req.logIn(user, (err) => {
-        if (err) throw err;
-        res.send(true);
-      });
+router.post("/login", function (req, res, next) {
+  passport.authenticate("local", function (err, user, info) {
+    if (err) {
+      return next(err);
     }
+    if (!user) {
+      console.log("login failed: " + user);
+      return res.status(401).send(false);
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      console.log("login successful: " + req.session.passport.user);
+      return res.status(200).send(true);
+    });
   })(req, res, next);
 });
 
@@ -34,20 +36,27 @@ router.post("/create", async (req, res) => {
       uniqueEmail: existingEmail,
     };
 
-    res.send(usernameEmail);
+    res.status(409).send(usernameEmail);
   }
 
   if (!existingUsername && !existingEmail) {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const saltHash = genPassword(req.body.password);
+
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
 
     const newUser = new User({
       username: req.body.username,
       email: req.body.email,
-      password: hashedPassword,
+      hash: hash,
+      salt: salt,
     });
 
-    await newUser.save();
-    res.send(true);
+    newUser.save().then((user) => {
+      console.log(user);
+    });
+
+    res.status(200).send(true);
   }
 });
 
@@ -55,6 +64,7 @@ router.post("/create", async (req, res) => {
 router.get("/logout", (req, res) => {
   req.logout(function (err) {
     if (err) {
+      res.status(500).send(false);
       throw err;
     }
     res.send(req.isAuthenticated());
