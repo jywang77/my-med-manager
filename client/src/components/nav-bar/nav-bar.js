@@ -1,6 +1,7 @@
 import "./nav-bar.css";
 import logo from "./images/favicon.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const NavBar = () => {
   // redirect
@@ -70,7 +71,7 @@ export const NavBar = () => {
       {/* log out */}
       <div className="logout">
         <NavLink to="/">
-          <button className="logoutButton" />
+          <button onClick={logOut} className="logoutButton" />
         </NavLink>
         <span className="tooltipText logOutTooltip">log out</span>
       </div>
