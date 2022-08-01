@@ -3,6 +3,21 @@ import logo from "./images/favicon.svg";
 import { NavLink } from "react-router-dom";
 
 export const NavBar = () => {
+  // redirect
+  const navigate = useNavigate();
+
+  function logOut() {
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/users/logout",
+    }).then((res) => {
+      if (!res.data) {
+        navigate("/");
+      }
+    });
+  }
+
   return (
     <div className="navBar">
       <div className="logo">

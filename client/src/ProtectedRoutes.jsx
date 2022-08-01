@@ -1,7 +1,19 @@
 import { Navigate, Outlet } from "react-router";
+// import { axios } from "axios";
+// import { useState, useEffect } from "react";
 
 const useAuth = () => {
-  const user = { loggedIn: true }; // CONNECT TO BACK END (USER AUTH)
+  // grabbing whether the user is authenticated from back end
+  // const [isAuth, setIsAuth] = useState(true);
+
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:3001/users/current")
+  //     .then((res) => setIsAuth(res.data))
+  //     .catch((err) => console.err(err));
+  // }, []);
+
+  const user = { loggedIn: true };
   return user && user.loggedIn;
 };
 

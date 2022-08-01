@@ -67,14 +67,19 @@ router.post("/create", async (req, res) => {
   }
 });
 
-// stores the info of the current user that is logged in
-router.get("/current", (req, res) => {
-  res.send(req.user);
+// logout
+router.get("/logout", (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      throw err;
+    }
+    res.send(req.isAuthenticated());
+  });
 });
 
-// logout
-router.post("/logout", (req, res) => {
-  res.send("logout route");
+// stores the info of the current user that is logged in
+router.get("/current", (req, res) => {
+  res.send(req.isAuthenticated());
 });
 
 module.exports = router;
