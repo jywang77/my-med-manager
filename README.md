@@ -11,7 +11,6 @@ npm start
 
 # To do
 
-- Logout
 - Authenticate user to unlock hidden paths
-- Update secret code (users.js)
+- If user is logged in, do not allow them to visit home page and create account page
 - Finish calendar

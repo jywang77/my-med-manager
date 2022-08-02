@@ -1,25 +1,24 @@
 import { Navigate, Outlet } from "react-router";
-// import { axios } from "axios";
-// import { useState, useEffect } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-const useAuth = () => {
-  // grabbing whether the user is authenticated from back end
-  // const [isAuth, setIsAuth] = useState(true);
-
-  // useEffect(() => {
-  //   axios
-  //     .get("http://localhost:3001/users/current")
-  //     .then((res) => setIsAuth(res.data))
-  //     .catch((err) => console.err(err));
-  // }, []);
-
-  const user = { loggedIn: true };
-  return user && user.loggedIn;
-};
-
+// if user is authenticated, allow access into protected route
 const ProtectedRoutes = () => {
-  const isAuth = useAuth();
+  const [isAuth, setIsAuth] = useState();
 
+  useEffect(() => {
+    axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/users/current",
+    })
+      .then((res) => {
+        setIsAuth(res.data);
+      })
+      .catch((err) => console.err(err));
+  }, [isAuth]);
+
+  console.log("isAuth is: " + isAuth);
   return isAuth ? <Outlet /> : <Navigate to="/" />;
 };
 
