@@ -4,20 +4,19 @@ import { useState, useEffect } from "react";
 
 // if user is authenticated, allow access into protected route
 const ProtectedRoutes = () => {
-  const [isAuth, setIsAuth] = useState();
+  const [isAuth, setIsAuth] = useState(true);
 
   useEffect(() => {
-    axios({
-      method: "GET",
-      withCredentials: true,
-      url: "http://localhost:3001/users/current",
-    })
-      .then((res) => {
-        setIsAuth(res.data);
-      })
-      .catch((err) => console.err(err));
-  }, [isAuth]);
+    const getAuth = async () => {
+      const res = await axios("http://localhost:3001/users/current", {
+        withCredentials: true,
+      });
+      setIsAuth(res.data);
+    };
+    getAuth();
+  }, []);
 
+  // isAuth value not updating!!!
   console.log("isAuth is: " + isAuth);
   return isAuth ? <Outlet /> : <Navigate to="/" />;
 };

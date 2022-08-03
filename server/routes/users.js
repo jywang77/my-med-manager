@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const User = require("../resources/userSchema");
+const isAuth = require("../resources/authMiddleware").isAuth;
 
 const router = express.Router();
 
@@ -68,7 +69,7 @@ router.post("/create", async (req, res) => {
 });
 
 // logout
-router.get("/logout", (req, res) => {
+router.get("/logout", isAuth, (req, res) => {
   req.logout(function (err) {
     if (err) {
       throw err;
