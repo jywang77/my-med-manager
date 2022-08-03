@@ -16,8 +16,6 @@ const ProtectedRoutes = () => {
     getAuth();
   }, []);
 
-  // isAuth value not updating!!!
-  console.log("isAuth is: " + isAuth);
   return isAuth ? <Outlet /> : <Navigate to="/" />;
 };
 

@@ -42,13 +42,14 @@ export const Bottom = () => {
             <p>
               My name is Joy Wang, and I am a pharmacy student with an interest
               in the intersection between technology and pharmacy practice. I
-              coded myMedManager during summer 2022 using HTML, CSS, JavaScript
-              and React. I used Figma to help me design the user interface.
-              Certain images on this site (e.g. the home page) were hand drawn
-              by myself on Clip Studio Paint and a digital drawing tablet. The
-              logo was created by myself on Adobe Illustrator. Creating this
-              website was very rewarding for me because I could blend my
-              interests in technology, art, and design with my pharmacy
+              coded myMedManager during summer 2022 using React (HTML, CSS,
+              JavaScript) for the front end and Express (+ MongoDB for data
+              storage) for the back end. I used Figma to help me design the user
+              interface. Certain images on this site (e.g. the home page) were
+              hand drawn by myself on Clip Studio Paint and a digital drawing
+              tablet. The logo was created by myself on Adobe Illustrator.
+              Creating this website was very rewarding for me because I could
+              blend my interests in technology, art, and design with my pharmacy
               knowledge. If you would like to contact me to learn more about
               this project, you can reach me using the methods below.
             </p>
@@ -96,9 +97,14 @@ export const Bottom = () => {
               troubleshooting bugs.
               <br />
               <br />
-              This project is non-profit. Icons and pictures used on this site
-              (that are not created by myself) are from free-use sources. Icon
-              and image sources will nonetheless be linked below:
+              This project is non-profit and for demonstration purposes only. If
+              you choose enter your real personal medication information into
+              this website, you do so at your own risk.
+              <br />
+              <br />
+              Icons and pictures used on this site (that are not created by
+              myself) are from free-use sources. Icon and image sources be
+              linked below:
               <br />
               <br />
               <a
