@@ -71,9 +71,7 @@ export const SettingsComponent = () => {
           <div className="name">
             <div className="currentName">
               <div className="bold">Your current name: {name}</div>
-              <div className="successMessage success1">
-                Changed successfully.
-              </div>
+              <div className="successMessage">Changed successfully.</div>
             </div>
             <div>
               <form>
@@ -82,7 +80,6 @@ export const SettingsComponent = () => {
                   className="changeSettings"
                   type="text"
                   placeholder="enter new name here"
-                  required
                 />
                 <button className="changeButton" type="submit">
                   change
@@ -96,9 +93,8 @@ export const SettingsComponent = () => {
           <div className="username">
             <div className="currentUsername">
               <div className="bold">Your current username: {username}</div>
-              <div className="successMessage success2">
-                Changed successfully.
-              </div>
+              <div className="successMessage">Changed successfully.</div>
+              <div className="error">Error: Username already exists.</div>
             </div>
             <div>
               <form>
@@ -107,7 +103,6 @@ export const SettingsComponent = () => {
                   className="changeSettings"
                   type="text"
                   placeholder="enter new username here"
-                  required
                 />
                 <button className="changeButton" type="submit">
                   change
@@ -126,7 +121,6 @@ export const SettingsComponent = () => {
                   className="changeSettings"
                   type="password"
                   placeholder="enter current password here"
-                  required
                 />
               </div>
               <div>
@@ -136,7 +130,6 @@ export const SettingsComponent = () => {
                   type="password"
                   placeholder="enter new password here"
                   onChange={setFirst}
-                  required
                 />
               </div>
               <div>
@@ -146,16 +139,15 @@ export const SettingsComponent = () => {
                   type="password"
                   placeholder="confirm new password here"
                   onChange={setSecond}
-                  required
                 />
               </div>
               <button className="changeButton" type="submit">
                 change
               </button>
             </form>
-            <div className="successMessage success3">Changed successfully.</div>
+            <div className="successMessage">Changed successfully.</div>
             <div className="error err5">Error: Passwords do not match.</div>
-            <div className="error err7">
+            <div className="error">
               Error: New password cannot be current password.
             </div>
           </div>
@@ -166,30 +158,17 @@ export const SettingsComponent = () => {
             <form>
               <div className="bold">Your current email: {email}</div>
               <div>
-                Confirm current email:
-                <input
-                  className="changeSettings"
-                  type="email"
-                  placeholder="enter current email here"
-                  required
-                />
-              </div>
-              <div>
                 New email:
                 <input
                   className="changeSettings"
                   type="email"
                   placeholder="enter new email here"
-                  required
                 />
               </div>
               <button className="changeButton" type="submit">
                 change
               </button>
-              <div className="successMessage success4">
-                Changed successfully.
-              </div>
-              <div className="error err6">Error: Current email incorrect.</div>
+              <div className="successMessage">Changed successfully.</div>
             </form>
           </div>
         </div>
