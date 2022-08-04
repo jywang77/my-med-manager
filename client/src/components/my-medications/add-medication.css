@@ -159,6 +159,13 @@ body {
   margin-bottom: 10pt;
 }
 
+.refillReminder {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10pt;
+  margin-top: 5pt;
+}
+
 .presetDays {
   display: flex;
   flex-direction: column;

@@ -7,6 +7,18 @@ export const AddMedication = ({ setShowAdd }) => {
   const [checked, setChecked] = useState(true);
   const [reminder, setReminder] = useState(3);
 
+  // mades 'refill date' and 'remind me x days before the refill date' pop up if 'yes' is chosen for refill reminder
+  const showRefillPopup = () => {
+    const refillPopup = document.querySelector(".refillPopup");
+    refillPopup.style.display = "block";
+  };
+
+  // hides refill popup if 'no' is chosen for refill reminder
+  const hideRefillPopup = () => {
+    const refillPopup = document.querySelector(".refillPopup");
+    refillPopup.style.display = "none";
+  };
+
   return (
     <div className="add">
       <div className="margin">
@@ -221,53 +233,69 @@ export const AddMedication = ({ setShowAdd }) => {
           {/* refill */}
           <div className="red addRefill">
             <div>
-              <span className="bold">refill date: * </span>
-              refill notifications will appear on your dashboard. They will not
-              disappear until you check off the corresponding check box.
+              <span className="bold">refill reminder: * </span>choose yes if you
+              would like to be reminded when it is time to refill your
+              medication. Refill notifications will appear on your dashboard.
             </div>
-            <div className="presetDays">
+            <div className="refillReminder">
               <label>
                 <input
                   type="radio"
-                  name="refill"
-                  id="30d"
-                  value="30d"
+                  name="refillYesNo"
+                  id="yes"
+                  value="yes"
+                  onClick={showRefillPopup}
                   required
                 />
-                30 days from today
+                yes
               </label>
               <label>
                 <input
                   type="radio"
-                  name="refill"
-                  id="90d"
-                  value="90d"
+                  name="refillYesNo"
+                  id="no"
+                  value="no"
+                  onClick={hideRefillPopup}
                   required
                 />
-                90 days from today
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="refill"
-                  id="pickDate"
-                  value="pick date"
-                  required
-                />
-                I will choose my own refill date from the calendar:{" "}
-                <input type="date" className="refillDate" />
+                no
               </label>
             </div>
             {/* refill reminder */}
-            <div>
-              Remind me
-              <input
-                type="number"
-                className="addInput remindDate"
-                value={reminder}
-                onChange={(e) => setReminder(e.target.value)}
-              />
-              days before the refill date.
+            <div className="refillPopup" style={{ display: "none" }}>
+              <div>
+                <span className="bold">refill date: *</span>
+              </div>
+              <div className="presetDays">
+                <label>
+                  <input type="radio" name="refill" id="30d" value="30d" />
+                  30 days from today
+                </label>
+                <label>
+                  <input type="radio" name="refill" id="90d" value="90d" />
+                  90 days from today
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="refill"
+                    id="pickDate"
+                    value="pick date"
+                  />
+                  I will choose my own refill date from the calendar:{" "}
+                  <input type="date" className="refillDate" />
+                </label>
+              </div>
+              <div>
+                Remind me
+                <input
+                  type="number"
+                  className="addInput remindDate"
+                  value={reminder}
+                  onChange={(e) => setReminder(e.target.value)}
+                />
+                days before the refill date.
+              </div>
             </div>
           </div>
           {/* notes */}

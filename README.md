@@ -11,5 +11,5 @@ npm start
 
 # To do
 
-- If user is logged in, do not allow them to visit home page and create account page
+- If user is logged in, do not allow them to visit home page and create account page (low priority)
 - Finish calendar
