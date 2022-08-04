@@ -4,7 +4,7 @@ import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const RightCreate = () => {
-  // grabbing information entered into create account form and sending to back end
+  // storing information entered into create account form
   const [createUser, setCreateUser] = useState({
     username: "",
     email: "",

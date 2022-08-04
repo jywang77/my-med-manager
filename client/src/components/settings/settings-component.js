@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 
 export const SettingsComponent = () => {
+  // grabbing and displaying current user information from back end
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -13,6 +15,7 @@ export const SettingsComponent = () => {
       withCredentials: true,
       url: "http://localhost:3001/users/user",
     }).then((res) => {
+      setId(res.data._id.toString());
       if (res.data.name) {
         setName(res.data.name);
       } else {
@@ -23,37 +26,76 @@ export const SettingsComponent = () => {
     });
   }, []);
 
-  // confirm password
-  const [password, setPassword] = useState({
-    firstPassword: "",
-    secondPassword: "",
+  // storing information entered into form
+  const [changeUser, setChangeUser] = useState({
+    newName: "",
+    newUsername: "",
+    currentPassword: "",
+    newPassword: "",
+    newPassword2: "",
+    newEmail: "",
   });
 
-  const setFirst = (event) => {
-    setPassword({ ...password, firstPassword: event.target.value });
-  };
+  function handle(e) {
+    const handleChangeUser = { ...changeUser };
+    handleChangeUser[e.target.id] = e.target.value;
+    setChangeUser(handleChangeUser);
+  }
 
-  const setSecond = (event) => {
-    setPassword({ ...password, secondPassword: event.target.value });
-  };
-
+  // confirm password
   const [matchPassword, setMatchPassword] = useState(true);
 
   useEffect(() => {
-    if (password.firstPassword === password.secondPassword) {
+    if (changeUser.newPassword === changeUser.newPassword2) {
       setMatchPassword(true);
     } else {
       setMatchPassword(false);
     }
-  }, [password]);
+  }, [changeUser]);
 
-  // make sure form requirements are fulfilled before allowing you to submit the form
-  const handleSubmit = (e) => {
+  // change name button
+  const handleSubmitName = async (e) => {
+    e.preventDefault();
+
+    await Axios({
+      method: "PATCH",
+      data: {
+        name: changeUser.newName,
+      },
+      withCredentials: true,
+      url: `http://localhost:3001/users/change-name/${id}`,
+    }).then((res) => {
+      setName(res.data.name);
+
+      // clears input
+      document.getElementById("changeName").reset();
+
+      // 'successfully changed name' message + fade away
+      const s1 = document.querySelector(".s1");
+      s1.style.visibility = "visible";
+      s1.style.opacity = "1";
+      s1.style.transition = "none";
+      setTimeout(() => {
+        s1.style.visibility = "hidden";
+        s1.style.opacity = "0";
+        s1.style.transition = "visibility 0s 1s, opacity 1s linear";
+      }, 1000);
+    });
+  };
+
+  // change username button
+
+  // change password button
+  const handleSubmitPassword = (e) => {
     if (!matchPassword) {
+      // displays error messages if passwords don't match
       e.preventDefault();
       document.querySelector(".err5").style.display = "block";
+    } else {
     }
   };
+
+  // change email button
 
   return (
     <div className="background">
@@ -70,16 +112,20 @@ export const SettingsComponent = () => {
           </div>
           <div className="name">
             <div className="currentName">
-              <div className="bold">Your current name: {name}</div>
-              <div className="successMessage">Changed successfully.</div>
+              <div className="bold yourName">Your current name: {name}</div>
+              <div className="successMessage s1">Changed successfully.</div>
             </div>
             <div>
-              <form>
+              <form onSubmit={(e) => handleSubmitName(e)} id="changeName">
                 New name:
                 <input
                   className="changeSettings"
                   type="text"
                   placeholder="enter new name here"
+                  // recording info to send to back end
+                  onChange={(e) => handle(e)}
+                  id="newName"
+                  value={changeUser.newName}
                 />
                 <button className="changeButton" type="submit">
                   change
@@ -92,7 +138,9 @@ export const SettingsComponent = () => {
           </div>
           <div className="username">
             <div className="currentUsername">
-              <div className="bold">Your current username: {username}</div>
+              <div className="bold yourUsername">
+                Your current username: {username}
+              </div>
               <div className="successMessage">Changed successfully.</div>
               <div className="error">Error: Username already exists.</div>
             </div>
@@ -103,6 +151,10 @@ export const SettingsComponent = () => {
                   className="changeSettings"
                   type="text"
                   placeholder="enter new username here"
+                  // recording info to send to back end
+                  onChange={(e) => handle(e)}
+                  id="newUsername"
+                  value={changeUser.newUsername}
                 />
                 <button className="changeButton" type="submit">
                   change
@@ -114,13 +166,17 @@ export const SettingsComponent = () => {
             <span>change password</span>
           </div>
           <div className="password">
-            <form onSubmit={handleSubmit} className="passwordForm">
+            <form onSubmit={handleSubmitPassword} className="passwordForm">
               <div>
                 Current password:
                 <input
                   className="changeSettings"
                   type="password"
                   placeholder="enter current password here"
+                  // recording info to send to back end
+                  onChange={(e) => handle(e)}
+                  id="currentPassword"
+                  value={changeUser.currentPassword}
                 />
               </div>
               <div>
@@ -129,7 +185,10 @@ export const SettingsComponent = () => {
                   className="changeSettings"
                   type="password"
                   placeholder="enter new password here"
-                  onChange={setFirst}
+                  // recording info to send to back end
+                  onChange={(e) => handle(e)}
+                  id="newPassword"
+                  value={changeUser.newPassword}
                 />
               </div>
               <div>
@@ -138,7 +197,10 @@ export const SettingsComponent = () => {
                   className="changeSettings"
                   type="password"
                   placeholder="confirm new password here"
-                  onChange={setSecond}
+                  // recording info to send to back end
+                  onChange={(e) => handle(e)}
+                  id="newPassword2"
+                  value={changeUser.newPassword2}
                 />
               </div>
               <button className="changeButton" type="submit">
@@ -163,12 +225,17 @@ export const SettingsComponent = () => {
                   className="changeSettings"
                   type="email"
                   placeholder="enter new email here"
+                  // recording info to send to back end
+                  onChange={(e) => handle(e)}
+                  id="newEmail"
+                  value={changeUser.newEmail}
                 />
               </div>
               <button className="changeButton" type="submit">
                 change
               </button>
               <div className="successMessage">Changed successfully.</div>
+              <div className="error">Error: Email already exists.</div>
             </form>
           </div>
         </div>

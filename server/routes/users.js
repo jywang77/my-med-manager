@@ -10,12 +10,12 @@ const router = express.Router();
 // login
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
-    if (err) throw err;
-    if (!user) res.send(false);
+    if (err) return next(err);
+    if (!user) res.status(401).send(false);
     else {
       req.logIn(user, (err) => {
-        if (err) throw err;
-        res.send(true);
+        if (err) return next(err);
+        res.status(200).send(true);
       });
     }
   })(req, res, next);
@@ -32,7 +32,7 @@ router.post("/create", async (req, res) => {
       uniqueEmail: existingEmail,
     };
 
-    res.send(usernameEmail);
+    res.status(409).send(usernameEmail);
   }
 
   if (!existingUsername && !existingEmail) {
@@ -46,7 +46,7 @@ router.post("/create", async (req, res) => {
     });
 
     await newUser.save();
-    res.send(true);
+    res.status(200).send(true);
   }
 });
 
@@ -56,7 +56,7 @@ router.get("/logout", isAuth, (req, res) => {
     if (err) {
       throw err;
     }
-    res.send(req.isAuthenticated());
+    res.status(200).send(req.isAuthenticated());
   });
 });
 
@@ -69,5 +69,33 @@ router.get("/isauth", (req, res) => {
 router.get("/user", isAuth, (req, res) => {
   res.send(req.user);
 });
+
+//-------------------SETTINGS PAGE----------------------
+
+router.patch("/change-name/:id", isAuth, async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) return res.status(404).send("Error: user not found");
+
+  try {
+    updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      {
+        name: req.body.name,
+      },
+      { new: true }
+    );
+
+    res.status(200).send(updatedUser);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+});
+
+router.patch("/change-username/:id", isAuth, (req, res) => {});
+
+router.patch("/change-password/:id", isAuth, (req, res) => {});
+
+router.patch("/change-email/:id", isAuth, (req, res) => {});
 
 module.exports = router;

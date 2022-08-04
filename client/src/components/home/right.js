@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const Right = () => {
-  // grabbing information entered into login form (username and password) and sending to back end
+  // storing information entered into login form (username and password)
   const [user, setUser] = useState({
     username: "",
     password: "",

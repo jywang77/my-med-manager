@@ -48,7 +48,7 @@ body {
 
 .successMessage {
   color: #52796f;
-  display: none;
+  visibility: hidden;
 }
 
 .changeButton {
@@ -81,6 +81,11 @@ button.changeButton:active {
 .currentName,
 .currentUsername {
   width: 30vw;
+}
+
+.yourName,
+.yourUsername {
+  margin-top: 10pt;
 }
 
 .nameDescription {
