@@ -8,7 +8,7 @@ const ProtectedRoutes = () => {
 
   useEffect(() => {
     const getAuth = async () => {
-      const res = await axios("http://localhost:3001/users/current", {
+      const res = await axios("http://localhost:3001/users/isauth", {
         withCredentials: true,
       });
       setIsAuth(res.data);

@@ -1,8 +1,24 @@
 import "./today.css";
+import { useState, useEffect } from "react";
+import Axios from "axios";
 
 export const Today = () => {
   // name
-  const name = "demo";
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    Axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/users/user",
+    }).then((res) => {
+      if (res.data.name) {
+        setName(res.data.name);
+      } else {
+        setName(res.data.username);
+      }
+    });
+  }, []);
 
   // decides if greeting is good morning, good afternoon, or good evening
   const today = new Date();

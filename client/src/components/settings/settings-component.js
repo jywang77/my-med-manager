@@ -1,13 +1,29 @@
 import "./settings-component.css";
 import { useState, useEffect } from "react";
+import Axios from "axios";
 
 export const SettingsComponent = () => {
-  const firstName = "demo";
-  const username = "demo";
-  const email = "demo@demo.com";
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
 
-  // Confirm password
+  useEffect(() => {
+    Axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/users/user",
+    }).then((res) => {
+      if (res.data.name) {
+        setName(res.data.name);
+      } else {
+        setName(res.data.username);
+      }
+      setUsername(res.data.username);
+      setEmail(res.data.email);
+    });
+  }, []);
 
+  // confirm password
   const [password, setPassword] = useState({
     firstPassword: "",
     secondPassword: "",
@@ -31,7 +47,7 @@ export const SettingsComponent = () => {
     }
   }, [password]);
 
-  // Make sure form requirements are fulfilled before allowing you to submit the form
+  // make sure form requirements are fulfilled before allowing you to submit the form
   const handleSubmit = (e) => {
     if (!matchPassword) {
       e.preventDefault();
@@ -54,7 +70,7 @@ export const SettingsComponent = () => {
           </div>
           <div className="name">
             <div className="currentName">
-              <div className="bold">Your current name: {firstName}</div>
+              <div className="bold">Your current name: {name}</div>
               <div className="successMessage success1">
                 Changed successfully.
               </div>

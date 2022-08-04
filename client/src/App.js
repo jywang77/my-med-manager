@@ -7,24 +7,8 @@ import { MyMedications } from "./container/my-medications/my-medications";
 import { Settings } from "./container/settings/settings";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoutes from "./ProtectedRoutes";
-import { useEffect } from "react";
-import axios from "axios";
 
 function App() {
-  useEffect(() => {
-    axios({
-      method: "GET",
-      withCredentials: true,
-      url: "http://localhost:3001/users/current",
-    }).then((res) => {
-      if (res.data) {
-        console.log("You are authenticated");
-      } else {
-        console.log("You are not authenticated");
-      }
-    });
-  }, []);
-
   return (
     <div className="App">
       <Routes>

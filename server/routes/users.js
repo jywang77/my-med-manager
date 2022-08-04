@@ -2,29 +2,10 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
-const session = require("express-session");
 const User = require("../resources/userSchema");
 const isAuth = require("../resources/authMiddleware").isAuth;
 
 const router = express.Router();
-
-// middleware
-router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: true }));
-router.use(
-  session({
-    secret: "secretcode",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
-
-router.use(cookieParser("secretcode"));
-router.use(passport.initialize());
-router.use(passport.session());
-require("../resources/passportConfig")(passport);
 
 // login
 router.post("/login", (req, res, next) => {
@@ -58,6 +39,7 @@ router.post("/create", async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     const newUser = new User({
+      name: "",
       username: req.body.username,
       email: req.body.email,
       password: hashedPassword,
@@ -78,9 +60,14 @@ router.get("/logout", isAuth, (req, res) => {
   });
 });
 
-// stores the info of the current user that is logged in
-router.get("/current", (req, res) => {
+// is a user logged in
+router.get("/isauth", (req, res) => {
   res.send(req.isAuthenticated());
+});
+
+// grabs info of current user that is logged in
+router.get("/user", isAuth, (req, res) => {
+  res.send(req.user);
 });
 
 module.exports = router;
