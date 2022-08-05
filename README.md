@@ -13,8 +13,8 @@ npm start
 
 - Finish calendar
 - Fix protected routes problem
+- Fix bug: error messages on login and create account no longer show up
 
 (Low priority)
 
 - If user is logged in, do not allow them to visit home page and create account page
-- Delete account

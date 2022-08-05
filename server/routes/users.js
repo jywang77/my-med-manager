@@ -173,4 +173,29 @@ router.patch("/change-email/:id", isAuth, async (req, res) => {
   }
 });
 
+router.delete("/delete-account/:id", isAuth, async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) return res.status(404).console.error("Error: user not found");
+
+  // make sure password matches password in database
+  bcrypt.compare(req.body.password, user.password, async (err, result) => {
+    if (err) throw err;
+
+    // if passwords do not match, return false to front end
+    if (!result) {
+      res.status(200).send(false);
+    } else {
+      // if passwords match, delete account
+      try {
+        await User.findByIdAndRemove(req.params.id).exec();
+        // delete associated meds as well
+
+        res.status(200).send(true);
+      } catch (err) {
+        res.status(500).console.error(err);
+      }
+    }
+  });
+});
+
 module.exports = router;

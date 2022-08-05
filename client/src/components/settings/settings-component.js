@@ -1,6 +1,7 @@
 import "./settings-component.css";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const SettingsComponent = () => {
   // grabbing and displaying current user information from back end
@@ -33,12 +34,14 @@ export const SettingsComponent = () => {
   const [newPassword, setNewPassword] = useState("");
   const [newPassword2, setNewPassword2] = useState("");
   const [newEmail, setNewEmail] = useState("");
+  const [deletePassword, setDeletePassword] = useState("");
 
   // conditions for showing/hiding error messages
   const [existingUsername, setExistingUsername] = useState(null);
   const [existingEmail, setExistingEmail] = useState(null);
-  const [rightPassword, setRightPassword] = useState(null);
+  const [rightPassword, setRightPassword] = useState(true);
   const [matchPassword, setMatchPassword] = useState(true);
+  const [rightDeletePassword, setRightDeletePassword] = useState(true);
 
   useEffect(() => {
     if (newPassword === newPassword2) {
@@ -187,6 +190,29 @@ export const SettingsComponent = () => {
           s4.style.opacity = "0";
           s4.style.transition = "visibility 0s 1s, opacity 1s linear";
         }, 1000);
+      }
+    });
+  };
+
+  // delete account
+  const navigate = useNavigate();
+
+  const handleDeleteAccount = async () => {
+    await Axios({
+      method: "DELETE",
+      data: {
+        password: deletePassword,
+      },
+      withCredentials: true,
+      url: `http://localhost:3001/users/delete-account/${id}`,
+    }).then((res) => {
+      if (res.data === false) {
+        setRightDeletePassword(res.data);
+
+        setDeletePassword("");
+      }
+      if (res.data === true) {
+        navigate("/");
       }
     });
   };
@@ -341,6 +367,36 @@ export const SettingsComponent = () => {
                 </button>
               </div>
             </form>
+          </div>
+          <div className="h5">
+            <span>delete account</span>
+          </div>
+          <div className="nameDescription">
+            To confirm that you would like to delete your account, please enter
+            your password below. If you are navigated back to the home page,
+            then your account was successfully deleted.
+          </div>
+          <div>
+            Password:
+            <input
+              className="changeSettings"
+              type="password"
+              placeholder="enter password here"
+              // recording info to send to back end
+              onChange={(e) => setDeletePassword(e.target.value)}
+              id="deletePassword"
+              value={deletePassword}
+            />
+            <button
+              className="changeButton"
+              type="submit"
+              onClick={handleDeleteAccount}
+            >
+              delete my account
+            </button>
+          </div>
+          <div className={"error" + (rightDeletePassword ? "" : " show")}>
+            Error: Incorrect password.
           </div>
         </div>
       </div>
