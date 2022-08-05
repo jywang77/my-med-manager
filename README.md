@@ -13,7 +13,6 @@ npm start
 
 - Finish calendar
 - Fix protected routes problem
-- Fix bug: error messages on login and create account no longer show up
 
 (Low priority)
 

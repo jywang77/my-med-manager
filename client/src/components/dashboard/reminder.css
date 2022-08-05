@@ -7,16 +7,16 @@
   width: auto;
   height: auto;
   max-width: 20pt;
-  filter: invert(23%) sepia(52%) saturate(1145%) hue-rotate(322deg)
-    brightness(88%) contrast(100%);
+  filter: invert(10%) sepia(66%) saturate(3100%) hue-rotate(349deg)
+    brightness(97%) contrast(119%);
 }
 
 .red {
-  color: #7d2725;
+  color: #660000;
 }
 
 fieldset {
-  border: 4px solid #7d2725;
+  border: 4px solid #660000;
   border-radius: 20px;
 }
 

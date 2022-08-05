@@ -11,7 +11,7 @@ const router = express.Router();
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return next(err);
-    if (!user) res.status(401).send(false);
+    if (!user) res.status(200).send(false);
     else {
       req.logIn(user, (err) => {
         if (err) return next(err);
@@ -32,7 +32,7 @@ router.post("/create", async (req, res) => {
       uniqueEmail: existingEmail,
     };
 
-    res.status(409).send(usernameEmail);
+    res.status(200).send(usernameEmail);
   }
 
   if (!existingUsername && !existingEmail) {
