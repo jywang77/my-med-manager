@@ -12,6 +12,7 @@ npm start
 # To do
 
 - Finish calendar
+- Fix protected routes problem
 
 (Low priority)
 
