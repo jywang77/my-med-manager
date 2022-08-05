@@ -34,7 +34,10 @@ export const SettingsComponent = () => {
   const [newPassword2, setNewPassword2] = useState("");
   const [newEmail, setNewEmail] = useState("");
 
-  // confirm password
+  // conditions for showing/hiding error messages
+  const [existingUsername, setExistingUsername] = useState(null);
+  const [existingEmail, setExistingEmail] = useState(null);
+  const [rightPassword, setRightPassword] = useState(null);
   const [matchPassword, setMatchPassword] = useState(true);
 
   useEffect(() => {
@@ -60,7 +63,7 @@ export const SettingsComponent = () => {
       // clears input
       setNewName("");
 
-      // 'successfully changed name' message + fade away
+      // 'successfully changed' message + fade away
       const s1 = document.querySelector(".s1");
       s1.style.visibility = "visible";
       s1.style.opacity = "1";
@@ -74,17 +77,119 @@ export const SettingsComponent = () => {
   };
 
   // change username button
+  const handleSubmitUsername = async () => {
+    await Axios({
+      method: "PATCH",
+      data: {
+        username: newUsername,
+      },
+      withCredentials: true,
+      url: `http://localhost:3001/users/change-username/${id}`,
+    }).then((res) => {
+      // if existing username, show error message
+      if (res.data === true) {
+        setExistingUsername(res.data);
+
+        setNewUsername("");
+      } else {
+        setUsername(res.data.username);
+        setExistingUsername(false);
+
+        setNewUsername("");
+
+        // 'successfully changed' message + fade away
+        const s2 = document.querySelector(".s2");
+        s2.style.visibility = "visible";
+        s2.style.opacity = "1";
+        s2.style.transition = "none";
+        setTimeout(() => {
+          s2.style.visibility = "hidden";
+          s2.style.opacity = "0";
+          s2.style.transition = "visibility 0s 1s, opacity 1s linear";
+        }, 1000);
+      }
+    });
+  };
 
   // change password button
-  const handleSubmitPassword = () => {
+  const handleSubmitPassword = async () => {
+    // displays error messages if passwords don't match
     if (!matchPassword) {
-      // displays error messages if passwords don't match
       document.querySelector(".err5").style.display = "block";
     } else {
+      await Axios({
+        method: "PATCH",
+        data: {
+          currentPassword: currentPassword,
+          newPassword: newPassword,
+        },
+        withCredentials: true,
+        url: `http://localhost:3001/users/change-password/${id}`,
+      }).then((res) => {
+        // if current password incorrect, show error message
+        if (res.data === false) {
+          setRightPassword(res.data);
+
+          setCurrentPassword("");
+          setNewPassword("");
+          setNewPassword2("");
+        } else {
+          setRightPassword(true);
+
+          setCurrentPassword("");
+          setNewPassword("");
+          setNewPassword2("");
+
+          // 'successfully changed' message + fade away
+          const s3 = document.querySelector(".s3");
+          s3.style.visibility = "visible";
+          s3.style.opacity = "1";
+          s3.style.transition = "none";
+          setTimeout(() => {
+            s3.style.visibility = "hidden";
+            s3.style.opacity = "0";
+            s3.style.transition = "visibility 0s 1s, opacity 1s linear";
+          }, 1000);
+        }
+      });
     }
   };
 
   // change email button
+  const handleSubmitEmail = async (e) => {
+    e.preventDefault();
+    await Axios({
+      method: "PATCH",
+      data: {
+        email: newEmail,
+      },
+      withCredentials: true,
+      url: `http://localhost:3001/users/change-email/${id}`,
+    }).then((res) => {
+      // if existing email, show error message
+      if (res.data === true) {
+        setExistingEmail(res.data);
+
+        setNewEmail("");
+      } else {
+        setEmail(res.data.email);
+        setExistingEmail(false);
+
+        setNewEmail("");
+
+        // 'successfully changed' message + fade away
+        const s4 = document.querySelector(".s4");
+        s4.style.visibility = "visible";
+        s4.style.opacity = "1";
+        s4.style.transition = "none";
+        setTimeout(() => {
+          s4.style.visibility = "hidden";
+          s4.style.opacity = "0";
+          s4.style.transition = "visibility 0s 1s, opacity 1s linear";
+        }, 1000);
+      }
+    });
+  };
 
   return (
     <div className="background">
@@ -130,8 +235,10 @@ export const SettingsComponent = () => {
           <div className="horizontal">
             <div className="current">
               <div className="bold">Your current username: {username}</div>
-              <div className="error">Error: Username already exists.</div>
-              <div className="successMessage">Changed successfully.</div>
+              <div className={"error" + (existingUsername ? " show" : "")}>
+                Error: Username already exists.
+              </div>
+              <div className="successMessage s2">Changed successfully.</div>
             </div>
             <div>
               New username:
@@ -144,7 +251,11 @@ export const SettingsComponent = () => {
                 id="newUsername"
                 value={newUsername}
               />
-              <button className="changeButton" type="submit">
+              <button
+                className="changeButton"
+                type="submit"
+                onClick={handleSubmitUsername}
+              >
                 change
               </button>
             </div>
@@ -197,19 +308,23 @@ export const SettingsComponent = () => {
               change
             </button>
             <div className="error err5">Error: Passwords do not match.</div>
-            <div className="error">Error: Current password incorrect.</div>
-            <div className="successMessage">Changed successfully.</div>
+            <div className={"error" + (rightPassword ? "" : " show")}>
+              Error: Current password incorrect.
+            </div>
+            <div className="successMessage s3">Changed successfully.</div>
           </div>
           <div className="h5">
             <span>change email</span>
           </div>
           <div className="horizontal">
             <div className="current">
-              <div className="bold">Your current email: {email}</div>
-              <div className="error">Error: Email already exists.</div>
-              <div className="successMessage">Changed successfully.</div>
+              <div className="bold truncate">Your current email: {email}</div>
+              <div className={"error" + (existingEmail ? " show" : "")}>
+                Error: Email already exists.
+              </div>
+              <div className="successMessage s4">Changed successfully.</div>
             </div>
-            <form>
+            <form onSubmit={(e) => handleSubmitEmail(e)}>
               <div>
                 New email:
                 <input

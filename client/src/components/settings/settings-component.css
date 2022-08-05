@@ -42,7 +42,7 @@ body {
   display: flex;
   flex-direction: row;
   margin-bottom: 1vh;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .successMessage {
@@ -95,4 +95,10 @@ button.changeButton:active {
 
 .bold {
   font-weight: 700;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 2vw;
 }

@@ -74,8 +74,7 @@ router.get("/user", isAuth, (req, res) => {
 
 router.patch("/change-name/:id", isAuth, async (req, res) => {
   const user = await User.findById(req.params.id);
-
-  if (!user) return res.status(404).send("Error: user not found");
+  if (!user) return res.status(404).console.error("Error: user not found");
 
   try {
     updatedUser = await User.findByIdAndUpdate(
@@ -92,10 +91,86 @@ router.patch("/change-name/:id", isAuth, async (req, res) => {
   }
 });
 
-router.patch("/change-username/:id", isAuth, (req, res) => {});
+router.patch("/change-username/:id", isAuth, async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) return res.status(404).console.error("Error: user not found");
 
-router.patch("/change-password/:id", isAuth, (req, res) => {});
+  const existingUsername = await User.findOne({ username: req.body.username });
+  if (existingUsername) {
+    res.status(200).send(true);
+  } else {
+    try {
+      updatedUser = await User.findByIdAndUpdate(
+        req.params.id,
+        {
+          username: req.body.username,
+        },
+        { new: true }
+      );
 
-router.patch("/change-email/:id", isAuth, (req, res) => {});
+      res.status(200).send(updatedUser);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
+});
+
+router.patch("/change-password/:id", isAuth, async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) return res.status(404).console.error("Error: user not found");
+
+  // make sure current password matches password in database
+  bcrypt.compare(
+    req.body.currentPassword,
+    user.password,
+    async (err, result) => {
+      if (err) throw err;
+
+      // if passwords do not match, return false to front end
+      if (!result) {
+        res.status(200).send(false);
+      } else {
+        // if passwords match, update new password and send success message to front end
+        try {
+          updatedUser = await User.findByIdAndUpdate(
+            req.params.id,
+            {
+              password: await bcrypt.hash(req.body.newPassword, 10),
+            },
+            { new: true }
+          );
+
+          res.status(200).send("Password updated successfully.");
+        } catch (err) {
+          res.status(500).send(err);
+        }
+      }
+    }
+  );
+});
+
+router.patch("/change-email/:id", isAuth, async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) return res.status(404).console.error("Error: user not found");
+
+  const existingEmail = await User.findOne({ email: req.body.email });
+  if (existingEmail) {
+    res.status(200).send(true);
+  } else {
+    try {
+      updatedUser = await User.findByIdAndUpdate(
+        req.params.id,
+        {
+          email: req.body.email,
+        },
+        { new: true }
+      );
+
+      res.status(200).send(updatedUser);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }
+});
 
 module.exports = router;
