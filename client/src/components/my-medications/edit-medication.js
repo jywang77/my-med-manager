@@ -20,18 +20,7 @@ export const EditMedication = ({ setShowEdit }) => {
           {/* medication dose */}
           <div>
             <span className="bold">medication dose:</span>
-            <input className="addInput addMedDose" type="number" />
-            <select className="doseType">
-              <option value="mg">mg</option>
-              <option value="mcg">mcg</option>
-              <option value="g">g</option>
-              <option value="mL">mL</option>
-              <option value="drop">drop(s)</option>
-              <option value="puff">puff(s)</option>
-              <option value="%">%</option>
-              <option value="mg/mL">mg/mL</option>
-              <option value="units">units</option>
-            </select>
+            <input className="addInput addMedDose doseType" type="text" />
           </div>
           {/* instructions */}
           <div className="addInstructions">
@@ -48,17 +37,6 @@ export const EditMedication = ({ setShowEdit }) => {
               <span className="red"> *</span>
             </div>
             <div className="checkboxMedTimeContainer">
-              <div className="checkboxMedTime">
-                <input
-                  className="addMedTime"
-                  type="checkbox"
-                  id="morning"
-                  value="morning"
-                />
-                <label htmlFor="morning" className="addMedLabel">
-                  morning
-                </label>
-              </div>
               <div className="checkboxMedTime">
                 <input
                   className="addMedTime"
@@ -201,21 +179,6 @@ export const EditMedication = ({ setShowEdit }) => {
                 Sat
               </label>
             </div>
-          </div>
-          {/* custom schedule */}
-          <div>
-            <span className="bold">
-              Custom schedule: If none of the above, I take this medication
-              every
-            </span>
-            <input className="addInput addMedFrequency" type="number" />
-            <select className="doseFrequency">
-              <option value="days">days</option>
-              <option value="weeks">weeks</option>
-              <option value="months">months</option>
-            </select>
-            <span className="bold">starting </span>
-            <input type="date" className="startDate" />
           </div>
           {/* refill */}
           <div className="red addRefill">

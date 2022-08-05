@@ -64,7 +64,10 @@ body {
   color: white;
 }
 
-.doseType,
+.doseType {
+  margin-bottom: 10pt;
+}
+
 .doseFrequency {
   border: none;
   background-color: rgba(47, 62, 70, 0.5);
