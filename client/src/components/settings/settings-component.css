@@ -38,8 +38,7 @@ body {
   font-size: large;
 }
 
-.name,
-.username {
+.horizontal {
   display: flex;
   flex-direction: row;
   margin-bottom: 1vh;
@@ -79,13 +78,8 @@ button.changeButton:active {
   width: 20vw;
 }
 
-.currentName,
-.currentUsername {
+.current {
   width: 30vw;
-}
-
-.yourName,
-.yourUsername {
   margin-top: 10pt;
 }
 

@@ -99,8 +99,8 @@ export const SettingsComponent = () => {
             greet you on the dashboard. If no name is provided, we will use your
             username.
           </div>
-          <div className="name">
-            <div className="currentName">
+          <div className="horizontal">
+            <div className="current">
               <div className="bold yourName">Your current name: {name}</div>
               <div className="successMessage s1">Changed successfully.</div>
             </div>
@@ -127,13 +127,11 @@ export const SettingsComponent = () => {
           <div className="h5">
             <span>change username</span>
           </div>
-          <div className="username">
-            <div className="currentUsername">
-              <div className="bold yourUsername">
-                Your current username: {username}
-              </div>
-              <div className="successMessage">Changed successfully.</div>
+          <div className="horizontal">
+            <div className="current">
+              <div className="bold">Your current username: {username}</div>
               <div className="error">Error: Username already exists.</div>
+              <div className="successMessage">Changed successfully.</div>
             </div>
             <div>
               New username:
@@ -198,34 +196,36 @@ export const SettingsComponent = () => {
             >
               change
             </button>
-            <div className="successMessage">Changed successfully.</div>
             <div className="error err5">Error: Passwords do not match.</div>
-            <div className="error">
-              Error: New password cannot be current password.
-            </div>
+            <div className="error">Error: Current password incorrect.</div>
+            <div className="successMessage">Changed successfully.</div>
           </div>
           <div className="h5">
             <span>change email</span>
           </div>
-          <div>
-            <div className="bold">Your current email: {email}</div>
-            <div>
-              New email:
-              <input
-                className="changeSettings"
-                type="email"
-                placeholder="enter new email here"
-                // recording info to send to back end
-                onChange={(e) => setNewEmail(e.target.value)}
-                id="newEmail"
-                value={newEmail}
-              />
+          <div className="horizontal">
+            <div className="current">
+              <div className="bold">Your current email: {email}</div>
+              <div className="error">Error: Email already exists.</div>
+              <div className="successMessage">Changed successfully.</div>
             </div>
-            <button className="changeButton" type="submit">
-              change
-            </button>
-            <div className="successMessage">Changed successfully.</div>
-            <div className="error">Error: Email already exists.</div>
+            <form>
+              <div>
+                New email:
+                <input
+                  className="changeSettings"
+                  type="email"
+                  placeholder="enter new email here"
+                  // recording info to send to back end
+                  onChange={(e) => setNewEmail(e.target.value)}
+                  id="newEmail"
+                  value={newEmail}
+                />
+                <button className="changeButton" type="submit">
+                  change
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
