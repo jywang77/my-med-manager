@@ -1,39 +1,123 @@
 import "./add-medication.css";
 import trash from "./images/trash.svg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Axios from "axios";
 
 export const AddMedication = ({ setShowAdd }) => {
-  // set default value of certain variables
-  const [checked, setChecked] = useState(true);
-  const [reminder, setReminder] = useState(3);
-
-  // mades 'refill date' and 'remind me x days before the refill date' pop up if 'yes' is chosen for refill reminder
+  // show/hide refill popup
   const showRefillPopup = () => {
     const refillPopup = document.querySelector(".refillPopup");
     refillPopup.style.display = "block";
   };
 
-  // hides refill popup if 'no' is chosen for refill reminder
   const hideRefillPopup = () => {
     const refillPopup = document.querySelector(".refillPopup");
     refillPopup.style.display = "none";
+  };
+
+  // grab user id from back end
+  const [id, setId] = useState("");
+
+  useEffect(() => {
+    Axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/users/user",
+    }).then((res) => {
+      setId(res.data._id.toString());
+    });
+  }, []);
+
+  // storing information entered into form
+  const [medName, setMedName] = useState("");
+  const [dose, setDose] = useState("");
+  const [instructions, setInstructions] = useState("");
+  const [notes, setNotes] = useState("");
+  const [refill, setRefill] = useState(null);
+  const [refillDate, setRefillDate] = useState(null);
+  const [reminderDate, setReminderDate] = useState(3); // # of days before refill
+  const [reminderDate2, setReminderDate2] = useState(null); // actual date you will get reminder
+
+  const [breakfast, setBreakfast] = useState(false);
+  const [lunch, setLunch] = useState(false);
+  const [dinner, setDinner] = useState(false);
+  const [bedtime, setBedtime] = useState(false);
+
+  const [sun, setSun] = useState(true);
+  const [mon, setMon] = useState(true);
+  const [tues, setTues] = useState(true);
+  const [wed, setWed] = useState(true);
+  const [thurs, setThurs] = useState(true);
+  const [fri, setFri] = useState(true);
+  const [sat, setSat] = useState(true);
+
+  // sending form information to back end
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    Axios({
+      method: "POST",
+      data: {
+        linkedUser: id,
+        medName: medName,
+        dose: dose,
+        instructions: instructions,
+        time: {
+          breakfast: breakfast,
+          lunch: lunch,
+          dinner: dinner,
+          bedtime: bedtime,
+        },
+        freq: {
+          sun: sun,
+          mon: mon,
+          tues: tues,
+          wed: wed,
+          thurs: thurs,
+          fri: fri,
+          sat: sat,
+        },
+        refill: refill,
+        refillDate: refillDate,
+        reminderDate: reminderDate2,
+        notes: notes,
+      },
+      withCredentials: true,
+      url: "http://localhost:3001/meds/add",
+    }).then((res) => {
+      if (res.data) {
+        setShowAdd(false);
+      }
+    });
   };
 
   return (
     <div className="add">
       <div className="margin">
         <div className="h4">add new medication</div>
-        <form>
+        <form onSubmit={(e) => handleSubmit(e)}>
           {/* medication name */}
           <div>
             <span className="bold">medication name:</span>
             <span className="red"> *</span>
-            <input className="addInput addMedName" type="text" required />
+            <input
+              className="addInput addMedName"
+              type="text"
+              required
+              onChange={(e) => setMedName(e.target.value)}
+              id="medName"
+              value={medName}
+            />
           </div>
           {/* medication dose */}
           <div>
             <span className="bold">medication dose:</span>
-            <input className="addInput addMedDose doseType" type="text" />
+            <input
+              className="addInput addMedDose doseType"
+              type="text"
+              onChange={(e) => setDose(e.target.value)}
+              id="dose"
+              value={dose}
+            />
           </div>
           {/* instructions */}
           <div className="addInstructions">
@@ -41,7 +125,14 @@ export const AddMedication = ({ setShowAdd }) => {
               <span className="bold">instructions:</span>
               <span className="red"> *</span>
             </div>
-            <textarea className="largeInput" type="text" required />
+            <textarea
+              className="largeInput"
+              type="text"
+              required
+              onChange={(e) => setInstructions(e.target.value)}
+              id="instructions"
+              value={instructions}
+            />
           </div>
           {/* when i will take it */}
           <div>
@@ -56,6 +147,9 @@ export const AddMedication = ({ setShowAdd }) => {
                   type="checkbox"
                   id="breakfast"
                   value="breakfast"
+                  onChange={() =>
+                    setBreakfast(document.querySelector("#breakfast").checked)
+                  }
                 />
                 <label htmlFor="breakfast" className="addMedLabel">
                   breakfast
@@ -67,6 +161,9 @@ export const AddMedication = ({ setShowAdd }) => {
                   type="checkbox"
                   id="lunch"
                   value="lunch"
+                  onChange={() =>
+                    setLunch(document.querySelector("#lunch").checked)
+                  }
                 />
                 <label htmlFor="lunch" className="addMedLabel">
                   lunch
@@ -78,6 +175,9 @@ export const AddMedication = ({ setShowAdd }) => {
                   type="checkbox"
                   id="dinner"
                   value="dinner"
+                  onChange={() =>
+                    setDinner(document.querySelector("#dinner").checked)
+                  }
                 />
                 <label htmlFor="dinner" className="addMedLabel">
                   dinner
@@ -89,6 +189,9 @@ export const AddMedication = ({ setShowAdd }) => {
                   type="checkbox"
                   id="bedtime"
                   value="bedtime"
+                  onChange={() =>
+                    setBedtime(document.querySelector("#bedtime").checked)
+                  }
                 />
                 <label htmlFor="bedtime" className="addMedLabel">
                   bedtime
@@ -99,6 +202,7 @@ export const AddMedication = ({ setShowAdd }) => {
           {/* what days i will take it  */}
           <div>
             <span className="bold">what days I will take it:</span>
+            <span className="red"> *</span>
           </div>
           <div className="checkboxMedDayContainer">
             <div className="checkboxMedDay">
@@ -107,8 +211,10 @@ export const AddMedication = ({ setShowAdd }) => {
                 type="checkbox"
                 id="sun"
                 value="Sun"
-                defaultChecked={checked}
-                onChange={() => setChecked(!checked)}
+                defaultChecked={sun}
+                onChange={() => {
+                  setSun(document.querySelector("#sun").checked);
+                }}
               />
               <label htmlFor="sun" className="addMedLabel">
                 Sun
@@ -120,8 +226,10 @@ export const AddMedication = ({ setShowAdd }) => {
                 type="checkbox"
                 id="mon"
                 value="Mon"
-                defaultChecked={checked}
-                onChange={() => setChecked(!checked)}
+                defaultChecked={mon}
+                onChange={() => {
+                  setMon(document.querySelector("#mon").checked);
+                }}
               />
               <label htmlFor="mon" className="addMedLabel">
                 Mon
@@ -133,8 +241,10 @@ export const AddMedication = ({ setShowAdd }) => {
                 type="checkbox"
                 id="tues"
                 value="Tues"
-                defaultChecked={checked}
-                onChange={() => setChecked(!checked)}
+                defaultChecked={tues}
+                onChange={() => {
+                  setTues(document.querySelector("#tues").checked);
+                }}
               />
               <label htmlFor="tues" className="addMedLabel">
                 Tues
@@ -146,8 +256,10 @@ export const AddMedication = ({ setShowAdd }) => {
                 type="checkbox"
                 id="wed"
                 value="Wed"
-                defaultChecked={checked}
-                onChange={() => setChecked(!checked)}
+                defaultChecked={wed}
+                onChange={() => {
+                  setWed(document.querySelector("#wed").checked);
+                }}
               />
               <label htmlFor="wed" className="addMedLabel">
                 Wed
@@ -159,8 +271,10 @@ export const AddMedication = ({ setShowAdd }) => {
                 type="checkbox"
                 id="thurs"
                 value="Thurs"
-                defaultChecked={checked}
-                onChange={() => setChecked(!checked)}
+                defaultChecked={thurs}
+                onChange={() => {
+                  setThurs(document.querySelector("#thurs").checked);
+                }}
               />
               <label htmlFor="thurs" className="addMedLabel">
                 Thurs
@@ -172,8 +286,10 @@ export const AddMedication = ({ setShowAdd }) => {
                 type="checkbox"
                 id="fri"
                 value="Fri"
-                defaultChecked={checked}
-                onChange={() => setChecked(!checked)}
+                defaultChecked={fri}
+                onChange={() => {
+                  setFri(document.querySelector("#fri").checked);
+                }}
               />
               <label htmlFor="fri" className="addMedLabel">
                 Fri
@@ -185,8 +301,10 @@ export const AddMedication = ({ setShowAdd }) => {
                 type="checkbox"
                 id="sat"
                 value="Sat"
-                defaultChecked={checked}
-                onChange={() => setChecked(!checked)}
+                defaultChecked={sat}
+                onChange={() => {
+                  setSat(document.querySelector("#sat").checked);
+                }}
               />
               <label htmlFor="sat" className="addMedLabel">
                 Sat
@@ -207,7 +325,10 @@ export const AddMedication = ({ setShowAdd }) => {
                   name="refillYesNo"
                   id="yes"
                   value="yes"
-                  onClick={showRefillPopup}
+                  onClick={() => {
+                    showRefillPopup();
+                    setRefill(true);
+                  }}
                   required
                 />
                 yes
@@ -218,7 +339,10 @@ export const AddMedication = ({ setShowAdd }) => {
                   name="refillYesNo"
                   id="no"
                   value="no"
-                  onClick={hideRefillPopup}
+                  onClick={() => {
+                    hideRefillPopup();
+                    setRefill(false);
+                  }}
                   required
                 />
                 no
@@ -231,11 +355,33 @@ export const AddMedication = ({ setShowAdd }) => {
               </div>
               <div className="presetDays">
                 <label>
-                  <input type="radio" name="refill" id="30d" value="30d" />
+                  <input
+                    type="radio"
+                    name="refill"
+                    id="30d"
+                    value="30d"
+                    onClick={() => {
+                      const today = new Date();
+                      const next = new Date();
+                      next.setDate(today.getDate() + 30);
+                      setRefillDate(next);
+                    }}
+                  />
                   30 days from today
                 </label>
                 <label>
-                  <input type="radio" name="refill" id="90d" value="90d" />
+                  <input
+                    type="radio"
+                    name="refill"
+                    id="90d"
+                    value="90d"
+                    onClick={() => {
+                      const today = new Date();
+                      const next = new Date();
+                      next.setDate(today.getDate() + 90);
+                      setRefillDate(next);
+                    }}
+                  />
                   90 days from today
                 </label>
                 <label>
@@ -246,7 +392,15 @@ export const AddMedication = ({ setShowAdd }) => {
                     value="pick date"
                   />
                   I will choose my own refill date from the calendar:{" "}
-                  <input type="date" className="refillDate" />
+                  <input
+                    type="date"
+                    className="refillDate"
+                    onChange={(e) => {
+                      const selected = new Date(e.target.value);
+                      setRefillDate(selected);
+                      // can't add 1 day
+                    }}
+                  />
                 </label>
               </div>
               <div>
@@ -254,8 +408,17 @@ export const AddMedication = ({ setShowAdd }) => {
                 <input
                   type="number"
                   className="addInput remindDate"
-                  value={reminder}
-                  onChange={(e) => setReminder(e.target.value)}
+                  value={reminderDate}
+                  onChange={(e) => {
+                    setReminderDate(e.target.value);
+
+                    const next = new Date();
+                    next.setDate(refillDate - reminderDate);
+
+                    setReminderDate2(next);
+                    console.log(reminderDate2);
+                    // can't subtract x days
+                  }}
                 />
                 days before the refill date.
               </div>
@@ -268,7 +431,13 @@ export const AddMedication = ({ setShowAdd }) => {
               used for, how to take it, treatment targets, or whatever else you
               would like to keep track of.
             </div>
-            <textarea className="largeInput" type="text" />
+            <textarea
+              className="largeInput"
+              type="text"
+              onChange={(e) => setNotes(e.target.value)}
+              id="notes"
+              value={notes}
+            />
           </div>
           {/* buttons at the bottom */}
           <div className="addButtonsBottom">

@@ -5,10 +5,24 @@ const med = new mongoose.Schema({
   medName: String,
   dose: String,
   instructions: String,
-  time: String,
-  freq: String,
+  time: {
+    breakfast: Boolean,
+    lunch: Boolean,
+    dinner: Boolean,
+    bedtime: Boolean,
+  },
+  freq: {
+    sun: Boolean,
+    mon: Boolean,
+    tues: Boolean,
+    wed: Boolean,
+    thurs: Boolean,
+    fri: Boolean,
+    sat: Boolean,
+  },
   refill: Boolean,
-  reminder: Date,
+  refillDate: Date,
+  reminderDate: Date,
   notes: String,
 });
 

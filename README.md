@@ -13,6 +13,8 @@ npm start
 
 - Finish calendar
 - Fix protected routes problem
+- Add medication: select custom refill date is 1 day off
+- Reminder date
 
 (Low priority)
 
