@@ -2,6 +2,8 @@ import "./add-medication.css";
 import trash from "./images/trash.svg";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import Datepicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const AddMedication = ({ setShowAdd }) => {
   // show/hide refill popup
@@ -35,6 +37,7 @@ export const AddMedication = ({ setShowAdd }) => {
   const [notes, setNotes] = useState("");
   const [refill, setRefill] = useState(null);
   const [refillDate, setRefillDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date()); // select custom refill date
   const [reminderDate, setReminderDate] = useState(3); // # of days before refill
   const [reminderDate2, setReminderDate2] = useState(null); // actual date you will get reminder
 
@@ -50,6 +53,17 @@ export const AddMedication = ({ setShowAdd }) => {
   const [thurs, setThurs] = useState(true);
   const [fri, setFri] = useState(true);
   const [sat, setSat] = useState(true);
+
+  // calculate date you will be reminded to refill (reminderDate2)
+  useEffect(() => {
+    const next = new Date();
+
+    next.setDate(refillDate - reminderDate);
+
+    setReminderDate2(next);
+  }, [refillDate, reminderDate]);
+
+  console.log(`${refillDate} - ${reminderDate} = ${reminderDate2}`);
 
   // sending form information to back end
   const handleSubmit = (e) => {
@@ -391,14 +405,13 @@ export const AddMedication = ({ setShowAdd }) => {
                     id="pickDate"
                     value="pick date"
                   />
-                  I will choose my own refill date from the calendar:{" "}
-                  <input
-                    type="date"
+                  I will choose my own refill date:{" "}
+                  <Datepicker
                     className="refillDate"
-                    onChange={(e) => {
-                      const selected = new Date(e.target.value);
-                      setRefillDate(selected);
-                      // can't add 1 day
+                    selected={selectedDate}
+                    onChange={(date) => {
+                      setSelectedDate(date);
+                      setRefillDate(date);
                     }}
                   />
                 </label>
@@ -409,15 +422,9 @@ export const AddMedication = ({ setShowAdd }) => {
                   type="number"
                   className="addInput remindDate"
                   value={reminderDate}
+                  min="0"
                   onChange={(e) => {
                     setReminderDate(e.target.value);
-
-                    const next = new Date();
-                    next.setDate(refillDate - reminderDate);
-
-                    setReminderDate2(next);
-                    console.log(reminderDate2);
-                    // can't subtract x days
                   }}
                 />
                 days before the refill date.

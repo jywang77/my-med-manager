@@ -80,18 +80,21 @@ body {
   margin-bottom: 10pt;
 }
 
-.startDate,
 .refillDate {
   border: none;
   background-color: rgba(47, 62, 70, 0.5);
+  font-family: "Roboto", sans-serif;
   font-size: large;
   border-radius: 10px;
   padding: 4px;
   color: white;
   margin-right: 10px;
-  font-family: "Roboto", sans-serif;
   margin-bottom: 10pt;
-  width: 130px;
+  width: 110px;
+}
+
+.react-datepicker-wrapper {
+  width: auto !important;
 }
 
 .addInstructions {
