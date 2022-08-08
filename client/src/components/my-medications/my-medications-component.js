@@ -31,6 +31,7 @@ export const MyMedicationsComponent = () => {
               </button>
             </div>
           </div>
+          {/* loop based on number of meds */}
           <div className="medList">
             <div className="medDetails">
               <div className="h6">
@@ -53,52 +54,6 @@ export const MyMedicationsComponent = () => {
               </button>
             </div>
           </div>
-          {/* can delete */}
-          <div className="medList">
-            <div className="medDetails">
-              <div className="h6">
-                {drugName} {drugDose}
-              </div>
-              <div>{instructions}</div>
-              <div>
-                <span className="bold">refill date:</span> {refillDate}
-              </div>
-              <div>
-                <span className="bold">notes:</span> {note}
-              </div>
-            </div>
-            <div>
-              <button
-                className="editButton"
-                onClick={() => setShowEdit((prev) => !prev)}
-              >
-                <img className="editIcon" src={edit} alt="edit medication" />
-              </button>
-            </div>
-          </div>
-          <div className="medList">
-            <div className="medDetails">
-              <div className="h6">
-                {drugName} {drugDose}
-              </div>
-              <div>{instructions}</div>
-              <div>
-                <span className="bold">refill date:</span> {refillDate}
-              </div>
-              <div>
-                <span className="bold">notes:</span> {note}
-              </div>
-            </div>
-            <div>
-              <button
-                className="editButton"
-                onClick={() => setShowEdit((prev) => !prev)}
-              >
-                <img className="editIcon" src={edit} alt="edit medication" />
-              </button>
-            </div>
-          </div>
-          {/* can delete */}
         </div>
       </div>
       {showAdd && <AddMedication setShowAdd={setShowAdd} />}

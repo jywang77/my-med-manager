@@ -37,7 +37,7 @@ export const AddMedication = ({ setShowAdd }) => {
   const [notes, setNotes] = useState("");
   const [refill, setRefill] = useState(null);
   const [refillDate, setRefillDate] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(new Date()); // select custom refill date
+  const [selectedDate, setSelectedDate] = useState(null); // select custom refill date
   const [reminderDate, setReminderDate] = useState(3); // # of days before refill
   const [reminderDate2, setReminderDate2] = useState(null); // actual date you will get reminder
 
@@ -56,14 +56,18 @@ export const AddMedication = ({ setShowAdd }) => {
 
   // calculate date you will be reminded to refill (reminderDate2)
   useEffect(() => {
-    const next = new Date();
+    var next = new Date();
 
-    next.setDate(refillDate - reminderDate);
+    if (refillDate) {
+      next.setTime(
+        new Date(refillDate).getTime() - reminderDate * 1000 * 60 * 60 * 24
+      );
+    } else {
+      next = null;
+    }
 
     setReminderDate2(next);
   }, [refillDate, reminderDate]);
-
-  console.log(`${refillDate} - ${reminderDate} = ${reminderDate2}`);
 
   // sending form information to back end
   const handleSubmit = (e) => {
