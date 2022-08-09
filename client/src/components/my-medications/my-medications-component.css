@@ -58,3 +58,16 @@
 .medList:hover .editButton {
   display: block;
 }
+
+.noMedications {
+  margin: auto;
+  font-size: 20pt;
+  font-style: italic;
+  font-weight: 600;
+  color: #84a98c;
+  text-align: center;
+  width: 60vw;
+  min-width: 500px;
+  margin-top: 20vh;
+  display: none;
+}

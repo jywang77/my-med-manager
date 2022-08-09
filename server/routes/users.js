@@ -3,6 +3,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const User = require("../resources/userSchema");
+const Med = require("../resources/medSchema");
 const isAuth = require("../resources/authMiddleware").isAuth;
 
 const router = express.Router();
@@ -188,7 +189,7 @@ router.delete("/delete-account/:id", isAuth, async (req, res) => {
       // if passwords match, delete account
       try {
         await User.findByIdAndRemove(req.params.id).exec();
-        // delete associated meds as well
+        await Med.deleteMany({ linkedUser: req.params.id });
 
         res.status(200).send(true);
       } catch (err) {

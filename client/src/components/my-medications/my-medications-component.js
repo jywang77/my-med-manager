@@ -56,6 +56,13 @@ export const MyMedicationsComponent = () => {
               </button>
             </div>
           </div>
+          {/* if array is empty, show "no medications here" message */}
+          <p
+            className={"noMedications" + (medArray.length === 0 ? " show" : "")}
+          >
+            There are currently no medications to show. You can add a medication
+            using the plus button on the top right of the screen.
+          </p>
           {/* loop based on number of meds */}
           {medArray.map((med) => {
             return (
