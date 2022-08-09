@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 45%;
   margin-top: 5%;
+  min-width: 400px;
 }
 
 /* form, buttons */

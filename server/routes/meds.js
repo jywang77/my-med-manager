@@ -53,7 +53,12 @@ router.get("/med/:id", isAuth, (req, res) => {
 
 // get list of all medications for a user
 router.get("/all/:linkedUser", isAuth, (req, res) => {
-  res.send("This will get a list of all meds");
+  Med.find({ linkedUser: req.params.linkedUser }, (err, array) => {
+    if (err) console.error(err);
+    else {
+      res.status(200).send(array);
+    }
+  });
 });
 
 module.exports = router;

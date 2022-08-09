@@ -13,7 +13,8 @@ npm start
 
 - Finish calendar
 - Fix protected routes problem
-- Reminder date
+- add and edit medications page - loop
+- secure connection?
 
 (Low priority)
 

@@ -104,6 +104,7 @@ export const AddMedication = ({ setShowAdd }) => {
     }).then((res) => {
       if (res.data) {
         setShowAdd(false);
+        window.location.reload();
       }
     });
   };
