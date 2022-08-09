@@ -39,6 +39,7 @@ export const MyMedicationsComponent = () => {
   // show/hide the add and edit medication pop-ups
   const [showAdd, setShowAdd] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [medId, setMedId] = useState("");
 
   return (
     <div>
@@ -78,7 +79,10 @@ export const MyMedicationsComponent = () => {
                 <div>
                   <button
                     className="editButton"
-                    onClick={() => setShowEdit((prev) => !prev)}
+                    onClick={() => {
+                      setShowEdit((prev) => !prev);
+                      setMedId(med._id);
+                    }}
                   >
                     <img
                       className="editIcon"
@@ -92,8 +96,8 @@ export const MyMedicationsComponent = () => {
           })}
         </div>
       </div>
+      {showEdit && <EditMedication setShowEdit={setShowEdit} medId={medId} />}
       {showAdd && <AddMedication setShowAdd={setShowAdd} />}
-      {showEdit && <EditMedication setShowEdit={setShowEdit} />}
     </div>
   );
 };

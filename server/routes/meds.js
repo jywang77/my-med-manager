@@ -37,18 +37,44 @@ router.post("/add", isAuth, async (req, res) => {
 });
 
 // edit a medication
-router.patch("/edit/:id", isAuth, (req, res) => {
-  res.send("This will edit med info");
+router.put("/edit/:id", isAuth, async (req, res) => {
+  try {
+    updatedMed = await Med.findByIdAndUpdate(
+      req.params.id,
+      {
+        // insert data here
+      },
+      { new: true }
+    );
+
+    res.status(200).send(true);
+  } catch (err) {
+    res.status(500).console.error(err);
+  }
 });
 
 // delete a medication
-router.delete("/delete/:id", isAuth, (req, res) => {
-  res.send("This will delete a med");
+router.delete("/delete/:id", isAuth, async (req, res) => {
+  try {
+    await Med.findByIdAndRemove(req.params.id).exec();
+    res.status(200).send(true);
+  } catch (err) {
+    res.status(500).console.error(err);
+  }
 });
 
 // get details for a medication
 router.get("/med/:id", isAuth, (req, res) => {
-  res.send("This will get the info of a particular med for editing");
+  Med.findById(
+    req.params.id,
+    (err, array) => {
+      if (err) console.error(err);
+      else {
+        res.status(200).send(array);
+      }
+    },
+    { new: true }
+  );
 });
 
 // get list of all medications for a user
