@@ -14,6 +14,7 @@ npm start
 - Finish calendar
 - Fix protected routes problem
 - secure connection?
+- my medications page: There are currently no medications to show. You can add a medication using the plus button on the top right of the screen.
 
 (Low priority)
 

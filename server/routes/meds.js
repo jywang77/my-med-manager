@@ -30,6 +30,7 @@ router.post("/add", isAuth, async (req, res) => {
     refill: req.body.refill,
     refillDate: req.body.refillDate,
     reminderDate: req.body.reminderDate,
+    reminderDate2: req.body.reminderDate2,
     notes: req.body.notes,
   });
   await newMed.save();
@@ -42,7 +43,30 @@ router.put("/edit/:id", isAuth, async (req, res) => {
     updatedMed = await Med.findByIdAndUpdate(
       req.params.id,
       {
-        // insert data here
+        linkedUser: req.body.linkedUser,
+        medName: req.body.medName,
+        dose: req.body.dose,
+        instructions: req.body.instructions,
+        time: {
+          breakfast: req.body.time.breakfast,
+          lunch: req.body.time.lunch,
+          dinner: req.body.time.dinner,
+          bedtime: req.body.time.bedtime,
+        },
+        freq: {
+          sun: req.body.freq.sun,
+          mon: req.body.freq.mon,
+          tues: req.body.freq.tues,
+          wed: req.body.freq.wed,
+          thurs: req.body.freq.thurs,
+          fri: req.body.freq.fri,
+          sat: req.body.freq.sat,
+        },
+        refill: req.body.refill,
+        refillDate: req.body.refillDate,
+        reminderDate: req.body.reminderDate,
+        reminderDate2: req.body.reminderDate2,
+        notes: req.body.notes,
       },
       { new: true }
     );

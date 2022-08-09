@@ -30,10 +30,8 @@ export const EditMedication = ({ setShowEdit, medId }) => {
     });
   }, [medId]);
 
-  console.log(med);
-
   // storing information entered into form
-  const [medName, setMedName] = useState(`${med.medName}`);
+  const [medName, setMedName] = useState("");
   const [dose, setDose] = useState("");
   const [instructions, setInstructions] = useState("");
   const [notes, setNotes] = useState("");
@@ -55,6 +53,32 @@ export const EditMedication = ({ setShowEdit, medId }) => {
   const [thurs, setThurs] = useState(true);
   const [fri, setFri] = useState(true);
   const [sat, setSat] = useState(true);
+
+  // prepopulate form with medication info
+  useEffect(() => {
+    setMedName(med.medName);
+    setDose(med.dose);
+    setInstructions(med.instructions);
+
+    // setBreakfast(med.time.breakfast);
+    // setLunch(med.time.lunch);
+    // setDinner(med.time.dinner);
+    // setBedtime(med.time.bedtime);
+
+    // setSun(med.freq.sun);
+    // setMon(med.freq.mon);
+    // setTues(med.freq.tues);
+    // setWed(med.freq.wed);
+    // setThurs(med.freq.thurs);
+    // setFri(med.freq.fri);
+    // setSat(med.freq.sat);
+
+    // setRefill(med.refill);
+    // setRefillDate(new Date(med.refillDate));
+    setReminderDate(med.reminderDate);
+    // setReminderDate2(new Date(med.reminderDate2));
+    setNotes(med.notes);
+  }, [med]);
 
   // calculate date you will be reminded to refill (reminderDate2)
   useEffect(() => {
@@ -98,7 +122,8 @@ export const EditMedication = ({ setShowEdit, medId }) => {
         },
         refill: refill,
         refillDate: refillDate,
-        reminderDate: reminderDate2,
+        reminderDate: reminderDate,
+        reminderDate2: reminderDate2,
         notes: notes,
       },
       withCredentials: true,

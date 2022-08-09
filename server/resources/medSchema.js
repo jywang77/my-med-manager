@@ -22,7 +22,8 @@ const med = new mongoose.Schema({
   },
   refill: Boolean,
   refillDate: Date,
-  reminderDate: Date,
+  reminderDate: String,
+  reminderDate2: Date,
   notes: String,
 });
 
