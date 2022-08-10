@@ -168,12 +168,12 @@ export const EditMedication = ({ setShowEdit, medId }) => {
 
   // show/hide refill popup
   const showRefillPopup = () => {
-    const refillPopup = document.querySelector(".refillPopup");
+    const refillPopup = document.querySelector(".refillPopupEdit");
     refillPopup.style.display = "block";
   };
 
   const hideRefillPopup = () => {
-    const refillPopup = document.querySelector(".refillPopup");
+    const refillPopup = document.querySelector(".refillPopupEdit");
     refillPopup.style.display = "none";
   };
 
@@ -436,7 +436,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
               </label>
             </div>
             {/* refill reminder */}
-            <div className="refillPopup" style={{ display: "none" }}>
+            <div className="refillPopupEdit" style={{ display: "none" }}>
               <div>
                 <span className="bold">refill date: * </span> (mm/dd/yyyy){" "}
                 <Datepicker
@@ -455,9 +455,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                   className="addInput remindDate"
                   value={reminderDate}
                   min="0"
-                  onChange={(e) => {
-                    setReminderDate(e.target.value);
-                  }}
+                  onChange={(e) => setReminderDate(e.target.value)}
                   required={refill}
                 />
                 days before the refill date.
@@ -484,7 +482,8 @@ export const EditMedication = ({ setShowEdit, medId }) => {
           <div className="addButtonsBottom">
             <button
               className="deleteButton"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 setShowDelete(true);
               }}
             >

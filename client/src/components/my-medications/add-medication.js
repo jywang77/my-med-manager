@@ -8,12 +8,12 @@ import "react-datepicker/dist/react-datepicker.css";
 export const AddMedication = ({ setShowAdd }) => {
   // show/hide refill popup
   const showRefillPopup = () => {
-    const refillPopup = document.querySelector(".refillPopup");
+    const refillPopup = document.querySelector(".refillPopupAdd");
     refillPopup.style.display = "block";
   };
 
   const hideRefillPopup = () => {
-    const refillPopup = document.querySelector(".refillPopup");
+    const refillPopup = document.querySelector(".refillPopupAdd");
     refillPopup.style.display = "none";
   };
 
@@ -112,8 +112,8 @@ export const AddMedication = ({ setShowAdd }) => {
   };
 
   // grab today's date
-  const today = new Date();
-  today.getDate();
+  const minDate = new Date();
+  minDate.getDate();
 
   return (
     <div className="add">
@@ -360,7 +360,7 @@ export const AddMedication = ({ setShowAdd }) => {
               </label>
             </div>
             {/* refill reminder */}
-            <div className="refillPopup" style={{ display: "none" }}>
+            <div className="refillPopupAdd" style={{ display: "none" }}>
               <div>
                 <span className="bold">refill date: *</span>
               </div>
@@ -416,7 +416,7 @@ export const AddMedication = ({ setShowAdd }) => {
                       setSelectedDate(date);
                       setRefillDate(date);
                     }}
-                    minDate={today}
+                    minDate={minDate}
                     required={customDate}
                   />
                 </label>
