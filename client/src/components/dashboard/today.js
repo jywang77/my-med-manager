@@ -23,15 +23,18 @@ export const Today = () => {
   // decides if greeting is good morning, good afternoon, or good evening
   const today = new Date();
   const time = today.getHours();
-  let greeting = "";
 
-  if (time >= 6 && time < 12) {
-    greeting = "morning";
-  } else if (time >= 12 && time < 19) {
-    greeting = "afternoon";
-  } else {
-    greeting = "evening";
-  }
+  const [greeting, setGreeting] = useState("");
+
+  useEffect(() => {
+    if (time >= 6 && time < 12) {
+      setGreeting("morning");
+    } else if (time >= 12 && time < 19) {
+      setGreeting("afternoon");
+    } else {
+      setGreeting("evening");
+    }
+  }, [time]);
 
   // displays today's date
   const days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
@@ -55,51 +58,190 @@ export const Today = () => {
   const month = months[today.getMonth()];
   const date = today.getDate();
 
+  // grab user id from back end
+  const [linkedUser, setLinkedUser] = useState("");
+
+  useEffect(() => {
+    Axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/users/user",
+    }).then((res) => {
+      setLinkedUser(res.data._id.toString());
+    });
+  }, []);
+
+  // use the user id to query all medications for user and place in array
+  const [medArray, setMedArray] = useState([]);
+
+  useEffect(() => {
+    if (linkedUser) {
+      Axios({
+        method: "GET",
+        withCredentials: true,
+        url: `http://localhost:3001/meds/all/${linkedUser}`,
+      }).then((res) => {
+        setMedArray(res.data);
+      });
+    }
+  }, [linkedUser]);
+
+  // filter medArray so that only the medications taken today are shown in todaysMedArray
+  const [todaysMedArray, setTodaysMedArray] = useState([]);
+  const dayOfWeek = today.getDay();
+
+  useEffect(() => {
+    medArray.filter((med) => {
+      if (med.freq[Object.keys(med.freq)[dayOfWeek]] === true) {
+        return setTodaysMedArray((old) => [...old, med]);
+      } else return setTodaysMedArray((old) => old);
+    });
+  }, [dayOfWeek, medArray]);
+
+  // make separate arrays to hold breakfast, lunch, dinner, bedtime medications
+  const [breakfastArray, setBreakfastArray] = useState([]);
+  useEffect(() => {
+    todaysMedArray.filter((med) => {
+      if (med.time.breakfast === true) {
+        return setBreakfastArray((old) => [...old, med]);
+      } else return setBreakfastArray((old) => old);
+    });
+  }, [todaysMedArray]);
+
+  const [lunchArray, setLunchArray] = useState([]);
+  useEffect(() => {
+    todaysMedArray.filter((med) => {
+      if (med.time.lunch === true) {
+        return setLunchArray((old) => [...old, med]);
+      } else return setLunchArray((old) => old);
+    });
+  }, [todaysMedArray]);
+
+  const [dinnerArray, setDinnerArray] = useState([]);
+  useEffect(() => {
+    todaysMedArray.filter((med) => {
+      if (med.time.dinner === true) {
+        return setDinnerArray((old) => [...old, med]);
+      } else return setDinnerArray((old) => old);
+    });
+  }, [todaysMedArray]);
+
+  const [bedtimeArray, setBedtimeArray] = useState([]);
+  useEffect(() => {
+    todaysMedArray.filter((med) => {
+      if (med.time.bedtime === true) {
+        return setBedtimeArray((old) => [...old, med]);
+      } else return setBedtimeArray((old) => old);
+    });
+  }, [todaysMedArray]);
+
   return (
-    <div>
-      <div className="schedule">
-        <div className="greeting">
-          good {greeting}, <span className="green">{name}</span>!
-        </div>
-        <div className="greeting2">here is today's medication schedule:</div>
-        <div className="greeting">
-          {day} <span className="green">{month}</span> {date}
-        </div>
-        <div className="table">
-          {/* breakfast */}
-          <div className="row">
-            <div className="medTime">breakfast</div>
-            <div className="medication">
-              <div className="medName">
-                <input type="checkbox" />
-                <label className="medLabel">ramipril 5mg</label>
-              </div>
-              <div className="instructions">take 1 capsule once daily</div>
-            </div>
+    <div className="schedule">
+      <div className="greeting">
+        good {greeting}, <span className="green">{name}</span>!
+      </div>
+      <div className="greeting2">here is today's medication schedule:</div>
+      <div className="greeting">
+        {day} <span className="green">{month}</span> {date}
+      </div>
+      <div className="table">
+        {/* if array is empty, show "no medications here" message */}
+        <p
+          className={
+            "noMedications2" +
+            (breakfastArray.length === 0 &&
+            lunchArray.length === 0 &&
+            dinnerArray.length === 0 &&
+            bedtimeArray.length === 0
+              ? " show"
+              : "")
+          }
+        >
+          There are currently no medications to show. You can add or edit a
+          medication using the 'my medications' tab.
+        </p>
+        {/* breakfast */}
+        <div className={"row" + (breakfastArray.length === 0 ? " hide" : "")}>
+          <div className="medTime">breakfast</div>
+          <div className="medContainer">
+            {breakfastArray.map((med) => {
+              return (
+                <div className="medication" key={med._id}>
+                  <div className="medName">
+                    <input type="checkbox" />
+                    <div className="strikethrough">
+                      <label className="medLabel">
+                        {med.medName} {med.dose}
+                      </label>
+                      <div className="instructions">{med.instructions}</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-          {/* dinner */}
-          <div className="row">
-            <div className="medTime">dinner</div>
-            <div className="medication">
-              <div className="medName">
-                <input type="checkbox" />
-                <label className="medLabel">metformin 500mg</label>
-              </div>
-              <div className="instructions">take 2 tablets once daily</div>
-            </div>
+        </div>
+        {/* lunch */}
+        <div className={"row" + (lunchArray.length === 0 ? " hide" : "")}>
+          <div className="medTime">lunch</div>
+          <div className="medContainer">
+            {lunchArray.map((med) => {
+              return (
+                <div className="medication" key={med._id}>
+                  <div className="medName">
+                    <input type="checkbox" />
+                    <div className="strikethrough">
+                      <label className="medLabel">
+                        {med.medName} {med.dose}
+                      </label>
+                      <div className="instructions">{med.instructions}</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-          {/* bedtime */}
-          <div className="row">
-            <div className="medTime">bedtime</div>
-            <div className="medication">
-              <div className="medName">
-                <input type="checkbox" />
-                <label className="medLabel">zolpidem 10mg</label>
-              </div>
-              <div className="instructions">
-                take 1 tablet at bedtime if needed for sleep
-              </div>
-            </div>
+        </div>
+        {/* dinner */}
+        <div className={"row" + (dinnerArray.length === 0 ? " hide" : "")}>
+          <div className="medTime">dinner</div>
+          <div className="medContainer">
+            {dinnerArray.map((med) => {
+              return (
+                <div className="medication" key={med._id}>
+                  <div className="medName">
+                    <input type="checkbox" />
+                    <div className="strikethrough">
+                      <label className="medLabel">
+                        {med.medName} {med.dose}
+                      </label>
+                      <div className="instructions">{med.instructions}</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        {/* bedtime */}
+        <div className={"row" + (bedtimeArray.length === 0 ? " hide" : "")}>
+          <div className="medTime">bedtime</div>
+          <div className="medContainer">
+            {bedtimeArray.map((med) => {
+              return (
+                <div className="medication" key={med._id}>
+                  <div className="medName">
+                    <input type="checkbox" />
+                    <div className="strikethrough">
+                      <label className="medLabel">
+                        {med.medName} {med.dose}
+                      </label>
+                      <div className="instructions">{med.instructions}</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

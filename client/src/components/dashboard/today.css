@@ -1,8 +1,14 @@
 .schedule {
   display: flex;
   flex-direction: column;
-  margin-top: 15vh;
-  margin-left: 125px;
+  padding-top: 15vh;
+  padding-left: 125px;
+  background: rgb(82, 121, 111);
+  background: linear-gradient(
+    90deg,
+    rgba(82, 121, 111, 1) 90%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
 
 .greeting {
@@ -29,6 +35,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+  margin-bottom: 15vh;
 }
 
 .row {
@@ -45,10 +52,12 @@
 
 .medName {
   font-weight: 500;
+  display: flex;
+  flex-direction: row;
 }
 
 .instructions {
-  margin-left: 60pt;
+  margin-left: 40pt;
   font-weight: 300;
 }
 
@@ -67,6 +76,11 @@
   font-size: 20pt;
   font-weight: 400;
   width: 500px;
+}
+
+.medContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 input[type="checkbox"] {
@@ -93,10 +107,23 @@ input[type="checkbox"]:checked {
   background-repeat: no-repeat;
 }
 
-input[type="checkbox"]:checked + .medLabel {
+input[type="checkbox"]:checked + .strikethrough {
   text-decoration: line-through #cad2c5 solid 3px;
 }
 
 .medLabel {
   margin-left: 15px;
+}
+
+.hide {
+  display: none;
+}
+
+.noMedications2 {
+  font-size: 20pt;
+  font-style: italic;
+  font-weight: 600;
+  color: #84a98c;
+  display: none;
+  width: 700px;
 }
