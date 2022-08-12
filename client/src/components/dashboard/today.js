@@ -2,7 +2,7 @@ import "./today.css";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 
-export const Today = () => {
+export const Today = ({ medArray }) => {
   // name
   const [name, setName] = useState("");
 
@@ -57,34 +57,6 @@ export const Today = () => {
   const day = days[today.getDay()];
   const month = months[today.getMonth()];
   const date = today.getDate();
-
-  // grab user id from back end
-  const [linkedUser, setLinkedUser] = useState("");
-
-  useEffect(() => {
-    Axios({
-      method: "GET",
-      withCredentials: true,
-      url: "http://localhost:3001/users/user",
-    }).then((res) => {
-      setLinkedUser(res.data._id.toString());
-    });
-  }, []);
-
-  // use the user id to query all medications for user and place in array
-  const [medArray, setMedArray] = useState([]);
-
-  useEffect(() => {
-    if (linkedUser) {
-      Axios({
-        method: "GET",
-        withCredentials: true,
-        url: `http://localhost:3001/meds/all/${linkedUser}`,
-      }).then((res) => {
-        setMedArray(res.data);
-      });
-    }
-  }, [linkedUser]);
 
   // filter medArray so that only the medications taken today are shown in todaysMedArray
   const [todaysMedArray, setTodaysMedArray] = useState([]);
