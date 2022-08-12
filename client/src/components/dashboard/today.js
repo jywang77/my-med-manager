@@ -63,6 +63,7 @@ export const Today = ({ medArray }) => {
   const dayOfWeek = today.getDay();
 
   useEffect(() => {
+    setTodaysMedArray([]);
     medArray.filter((med) => {
       if (med.freq[Object.keys(med.freq)[dayOfWeek]] === true) {
         return setTodaysMedArray((old) => [...old, med]);
@@ -73,6 +74,7 @@ export const Today = ({ medArray }) => {
   // make separate arrays to hold breakfast, lunch, dinner, bedtime medications
   const [breakfastArray, setBreakfastArray] = useState([]);
   useEffect(() => {
+    setBreakfastArray([]);
     todaysMedArray.filter((med) => {
       if (med.time.breakfast === true) {
         return setBreakfastArray((old) => [...old, med]);
@@ -82,6 +84,7 @@ export const Today = ({ medArray }) => {
 
   const [lunchArray, setLunchArray] = useState([]);
   useEffect(() => {
+    setLunchArray([]);
     todaysMedArray.filter((med) => {
       if (med.time.lunch === true) {
         return setLunchArray((old) => [...old, med]);
@@ -91,6 +94,7 @@ export const Today = ({ medArray }) => {
 
   const [dinnerArray, setDinnerArray] = useState([]);
   useEffect(() => {
+    setDinnerArray([]);
     todaysMedArray.filter((med) => {
       if (med.time.dinner === true) {
         return setDinnerArray((old) => [...old, med]);
@@ -100,6 +104,7 @@ export const Today = ({ medArray }) => {
 
   const [bedtimeArray, setBedtimeArray] = useState([]);
   useEffect(() => {
+    setBedtimeArray([]);
     todaysMedArray.filter((med) => {
       if (med.time.bedtime === true) {
         return setBedtimeArray((old) => [...old, med]);

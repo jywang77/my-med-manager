@@ -8,6 +8,7 @@ export const Reminder = ({ medArray }) => {
   const [reminderArray, setReminderArray] = useState([]);
 
   useEffect(() => {
+    setReminderArray([]);
     medArray.filter((med) => {
       const date0 = new Date(med.reminderDate2).setHours(0, 0, 0, 0);
       if (!med.reminderDate2) {
