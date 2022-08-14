@@ -2,7 +2,7 @@ import "./reminder.css";
 import img from "./dashboard.png";
 import alert from "./alert.svg";
 import { useState, useEffect } from "react";
-import { Axios } from "axios";
+import Axios from "axios";
 
 export const Reminder = ({ medArray }) => {
   // filter medArray so that only the medications that require refill reminder are shown in reminderArray
@@ -23,16 +23,18 @@ export const Reminder = ({ medArray }) => {
   }, [medArray]);
 
   // grab info of med when clicking checkbox
-  const [med, setMed] = useState("");
+  const [med, setMed] = useState({});
   const [showDelete, setShowDelete] = useState(false);
 
-  const handleRefillDelete = async () => {
-    await Axios({
+  const handleRefillDelete = () => {
+    Axios({
       method: "PATCH",
       withCredentials: true,
       url: `http://localhost:3001/meds/delete-refill/${med._id}`,
     }).then((res) => {
       if (res.data === true) {
+        setMed({});
+        setShowDelete(false);
         window.location.reload();
       }
     });
@@ -47,18 +49,19 @@ export const Reminder = ({ medArray }) => {
             <span className="red"> refill </span>
             <img className="alert" src={alert} alt="" />
           </legend>
-          {reminderArray.map((med) => {
+          {reminderArray.map((medEntry) => {
             return (
-              <div className="refillMed" key={med._id}>
+              <div className="refillMed" key={medEntry._id}>
                 <input
                   type="checkbox"
-                  onClick={() => {
-                    setMed(med);
+                  checked={med === medEntry}
+                  onChange={() => {
+                    setMed(medEntry);
                     setShowDelete(true);
                   }}
                 />
                 <label className="medLabel">
-                  {med.medName} {med.dose}
+                  {medEntry.medName} {medEntry.dose}
                 </label>
               </div>
             );
@@ -75,8 +78,8 @@ export const Reminder = ({ medArray }) => {
           <button
             className="noDelete"
             onClick={() => {
+              setMed({});
               setShowDelete(false);
-              // uncheck checkbox
             }}
           >
             No, go back
