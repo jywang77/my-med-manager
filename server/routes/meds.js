@@ -111,4 +111,18 @@ router.get("/all/:linkedUser", isAuth, (req, res) => {
   });
 });
 
+// edit refill date
+router.patch("/delete-refill/:id", isAuth, async (req, res) => {
+  await Med.findByIdAndUpdate(
+    req.params.id,
+    { reminderDate2: null },
+    (err, cb) => {
+      if (err) console.error(err);
+      else {
+        res.status(200).send(true);
+      }
+    }
+  );
+});
+
 module.exports = router;

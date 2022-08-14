@@ -16,4 +16,4 @@ npm start
 - If user is logged in, do not allow them to visit home page and create account page
 - secure connection?
 
-- dashboard: keep checkbox checked
+- dashboard: keep checkbox checked, uncheck checkbox when go back, back end communication reminder

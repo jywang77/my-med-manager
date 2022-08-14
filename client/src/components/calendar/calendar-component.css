@@ -52,22 +52,39 @@
   border-radius: 15px;
 }
 
+.rbc-btn-group button {
+  border-radius: 20px !important;
+}
+
 /* top section */
 .rbc-toolbar {
   display: flex;
   height: 44px;
   margin-bottom: 2vh;
+  -webkit-box-pack: left !important;
+  -ms-flex-pack: left !important;
+  justify-content: left !important;
+  -webkit-box-align: left !important;
+  -ms-flex-align: left !important;
+  align-items: left !important;
 }
 
 /* navigation arrow appearance */
-.react-calendar__navigation__arrow {
+.rbc-toolbar button {
   font-size: 40pt;
   font-family: "Roboto", sans-serif;
-  color: #52796f;
+  color: #84a98c !important;
+  background-color: transparent !important;
 }
 
-.react-calendar__navigation__arrow:hover {
+.rbc-toolbar button:hover {
   opacity: 0.5;
+}
+
+.rbc-toolbar button:active {
+  opacity: 0.5;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
 }
 
 /* month year text */
@@ -76,17 +93,17 @@
   font-family: "Roboto", sans-serif;
   text-transform: lowercase;
   color: #52796f;
-  /* flex-grow: 0 !important; */
+  flex-grow: 0 !important;
 }
 
 /* headings for each day of the week */
 .rbc-header {
   text-transform: lowercase;
-  font-weight: 400;
-  font-size: 20pt;
+  font-weight: 400 !important;
+  font-size: 20pt !important;
   margin-top: 2vh;
-  margin-left: 1vh;
   padding: 0.5vh;
+  border: none !important;
 }
 
 .rbc-month-header {
@@ -108,9 +125,14 @@
 /* tile properties */
 .rbc-day-bg {
   background: rgba(255, 255, 255, 0.2);
+
+  border-radius: 7px;
+  margin: 3px;
+}
+
+.rbc-date-cell button {
   font-size: 15pt;
   font-style: "Roboto", sans-serif;
-  text-align: left;
   padding: 10px;
 }
 
@@ -119,7 +141,26 @@
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-/* text color in tiles */
-.rbc-button-link {
-  color: #2f3e46;
+.rbc-rtl,
+.rbc-btn-group,
+.rbc-toolbar button,
+.rbc-month-view,
+.rbc-month-row {
+  border: none !important;
+}
+
+/* event */
+.rbc-row-segment {
+  margin: 3px;
+}
+
+.rbc-event-content {
+  font-size: 15pt;
+}
+
+.rbc-event.rbc-selected,
+.rbc-day-slot .rbc-selected.rbc-background-event,
+.rbc-event:focus,
+.rbc-day-slot .rbc-background-event:focus {
+  background-color: #84a98c;
 }

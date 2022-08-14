@@ -20,7 +20,9 @@ export const CalendarComponent = () => {
           events={medications}
           startAccessor="start"
           endAccessor="end"
-          style={{ height: 500 }}
+          style={{ height: 700 }}
+          views={["month"]}
+          // components={{toolbar: CustomToolbar}}
         />
       </div>
       <div className="legend">
