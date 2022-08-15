@@ -125,10 +125,8 @@ export const Today = ({ medArray }) => {
     });
   }, []);
 
-  // create history file to record checkbox information
-  const [checked, setChecked] = useState(true);
-
-  const handleCheckbox = ({ time, linkedMed }) => {
+  // record checkbox information
+  const handleCheckbox = ({ time, linkedMed, checked }) => {
     Axios({
       method: "POST",
       data: {
@@ -141,13 +139,39 @@ export const Today = ({ medArray }) => {
       withCredentials: true,
       url: "http://localhost:3001/history/add",
     }).then((res) => {
-      if (res.data === false) {
-        // already exists, patch checked
-      } else {
-        // created
+      if (res.data === true) {
+        Axios({
+          method: "PATCH",
+          data: {
+            linkedUser: id,
+            linkedMed: linkedMed,
+            time: time,
+            date: new Date().toDateString(),
+            checked: checked,
+          },
+          withCredentials: true,
+          url: "http://localhost:3001/history/edit",
+        });
       }
     });
   };
+
+  // get checkbox info from back end
+  const [checkboxHistory, setCheckboxHistory] = useState([]);
+
+  useEffect(() => {
+    if (id) {
+      Axios({
+        method: "GET",
+        withCredentials: true,
+        url: `http://localhost:3001/history/med/${id}/${new Date().toDateString()}`,
+      }).then((res) => {
+        setCheckboxHistory(res.data);
+      });
+    }
+  }, [id]);
+
+  console.log(checkboxHistory);
 
   return (
     <div className="schedule">
@@ -184,12 +208,11 @@ export const Today = ({ medArray }) => {
                   <div className="medName">
                     <input
                       type="checkbox"
-                      value={checked}
-                      onChange={() => {
-                        setChecked((e) => !e);
+                      onChange={(e) => {
                         handleCheckbox({
                           time: "breakfast",
                           linkedMed: med._id,
+                          checked: e.target.checked,
                         });
                       }}
                     />
@@ -213,7 +236,16 @@ export const Today = ({ medArray }) => {
               return (
                 <div className="medication" key={med._id}>
                   <div className="medName">
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      onChange={(e) => {
+                        handleCheckbox({
+                          time: "lunch",
+                          linkedMed: med._id,
+                          checked: e.target.checked,
+                        });
+                      }}
+                    />
                     <div className="strikethrough">
                       <label className="medLabel">
                         {med.medName} {med.dose}
@@ -234,7 +266,16 @@ export const Today = ({ medArray }) => {
               return (
                 <div className="medication" key={med._id}>
                   <div className="medName">
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      onChange={(e) => {
+                        handleCheckbox({
+                          time: "dinner",
+                          linkedMed: med._id,
+                          checked: e.target.checked,
+                        });
+                      }}
+                    />
                     <div className="strikethrough">
                       <label className="medLabel">
                         {med.medName} {med.dose}
@@ -255,7 +296,16 @@ export const Today = ({ medArray }) => {
               return (
                 <div className="medication" key={med._id}>
                   <div className="medName">
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      onChange={(e) => {
+                        handleCheckbox({
+                          time: "bedtime",
+                          linkedMed: med._id,
+                          checked: e.target.checked,
+                        });
+                      }}
+                    />
                     <div className="strikethrough">
                       <label className="medLabel">
                         {med.medName} {med.dose}
