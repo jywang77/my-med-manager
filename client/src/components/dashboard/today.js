@@ -112,6 +112,43 @@ export const Today = ({ medArray }) => {
     });
   }, [todaysMedArray]);
 
+  // grab user id from back end
+  const [id, setId] = useState("");
+
+  useEffect(() => {
+    Axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/users/user",
+    }).then((res) => {
+      setId(res.data._id.toString());
+    });
+  }, []);
+
+  // create history file to record checkbox information
+  const [checked, setChecked] = useState(true);
+
+  const handleCheckbox = ({ time, linkedMed }) => {
+    Axios({
+      method: "POST",
+      data: {
+        linkedUser: id,
+        linkedMed: linkedMed,
+        time: time,
+        date: new Date().toDateString(),
+        checked: checked,
+      },
+      withCredentials: true,
+      url: "http://localhost:3001/history/add",
+    }).then((res) => {
+      if (res.data === false) {
+        // already exists, patch checked
+      } else {
+        // created
+      }
+    });
+  };
+
   return (
     <div className="schedule">
       <div className="greeting">
@@ -145,7 +182,17 @@ export const Today = ({ medArray }) => {
               return (
                 <div className="medication" key={med._id}>
                   <div className="medName">
-                    <input type="checkbox" />
+                    <input
+                      type="checkbox"
+                      value={checked}
+                      onChange={() => {
+                        setChecked((e) => !e);
+                        handleCheckbox({
+                          time: "breakfast",
+                          linkedMed: med._id,
+                        });
+                      }}
+                    />
                     <div className="strikethrough">
                       <label className="medLabel">
                         {med.medName} {med.dose}

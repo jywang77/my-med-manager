@@ -75,9 +75,11 @@ app.use(
 // importing routes
 const usersRouter = require("./routes/users");
 const medsRouter = require("./routes/meds");
+const historyRouter = require("./routes/history");
 
 app.use("/users", usersRouter);
 app.use("/meds", medsRouter);
+app.use("/history", historyRouter);
 
 // port
 app.listen(PORT, () => {

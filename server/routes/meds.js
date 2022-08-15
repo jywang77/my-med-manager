@@ -122,7 +122,7 @@ router.patch("/delete-refill/:id", isAuth, async (req, res) => {
         res.status(200).send(true);
       }
     }
-  );
+  ).clone();
 });
 
 module.exports = router;
