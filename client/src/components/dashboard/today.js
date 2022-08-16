@@ -171,8 +171,6 @@ export const Today = ({ medArray }) => {
     }
   }, [id]);
 
-  console.log(checkboxHistory);
-
   return (
     <div className="schedule">
       <div className="greeting">
@@ -203,11 +201,16 @@ export const Today = ({ medArray }) => {
           <div className="medTime">breakfast</div>
           <div className="medContainer">
             {breakfastArray.map((med) => {
+              // look for corresponding checkbox
+              var result = checkboxHistory.filter((obj) => {
+                return obj.linkedMed === med._id && obj.time === "breakfast";
+              });
               return (
                 <div className="medication" key={med._id}>
                   <div className="medName">
                     <input
                       type="checkbox"
+                      defaultChecked={result[0].checked}
                       onChange={(e) => {
                         handleCheckbox({
                           time: "breakfast",
@@ -233,11 +236,16 @@ export const Today = ({ medArray }) => {
           <div className="medTime">lunch</div>
           <div className="medContainer">
             {lunchArray.map((med) => {
+              // look for corresponding checkbox
+              var result = checkboxHistory.filter((obj) => {
+                return obj.linkedMed === med._id && obj.time === "lunch";
+              });
               return (
                 <div className="medication" key={med._id}>
                   <div className="medName">
                     <input
                       type="checkbox"
+                      defaultChecked={result[0].checked}
                       onChange={(e) => {
                         handleCheckbox({
                           time: "lunch",
@@ -263,11 +271,16 @@ export const Today = ({ medArray }) => {
           <div className="medTime">dinner</div>
           <div className="medContainer">
             {dinnerArray.map((med) => {
+              // look for corresponding checkbox
+              var result = checkboxHistory.filter((obj) => {
+                return obj.linkedMed === med._id && obj.time === "dinner";
+              });
               return (
                 <div className="medication" key={med._id}>
                   <div className="medName">
                     <input
                       type="checkbox"
+                      defaultChecked={result[0].checked}
                       onChange={(e) => {
                         handleCheckbox({
                           time: "dinner",
@@ -293,11 +306,16 @@ export const Today = ({ medArray }) => {
           <div className="medTime">bedtime</div>
           <div className="medContainer">
             {bedtimeArray.map((med) => {
+              // look for corresponding checkbox
+              var result = checkboxHistory.filter((obj) => {
+                return obj.linkedMed === med._id && obj.time === "bedtime";
+              });
               return (
                 <div className="medication" key={med._id}>
                   <div className="medName">
                     <input
                       type="checkbox"
+                      defaultChecked={result[0].checked}
                       onChange={(e) => {
                         handleCheckbox({
                           time: "bedtime",
