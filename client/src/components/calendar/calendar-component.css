@@ -131,9 +131,9 @@
 }
 
 .rbc-date-cell button {
-  font-size: 15pt;
+  font-size: 15pt !important;
   font-style: "Roboto", sans-serif;
-  padding: 10px;
+  margin: 10px 10px 0 0;
 }
 
 /* tile hover */
@@ -150,17 +150,23 @@
 }
 
 /* event */
+
 .rbc-row-segment {
-  margin: 3px;
+  margin: 3px !important;
+  overflow: scroll !important;
+  padding: 0 0 0 0 !important;
 }
 
 .rbc-event-content {
-  font-size: 15pt;
+  font-size: 15pt !important;
 }
 
-.rbc-event.rbc-selected,
-.rbc-day-slot .rbc-selected.rbc-background-event,
-.rbc-event:focus,
-.rbc-day-slot .rbc-background-event:focus {
-  background-color: #84a98c;
+.rbc-event {
+  background-color: #84a98c !important;
+}
+
+.rbc-show-more {
+  background-color: transparent !important;
+  color: #84a98c !important;
+  font-size: 15pt !important;
 }

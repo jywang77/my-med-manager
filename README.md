@@ -8,9 +8,9 @@ You are welcome to watch the brief video I filmed that outlines the various feat
 
 # Contact
 
-If you have any questions about the myMedManager project, you can contact me using the platforms listed below:
-**Email:** jyw.wang@mail.utoronto.ca
-**LinkedIn:** https://www.linkedin.com/in/jywang77/
+If you have any questions about the myMedManager project, you can contact me using the platforms listed below:  
+**Email:** jyw.wang@mail.utoronto.ca  
+**LinkedIn:** https://www.linkedin.com/in/jywang77/  
 **GitHub:** https://github.com/jywang77
 
 ## Bug reports

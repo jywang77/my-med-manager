@@ -42,6 +42,8 @@ export const CalendarComponent = () => {
 
   const medications = [
     { start: new Date(), end: new Date(), title: "special event" },
+    { start: new Date(), end: new Date(), title: "special event 2" },
+    { start: new Date(), end: new Date(), title: "special event 3" },
   ];
 
   return (
@@ -74,7 +76,7 @@ export const CalendarComponent = () => {
             defaultChecked={checked}
             onChange={() => setChecked(!checked)}
           />
-          <span className="red">refills</span>
+          <span className="red">next refill</span>
         </div>
       </div>
     </div>

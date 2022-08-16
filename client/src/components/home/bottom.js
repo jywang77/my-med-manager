@@ -97,11 +97,6 @@ export const Bottom = () => {
               troubleshooting bugs.
               <br />
               <br />
-              This project is non-profit and for demonstration purposes only. If
-              you choose enter your real personal medication information into
-              this website, you do so at your own risk.
-              <br />
-              <br />
               Icons and pictures used on this site (that are not created by
               myself) are from free-use sources. Icon and image sources be
               linked below:
@@ -210,6 +205,11 @@ export const Bottom = () => {
               >
                 Plus icon
               </a>
+              <br />
+              <br />
+              This project is non-profit and for demonstration purposes only. If
+              you choose enter your real personal medication information into
+              this website, you do so at your own risk.
             </p>
           </div>
           <p></p>
