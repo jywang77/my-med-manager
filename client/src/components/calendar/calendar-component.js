@@ -1,16 +1,48 @@
 import "./calendar-component.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import Axios from "axios";
 
 const localizer = momentLocalizer(moment);
-const medications = [
-  { start: new Date(), end: new Date(), title: "special event" },
-];
 
 export const CalendarComponent = () => {
   const [checked, setChecked] = useState(true);
+
+  // grab user id from back end
+  const [linkedUser, setLinkedUser] = useState("");
+
+  useEffect(() => {
+    Axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/users/user",
+    }).then((res) => {
+      setLinkedUser(res.data._id.toString());
+    });
+  }, []);
+
+  // use the user id to query all medications for user and place in array
+  const [medArray, setMedArray] = useState([]);
+
+  useEffect(() => {
+    if (linkedUser) {
+      Axios({
+        method: "GET",
+        withCredentials: true,
+        url: `http://localhost:3001/meds/all/${linkedUser}`,
+      }).then((res) => {
+        setMedArray(res.data);
+      });
+    }
+  }, [linkedUser]);
+
+  console.log(medArray);
+
+  const medications = [
+    { start: new Date(), end: new Date(), title: "special event" },
+  ];
 
   return (
     <div className="background">
