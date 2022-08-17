@@ -1,15 +1,8 @@
 import "./calendar-component.css";
 import { useState, useEffect } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import Axios from "axios";
 
-const localizer = momentLocalizer(moment);
-
 export const CalendarComponent = () => {
-  const [checked, setChecked] = useState(true);
-
   // grab user id from back end
   const [linkedUser, setLinkedUser] = useState("");
 
@@ -38,45 +31,121 @@ export const CalendarComponent = () => {
     }
   }, [linkedUser]);
 
-  console.log(medArray);
+  // sort medication into refill calendar
+  const [refillCalendar, setRefillCalendar] = useState([]);
+  useEffect(() => {
+    setRefillCalendar([]);
+    medArray.filter((med) => {
+      if (med.refill === true) {
+        return setRefillCalendar((old) => [...old, med]);
+      } else return setRefillCalendar((old) => old);
+    });
+  }, [medArray]);
 
-  const medications = [
-    { start: new Date(), end: new Date(), title: "special event" },
-    { start: new Date(), end: new Date(), title: "special event 2" },
-    { start: new Date(), end: new Date(), title: "special event 3" },
+  // grab date info
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
+
+  const months = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
+  ];
+
+  const date = new Date();
+
+  const day = date.getDate();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
+  const firstDayOfMonth = new Date(year, month, 1);
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
+    weekday: "long",
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+  });
+  const paddingDays = weekdays.indexOf(dateString.split(", ")[0]);
+
+  const dateArray = [];
+  for (var i = 1; i <= paddingDays + daysInMonth; i++) {
+    dateArray.push(i - paddingDays);
+  }
+
+  // show/hide different calendars
+  const [medChecked, setMedChecked] = useState(false);
+  const [refillChecked, setRefillChecked] = useState(true);
 
   return (
     <div className="background">
-      <div className="calendarContainer">
-        <Calendar
-          localizer={localizer}
-          events={medications}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 700 }}
-          views={["month"]}
-          // components={{toolbar: CustomToolbar}}
-        />
-      </div>
-      <div className="legend">
-        <div className="calenders">
-          <input
-            type="checkbox"
-            className="legendCheckbox"
-            defaultChecked={checked}
-            onChange={() => setChecked(!checked)}
-          />
-          medications
+      <div className="toolbar">
+        <div className="header">
+          <button className="arrow">{"<"}</button>
+          <span className="calendarHeader">
+            <span style={{ color: "#52796f" }}>{months[month]}</span>{" "}
+            <span style={{ color: "#84a98c" }}>{year}</span>
+          </span>
+          <button className="arrow">{">"}</button>
         </div>
-        <div className="calenders">
-          <input
-            type="checkbox"
-            className="legendCheckbox redCheckbox"
-            defaultChecked={checked}
-            onChange={() => setChecked(!checked)}
-          />
-          <span className="red">next refill</span>
+        <div className="legend">
+          <div className="calenders">
+            <input
+              type="checkbox"
+              className="legendCheckbox"
+              defaultChecked={medChecked}
+              onChange={(e) => setMedChecked(e.target.checked)}
+            />
+            medications
+          </div>
+          <div className="calenders">
+            <input
+              type="checkbox"
+              className="legendCheckbox redCheckbox"
+              defaultChecked={refillChecked}
+              onChange={(e) => setRefillChecked(e.target.checked)}
+            />
+            <span className="red">next refill</span>
+          </div>
+        </div>
+      </div>
+      <div className="calendar">
+        <div className="weekdays">
+          <div className="weekday">sun</div>
+          <div className="weekday">mon</div>
+          <div className="weekday">tues</div>
+          <div className="weekday">wed</div>
+          <div className="weekday">thurs</div>
+          <div className="weekday">fri</div>
+          <div className="weekday">sat</div>
+        </div>
+        <div className="tiles">
+          {dateArray.map((d) => {
+            return (
+              <div className="spacingAid">
+                <div className={"tile" + (d > 0 ? "" : " visibilityHide")}>
+                  {d}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

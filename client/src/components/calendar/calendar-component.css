@@ -1,22 +1,3 @@
-/* legend */
-
-.legend {
-  display: flex;
-  flex-direction: column;
-  z-index: 1;
-  position: absolute;
-  right: 0;
-  margin: 3%;
-  margin-right: 10%;
-}
-
-.legendCheckbox {
-  transform: translateY(-0.4em);
-  margin-right: 7px;
-}
-
-/* ----------------- calendar ----------------- */
-
 /* main container */
 .background {
   background-color: #cad2c5;
@@ -32,141 +13,99 @@
   display: flex;
   flex-direction: column;
   overflow: scroll;
+  min-width: 1150px;
 }
 
-/* calendar container */
-.rbc-calendar {
-  margin: 2.5%;
-  width: 95%;
-  height: 95%;
-  background: transparent;
-  font-family: "Roboto", sans-serif;
-  color: #2f3e46;
-  font-size: 20pt;
-  text-align: left;
-}
-
-/* all the buttons on the calendar */
-.rbc-btn-group {
-  border: solid 4px #cad2c5;
-  border-radius: 15px;
-}
-
-.rbc-btn-group button {
-  border-radius: 20px !important;
-}
-
-/* top section */
-.rbc-toolbar {
+/* toolbar */
+.toolbar {
+  margin: 2.5% 2.5% 0 2.5%;
   display: flex;
-  height: 44px;
-  margin-bottom: 2vh;
-  -webkit-box-pack: left !important;
-  -ms-flex-pack: left !important;
-  justify-content: left !important;
-  -webkit-box-align: left !important;
-  -ms-flex-align: left !important;
-  align-items: left !important;
-}
-
-/* navigation arrow appearance */
-.rbc-toolbar button {
-  font-size: 40pt;
-  font-family: "Roboto", sans-serif;
-  color: #84a98c !important;
-  background-color: transparent !important;
-}
-
-.rbc-toolbar button:hover {
-  opacity: 0.5;
-}
-
-.rbc-toolbar button:active {
-  opacity: 0.5;
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
-}
-
-/* month year text */
-.rbc-toolbar-label {
-  font-size: 40pt;
-  font-family: "Roboto", sans-serif;
-  text-transform: lowercase;
-  color: #52796f;
-  flex-grow: 0 !important;
-}
-
-/* headings for each day of the week */
-.rbc-header {
-  text-transform: lowercase;
-  font-weight: 400 !important;
-  font-size: 20pt !important;
-  margin-top: 2vh;
-  padding: 0.5vh;
-  border: none !important;
-}
-
-.rbc-month-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
+  justify-content: space-between;
 }
 
-/* neighbouring month tile display */
-.rbc-off-range,
-.rbc-off-range-bg {
-  visibility: hidden;
+.header {
+  white-space: nowrap;
 }
 
-/* tile properties */
-.rbc-day-bg {
-  background: rgba(255, 255, 255, 0.2);
-
-  border-radius: 7px;
-  margin: 3px;
+.calendarHeader {
+  font-size: 40pt;
+  font-family: "Roboto", sans-serif;
+  white-space: nowrap;
 }
 
-.rbc-date-cell button {
-  font-size: 15pt !important;
-  font-style: "Roboto", sans-serif;
-  margin: 10px 10px 0 0;
+.arrow {
+  font-size: 40pt;
+  font-family: "Roboto", sans-serif;
+  color: #84a98c;
+  background-color: transparent;
+  border: none;
+  padding: 0 20px 0 20px;
 }
 
-/* tile hover */
-.rbc-day-bg:hover {
+.arrow:hover {
+  opacity: 0.5;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2.5%;
+  white-space: nowrap;
+}
+
+.legendCheckbox {
+  transform: translateY(-0.4em);
+  margin-right: 7px;
+}
+
+/* calendar */
+.calendar {
+  margin: 0 2.5% 2.5% 2.5%;
+}
+
+.weekdays {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.weekday {
+  text-align: center;
+  width: 14.285%;
+  font-size: 20pt;
+  min-width: 150px;
+}
+
+.tiles {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.spacingAid {
+  height: 15%;
+  width: 14.285%;
+  min-width: 150px;
+}
+
+.tile {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5%;
+  border: 3px solid #cad2c5;
+  min-height: 150px;
+  color: #2f3e46;
+  font-size: 15pt;
+  text-align: right;
+  padding: 10px 5px 0 0;
+  overflow: scroll;
+}
+
+.tile:hover {
   background-color: rgba(255, 255, 255, 0.5);
 }
 
-.rbc-rtl,
-.rbc-btn-group,
-.rbc-toolbar button,
-.rbc-month-view,
-.rbc-month-row {
-  border: none !important;
-}
-
-/* event */
-
-.rbc-row-segment {
-  margin: 3px !important;
-  overflow: scroll !important;
-  padding: 0 0 0 0 !important;
-}
-
-.rbc-event-content {
-  font-size: 15pt !important;
-}
-
 .rbc-event {
-  background-color: #84a98c !important;
-}
-
-.rbc-show-more {
-  background-color: transparent !important;
-  color: #84a98c !important;
-  font-size: 15pt !important;
+  background-color: #84a98c;
 }
