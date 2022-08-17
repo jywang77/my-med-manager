@@ -205,6 +205,22 @@ export const Bottom = () => {
               >
                 Plus icon
               </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon-font/angle-right_3916925"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Next
+              </a>
+              <span> | </span>
+              <a
+                href="https://www.flaticon.com/free-icon-font/angle-left_3916931"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Previous
+              </a>
               <br />
               <br />
               This project is non-profit and for demonstration purposes only. If

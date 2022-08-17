@@ -26,21 +26,50 @@
 
 .header {
   white-space: nowrap;
+  display: flex;
+  flex-direction: row;
 }
 
 .calendarHeader {
   font-size: 40pt;
   font-family: "Roboto", sans-serif;
   white-space: nowrap;
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.monthDisplay {
+  color: #52796f;
+  margin-right: 15px;
+}
+
+.yearDisplay {
+  color: #84a98c;
 }
 
 .arrow {
-  font-size: 40pt;
-  font-family: "Roboto", sans-serif;
-  color: #84a98c;
   background-color: transparent;
   border: none;
-  padding: 0 20px 0 20px;
+  height: 40pt;
+  width: 30pt;
+}
+
+.next {
+  background-image: url("images/right.svg");
+  background-repeat: no-repeat;
+  background-size: 30pt;
+  background-position: 0 10px;
+  margin-left: 10pt;
+}
+
+.prev {
+  background-image: url("images/left.svg");
+  background-repeat: no-repeat;
+  background-size: 30pt;
+  background-position: 0 10px;
+  margin-right: 10pt;
 }
 
 .arrow:hover {
@@ -104,6 +133,10 @@
 
 .tile:hover {
   background-color: rgba(255, 255, 255, 0.5);
+}
+
+.currentDay {
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 .rbc-event {

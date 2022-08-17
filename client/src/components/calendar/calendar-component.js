@@ -43,52 +43,66 @@ export const CalendarComponent = () => {
   }, [medArray]);
 
   // grab date info
-  const weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  const [nav, setNav] = useState(0);
+  const [monthDisplay, setMonthDisplay] = useState("");
+  const [yearDisplay, setYearDisplay] = useState("");
+  const [dateArray, setDateArray] = useState([]);
 
-  const months = [
-    "january",
-    "february",
-    "march",
-    "april",
-    "may",
-    "june",
-    "july",
-    "august",
-    "september",
-    "october",
-    "november",
-    "december",
-  ];
+  useEffect(() => {
+    const weekdays = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
 
-  const date = new Date();
+    const months = [
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december",
+    ];
 
-  const day = date.getDate();
-  const month = date.getMonth();
-  const year = date.getFullYear();
+    const date = new Date();
 
-  const firstDayOfMonth = new Date(year, month, 1);
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
+    if (nav !== 0) {
+      date.setMonth(new Date().getMonth() + nav);
+    }
 
-  const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
-    weekday: "long",
-    day: "numeric",
-    month: "numeric",
-    year: "numeric",
-  });
-  const paddingDays = weekdays.indexOf(dateString.split(", ")[0]);
+    // const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
 
-  const dateArray = Array.from(
-    { length: paddingDays + daysInMonth },
-    (_, i) => i - (paddingDays - 1)
-  );
+    const firstDayOfMonth = new Date(year, month, 1);
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const dateString = firstDayOfMonth.toLocaleDateString("en-us", {
+      weekday: "long",
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    });
+    const paddingDays = weekdays.indexOf(dateString.split(", ")[0]);
+    setMonthDisplay(months[month]);
+    setYearDisplay(year);
+
+    const dateArr = [];
+    for (let i = 1; i <= paddingDays + daysInMonth; i++) {
+      dateArr.push(i - paddingDays);
+    }
+    setDateArray(dateArr);
+  }, [medArray, refillCalendar, nav]);
 
   // show/hide different calendars
   const [medChecked, setMedChecked] = useState(false);
@@ -98,12 +112,12 @@ export const CalendarComponent = () => {
     <div className="background">
       <div className="toolbar">
         <div className="header">
-          <button className="arrow">{"<"}</button>
-          <span className="calendarHeader">
-            <span style={{ color: "#52796f" }}>{months[month]}</span>{" "}
-            <span style={{ color: "#84a98c" }}>{year}</span>
-          </span>
-          <button className="arrow">{">"}</button>
+          <button className="arrow prev" onClick={() => setNav(nav - 1)} />
+          <div className="calendarHeader">
+            <div className="monthDisplay">{monthDisplay}</div>
+            <div className="yearDisplay">{yearDisplay}</div>
+          </div>
+          <button className="arrow next" onClick={() => setNav(nav + 1)} />
         </div>
         <div className="legend">
           <div className="calenders">
@@ -140,7 +154,12 @@ export const CalendarComponent = () => {
           {dateArray.map((d) => {
             return (
               <div className="spacingAid" key={d}>
-                <div className={"tile" + (d > 0 ? "" : " visibilityHide")}>
+                <div
+                  className={
+                    "tile" + (d > 0 ? "" : " visibilityHide")
+                    // (d === day && nav === 0 ? " currentDay" : "")
+                  }
+                >
                   {d}
                 </div>
               </div>
