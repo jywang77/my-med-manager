@@ -47,6 +47,7 @@ export const CalendarComponent = () => {
   const [monthDisplay, setMonthDisplay] = useState("");
   const [yearDisplay, setYearDisplay] = useState("");
   const [dateArray, setDateArray] = useState([]);
+  const currentDate = new Date().getDate();
 
   useEffect(() => {
     const weekdays = [
@@ -99,7 +100,12 @@ export const CalendarComponent = () => {
 
     const dateArr = [];
     for (let i = 1; i <= paddingDays + daysInMonth; i++) {
-      dateArr.push(i - paddingDays);
+      dateArr.push({
+        value: i - paddingDays,
+        date: new Date(year, month, i - paddingDays),
+        meds: ["med1", "med2", "med3"],
+        refills: ["refill1", "refill2"],
+      });
     }
     setDateArray(dateArr);
   }, [medArray, refillCalendar, nav]);
@@ -153,14 +159,39 @@ export const CalendarComponent = () => {
         <div className="tiles">
           {dateArray.map((d) => {
             return (
-              <div className="spacingAid" key={d}>
+              <div className="spacingAid" key={d.date}>
                 <div
                   className={
-                    "tile" + (d > 0 ? "" : " visibilityHide")
-                    // (d === day && nav === 0 ? " currentDay" : "")
+                    "tile" +
+                    (d.value > 0 ? "" : " visibilityHide") +
+                    (d.value === currentDate && nav === 0 ? " currentDay" : "")
                   }
                 >
-                  {d}
+                  <div className="day">{d.value}</div>
+                  <div className="eventContainer">
+                    {d.meds.map((m, i) => {
+                      return (
+                        <div
+                          className={"medEvent" + (medChecked ? "" : " hide")}
+                          key={i}
+                        >
+                          {m}
+                        </div>
+                      );
+                    })}
+                    {d.refills.map((r, i) => {
+                      return (
+                        <div
+                          className={
+                            "refillEvent" + (refillChecked ? "" : " hide")
+                          }
+                          key={i}
+                        >
+                          {r}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             );

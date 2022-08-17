@@ -114,7 +114,6 @@
 }
 
 .spacingAid {
-  height: 15%;
   width: 14.285%;
   min-width: 150px;
 }
@@ -123,12 +122,16 @@
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5%;
   border: 3px solid #cad2c5;
-  min-height: 150px;
-  color: #2f3e46;
+  height: 150px;
+  padding: 10px 5px 10px 10px;
   font-size: 15pt;
-  text-align: right;
-  padding: 10px 5px 0 0;
-  overflow: scroll;
+  overflow-y: scroll;
+}
+.tile::-webkit-scrollbar {
+  width: 5px;
+}
+.tile::-webkit-scrollbar-thumb {
+  background: transparent;
 }
 
 .tile:hover {
@@ -139,6 +142,37 @@
   background-color: rgba(255, 255, 255, 0.7);
 }
 
-.rbc-event {
-  background-color: #84a98c;
+.day {
+  color: #2f3e46;
+  text-align: right;
+}
+
+.eventContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.medEvent {
+  background-color: #52796f;
+  border-radius: 5px;
+  border: 3px solid #2f3e46;
+  color: white;
+  padding: 3px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 2px;
+}
+
+.refillEvent {
+  background-color: #950000;
+  border-radius: 5px;
+  border: 3px solid #4c0000;
+  color: white;
+  padding: 3px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 2px;
 }
