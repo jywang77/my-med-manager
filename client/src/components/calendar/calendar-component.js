@@ -85,10 +85,10 @@ export const CalendarComponent = () => {
   });
   const paddingDays = weekdays.indexOf(dateString.split(", ")[0]);
 
-  const dateArray = [];
-  for (var i = 1; i <= paddingDays + daysInMonth; i++) {
-    dateArray.push(i - paddingDays);
-  }
+  const dateArray = Array.from(
+    { length: paddingDays + daysInMonth },
+    (_, i) => i - (paddingDays - 1)
+  );
 
   // show/hide different calendars
   const [medChecked, setMedChecked] = useState(false);
@@ -139,7 +139,7 @@ export const CalendarComponent = () => {
         <div className="tiles">
           {dateArray.map((d) => {
             return (
-              <div className="spacingAid">
+              <div className="spacingAid" key={d}>
                 <div className={"tile" + (d > 0 ? "" : " visibilityHide")}>
                   {d}
                 </div>
