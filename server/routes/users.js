@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const User = require("../resources/userSchema");
 const Med = require("../resources/medSchema");
+const History = require("../resources/historySchema");
 const isAuth = require("../resources/authMiddleware").isAuth;
 
 const router = express.Router();
@@ -190,6 +191,7 @@ router.delete("/delete-account/:id", isAuth, async (req, res) => {
       try {
         await User.findByIdAndRemove(req.params.id).exec();
         await Med.deleteMany({ linkedUser: req.params.id });
+        await History.deleteMany({ linkedUser: req.params.id });
 
         res.status(200).send(true);
       } catch (err) {

@@ -31,17 +31,6 @@ export const CalendarComponent = () => {
     }
   }, [linkedUser]);
 
-  // sort medication into refill calendar
-  const [refillCalendar, setRefillCalendar] = useState([]);
-  useEffect(() => {
-    setRefillCalendar([]);
-    medArray.filter((med) => {
-      if (med.refill === true) {
-        return setRefillCalendar((old) => [...old, med]);
-      } else return setRefillCalendar((old) => old);
-    });
-  }, [medArray]);
-
   // grab date info
   const [nav, setNav] = useState(0);
   const [monthDisplay, setMonthDisplay] = useState("");
@@ -77,14 +66,15 @@ export const CalendarComponent = () => {
 
     const date = new Date();
 
+    // navigating between months
     if (nav !== 0) {
       date.setMonth(new Date().getMonth() + nav);
     }
 
-    // const day = date.getDate();
     const month = date.getMonth();
     const year = date.getFullYear();
 
+    // formatting calendar
     const firstDayOfMonth = new Date(year, month, 1);
     const daysInMonth = new Date(year, month + 1, 0).getDate();
 
@@ -98,17 +88,44 @@ export const CalendarComponent = () => {
     setMonthDisplay(months[month]);
     setYearDisplay(year);
 
+    // sort medication into refill calendar
+    const refillCalendar = (date) => {
+      const array = [];
+      medArray.forEach((med) => {
+        if (
+          new Date(med.refillDate).setHours(0, 0, 0, 0) ===
+          new Date(date).setHours(0, 0, 0, 0)
+        ) {
+          array.push(med.medName);
+        }
+      });
+      return array;
+    };
+
+    // sort medication into med calendar
+    const medCalendar = (date) => {
+      const array = [];
+      medArray.forEach((med) => {
+        if (Object.values(med.freq)[new Date(date).getDay()] === true) {
+          array.push(med.medName);
+        }
+      });
+      return array;
+    };
+
     const dateArr = [];
     for (let i = 1; i <= paddingDays + daysInMonth; i++) {
+      const tileDate = new Date(year, month, i - paddingDays);
+
       dateArr.push({
         value: i - paddingDays,
-        date: new Date(year, month, i - paddingDays),
-        meds: ["med1", "med2", "med3"],
-        refills: ["refill1", "refill2"],
+        date: tileDate,
+        meds: medCalendar(tileDate),
+        refills: refillCalendar(tileDate),
       });
     }
     setDateArray(dateArr);
-  }, [medArray, refillCalendar, nav]);
+  }, [medArray, nav]);
 
   // show/hide different calendars
   const [medChecked, setMedChecked] = useState(false);
@@ -169,16 +186,6 @@ export const CalendarComponent = () => {
                 >
                   <div className="day">{d.value}</div>
                   <div className="eventContainer">
-                    {d.meds.map((m, i) => {
-                      return (
-                        <div
-                          className={"medEvent" + (medChecked ? "" : " hide")}
-                          key={i}
-                        >
-                          {m}
-                        </div>
-                      );
-                    })}
                     {d.refills.map((r, i) => {
                       return (
                         <div
@@ -188,6 +195,16 @@ export const CalendarComponent = () => {
                           key={i}
                         >
                           {r}
+                        </div>
+                      );
+                    })}
+                    {d.meds.map((m, i) => {
+                      return (
+                        <div
+                          className={"medEvent" + (medChecked ? "" : " hide")}
+                          key={i}
+                        >
+                          {m}
                         </div>
                       );
                     })}

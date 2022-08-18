@@ -35,7 +35,5 @@ npm start
 
 # To do
 
-- Finish calendar: custom toolbar (move legend?), multiple events calendars, formatting issues
-
 - Fix protected routes problem
 - If user is logged in, do not allow them to visit home page and create account page
