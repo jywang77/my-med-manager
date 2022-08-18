@@ -1,70 +1,49 @@
 import "../home/right.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Axios from "axios";
 
 export const RightCreate = () => {
   // storing information entered into create account form
-  const [createUser, setCreateUser] = useState({
-    username: "",
-    email: "",
-    password: "",
-    password2: "",
-  });
-
-  function handle(e) {
-    const handleCreateUser = { ...createUser };
-    handleCreateUser[e.target.id] = e.target.value;
-    setCreateUser(handleCreateUser);
-  }
-
-  // confirm password
-  const [matchPassword, setMatchPassword] = useState(true);
-
-  useEffect(() => {
-    if (createUser.password === createUser.password2) {
-      setMatchPassword(true);
-    } else {
-      setMatchPassword(false);
-    }
-  }, [createUser]);
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
 
   // conditions for showing/hiding error messages
   const [uniqueUsername, setUniqueUsername] = useState(null);
   const [uniqueEmail, setUniqueEmail] = useState(null);
+  const [matchPassword, setMatchPassword] = useState(true);
   const [success, setSuccess] = useState(false);
 
   // make sure form requirements are fulfilled before allowing you to submit the form
   function submit(e) {
-    if (!matchPassword) {
-      // displays error messages if passwords don't match
-      e.preventDefault();
-      document.querySelector(".confirmPassword").style.display = "block";
-    } else {
-      e.preventDefault();
-      Axios({
-        method: "POST",
-        data: {
-          username: createUser.username,
-          email: createUser.email,
-          password: createUser.password,
-        },
-        withCredentials: true,
-        url: "http://localhost:3001/users/create",
-      }).then((res) => {
-        setUniqueUsername(res.data.uniqueUsername);
-        setUniqueEmail(res.data.uniqueEmail);
+    e.preventDefault();
+    Axios({
+      method: "POST",
+      data: {
+        username: username,
+        email: email,
+        password: password,
+        password2: password2,
+      },
+      withCredentials: true,
+      url: "http://localhost:3001/users/create",
+    }).then((res) => {
+      setUniqueUsername(res.data.uniqueUsername);
+      setUniqueEmail(res.data.uniqueEmail);
+      setMatchPassword(res.data.matchPassword);
 
-        if (res.data === true) {
-          setSuccess(res.data);
-          setCreateUser({
-            username: "",
-            email: "",
-            password: "",
-            password2: "",
-          });
-        }
-      });
-    }
+      if (res.data === true) {
+        setSuccess(res.data);
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setPassword2("");
+        setUniqueEmail(null);
+        setUniqueUsername(null);
+        setMatchPassword(true);
+      }
+    });
   }
 
   return (
@@ -82,10 +61,9 @@ export const RightCreate = () => {
             autoFocus
             placeholder="username"
             required
-            // recording info to send to back end
-            onChange={(e) => handle(e)}
+            onChange={(e) => setUsername(e.target.value)}
             id="username"
-            value={createUser.username}
+            value={username}
           />
         </div>
         <div>
@@ -97,10 +75,10 @@ export const RightCreate = () => {
             className="input"
             type="email"
             placeholder="email"
-            required // recording info to send to back end
-            onChange={(e) => handle(e)}
+            required
+            onChange={(e) => setEmail(e.target.value)}
             id="email"
-            value={createUser.email}
+            value={email}
           />
         </div>
         <div>
@@ -110,14 +88,13 @@ export const RightCreate = () => {
             type="password"
             placeholder="password"
             required
-            // recording info to send to back end
-            onChange={(e) => handle(e)}
+            onChange={(e) => setPassword(e.target.value)}
             id="password"
-            value={createUser.password}
+            value={password}
           />
         </div>
         <div>
-          <p className="error confirmPassword">
+          <p className={"error" + (matchPassword ? "" : " show")}>
             Error: Passwords do not match.
           </p>
           <p className="inputText">confirm password</p>
@@ -126,10 +103,9 @@ export const RightCreate = () => {
             type="password"
             placeholder="confirm password"
             required
-            // recording info to send to back end
-            onChange={(e) => handle(e)}
+            onChange={(e) => setPassword2(e.target.value)}
             id="password2"
-            value={createUser.password2}
+            value={password2}
           />
         </div>
         <button type="submit" className="button">

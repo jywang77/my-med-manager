@@ -43,14 +43,6 @@ export const SettingsComponent = () => {
   const [matchPassword, setMatchPassword] = useState(true);
   const [rightDeletePassword, setRightDeletePassword] = useState(true);
 
-  useEffect(() => {
-    if (newPassword === newPassword2) {
-      setMatchPassword(true);
-    } else {
-      setMatchPassword(false);
-    }
-  }, [newPassword, newPassword2]);
-
   // change name button
   const handleSubmitName = async () => {
     await Axios({
@@ -92,12 +84,9 @@ export const SettingsComponent = () => {
       // if existing username, show error message
       if (res.data === true) {
         setExistingUsername(res.data);
-
-        setNewUsername("");
       } else {
         setUsername(res.data.username);
         setExistingUsername(false);
-
         setNewUsername("");
 
         // 'successfully changed' message + fade away
@@ -117,45 +106,48 @@ export const SettingsComponent = () => {
   // change password button
   const handleSubmitPassword = async () => {
     // displays error messages if passwords don't match
-    if (!matchPassword) {
-      document.querySelector(".err5").style.display = "block";
-    } else {
-      await Axios({
-        method: "PATCH",
-        data: {
-          currentPassword: currentPassword,
-          newPassword: newPassword,
-        },
-        withCredentials: true,
-        url: `http://localhost:3001/users/change-password/${id}`,
-      }).then((res) => {
-        // if current password incorrect, show error message
-        if (res.data === false) {
-          setRightPassword(res.data);
+    await Axios({
+      method: "PATCH",
+      data: {
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+        newPassword2: newPassword2,
+      },
+      withCredentials: true,
+      url: `http://localhost:3001/users/change-password/${id}`,
+    }).then((res) => {
+      // if passwords do not match, show error message
+      if (res.data === "Passwords do not match.") {
+        setMatchPassword(false);
+      } else {
+        setMatchPassword(true);
+      }
 
-          setCurrentPassword("");
-          setNewPassword("");
-          setNewPassword2("");
-        } else {
-          setRightPassword(true);
+      // if current password incorrect, show error message
+      if (res.data === false) {
+        setRightPassword(res.data);
+      } else {
+        setRightPassword(true);
+      }
 
-          setCurrentPassword("");
-          setNewPassword("");
-          setNewPassword2("");
+      // if all correct, show success message
+      if (res.data === "Password updated successfully.") {
+        setCurrentPassword("");
+        setNewPassword("");
+        setNewPassword2("");
 
-          // 'successfully changed' message + fade away
-          const s3 = document.querySelector(".s3");
-          s3.style.visibility = "visible";
-          s3.style.opacity = "1";
-          s3.style.transition = "none";
-          setTimeout(() => {
-            s3.style.visibility = "hidden";
-            s3.style.opacity = "0";
-            s3.style.transition = "visibility 0s 1s, opacity 1s linear";
-          }, 1000);
-        }
-      });
-    }
+        // 'successfully changed' message + fade away
+        const s3 = document.querySelector(".s3");
+        s3.style.visibility = "visible";
+        s3.style.opacity = "1";
+        s3.style.transition = "none";
+        setTimeout(() => {
+          s3.style.visibility = "hidden";
+          s3.style.opacity = "0";
+          s3.style.transition = "visibility 0s 1s, opacity 1s linear";
+        }, 1000);
+      }
+    });
   };
 
   // change email button
@@ -172,12 +164,9 @@ export const SettingsComponent = () => {
       // if existing email, show error message
       if (res.data === true) {
         setExistingEmail(res.data);
-
-        setNewEmail("");
       } else {
         setEmail(res.data.email);
         setExistingEmail(false);
-
         setNewEmail("");
 
         // 'successfully changed' message + fade away
@@ -208,8 +197,6 @@ export const SettingsComponent = () => {
     }).then((res) => {
       if (res.data === false) {
         setRightDeletePassword(res.data);
-
-        setDeletePassword("");
       }
       if (res.data === true) {
         navigate("/");
@@ -241,7 +228,6 @@ export const SettingsComponent = () => {
                 className="changeSettings"
                 type="text"
                 placeholder="enter new name here"
-                // recording info to send to back end
                 onChange={(e) => setNewName(e.target.value)}
                 id="newName"
                 value={newName}
@@ -272,7 +258,6 @@ export const SettingsComponent = () => {
                 className="changeSettings"
                 type="text"
                 placeholder="enter new username here"
-                // recording info to send to back end
                 onChange={(e) => setNewUsername(e.target.value)}
                 id="newUsername"
                 value={newUsername}
@@ -296,7 +281,6 @@ export const SettingsComponent = () => {
                 className="changeSettings"
                 type="password"
                 placeholder="enter current password here"
-                // recording info to send to back end
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 id="currentPassword"
                 value={currentPassword}
@@ -308,7 +292,6 @@ export const SettingsComponent = () => {
                 className="changeSettings"
                 type="password"
                 placeholder="enter new password here"
-                // recording info to send to back end
                 onChange={(e) => setNewPassword(e.target.value)}
                 id="newPassword"
                 value={newPassword}
@@ -320,7 +303,6 @@ export const SettingsComponent = () => {
                 className="changeSettings"
                 type="password"
                 placeholder="confirm new password here"
-                // recording info to send to back end
                 onChange={(e) => setNewPassword2(e.target.value)}
                 id="newPassword2"
                 value={newPassword2}
@@ -333,7 +315,9 @@ export const SettingsComponent = () => {
             >
               change
             </button>
-            <div className="error err5">Error: Passwords do not match.</div>
+            <div className={"error" + (matchPassword ? "" : " show")}>
+              Error: New passwords do not match.
+            </div>
             <div className={"error" + (rightPassword ? "" : " show")}>
               Error: Current password incorrect.
             </div>
@@ -357,7 +341,6 @@ export const SettingsComponent = () => {
                   className="changeSettings"
                   type="email"
                   placeholder="enter new email here"
-                  // recording info to send to back end
                   onChange={(e) => setNewEmail(e.target.value)}
                   id="newEmail"
                   value={newEmail}
@@ -382,7 +365,6 @@ export const SettingsComponent = () => {
               className="changeSettings"
               type="password"
               placeholder="enter password here"
-              // recording info to send to back end
               onChange={(e) => setDeletePassword(e.target.value)}
               id="deletePassword"
               value={deletePassword}

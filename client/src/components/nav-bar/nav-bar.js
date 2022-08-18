@@ -1,14 +1,14 @@
 import "./nav-bar.css";
 import logo from "./images/favicon.svg";
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
+import Axios from "axios";
 
 export const NavBar = () => {
   // redirect
   const navigate = useNavigate();
 
   function logOut() {
-    axios({
+    Axios({
       method: "GET",
       withCredentials: true,
       url: "http://localhost:3001/users/logout",

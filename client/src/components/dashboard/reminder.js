@@ -1,6 +1,6 @@
 import "./reminder.css";
-import img from "./dashboard.png";
-import alert from "./alert.svg";
+import img from "./images/dashboard.png";
+import alert from "./images/alert.svg";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 
@@ -26,6 +26,7 @@ export const Reminder = ({ medArray }) => {
   const [med, setMed] = useState({});
   const [showDelete, setShowDelete] = useState(false);
 
+  // communicate with back end to change refill date to null
   const handleRefillDelete = () => {
     Axios({
       method: "PATCH",

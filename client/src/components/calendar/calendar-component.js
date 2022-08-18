@@ -85,6 +85,7 @@ export const CalendarComponent = () => {
       year: "numeric",
     });
     const paddingDays = weekdays.indexOf(dateString.split(", ")[0]);
+
     setMonthDisplay(months[month]);
     setYearDisplay(year);
 

@@ -102,7 +102,7 @@ input[type="checkbox"]:hover {
 input[type="checkbox"]:checked {
   background-color: #84a98c;
   /* checkmark */
-  background-image: url("check.svg");
+  background-image: url("images/check.svg");
   background-size: 14pt 14pt;
   background-repeat: no-repeat;
 }

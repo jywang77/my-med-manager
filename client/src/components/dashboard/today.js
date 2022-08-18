@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 
 export const Today = ({ medArray }) => {
-  // name
+  // grab name and user id from back end
   const [name, setName] = useState("");
+  const [linkedUser, setLinkedUser] = useState("");
 
   useEffect(() => {
     Axios({
@@ -17,6 +18,7 @@ export const Today = ({ medArray }) => {
       } else {
         setName(res.data.username);
       }
+      setLinkedUser(res.data._id.toString());
     });
   }, []);
 
@@ -112,25 +114,12 @@ export const Today = ({ medArray }) => {
     });
   }, [todaysMedArray]);
 
-  // grab user id from back end
-  const [id, setId] = useState("");
-
-  useEffect(() => {
-    Axios({
-      method: "GET",
-      withCredentials: true,
-      url: "http://localhost:3001/users/user",
-    }).then((res) => {
-      setId(res.data._id.toString());
-    });
-  }, []);
-
   // record checkbox information
   const handleCheckbox = ({ time, linkedMed, checked }) => {
     Axios({
       method: "POST",
       data: {
-        linkedUser: id,
+        linkedUser: linkedUser,
         linkedMed: linkedMed,
         time: time,
         date: new Date().toDateString(),
@@ -143,7 +132,7 @@ export const Today = ({ medArray }) => {
         Axios({
           method: "PATCH",
           data: {
-            linkedUser: id,
+            linkedUser: linkedUser,
             linkedMed: linkedMed,
             time: time,
             date: new Date().toDateString(),
@@ -160,16 +149,16 @@ export const Today = ({ medArray }) => {
   const [checkboxHistory, setCheckboxHistory] = useState([]);
 
   useEffect(() => {
-    if (id) {
+    if (linkedUser) {
       Axios({
         method: "GET",
         withCredentials: true,
-        url: `http://localhost:3001/history/med/${id}/${new Date().toDateString()}`,
+        url: `http://localhost:3001/history/med/${linkedUser}/${new Date().toDateString()}`,
       }).then((res) => {
         setCheckboxHistory(res.data);
       });
     }
-  }, [id]);
+  }, [linkedUser]);
 
   return (
     <div className="schedule">

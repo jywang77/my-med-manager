@@ -5,16 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 export const Right = () => {
   // storing information entered into login form (username and password)
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-  });
-
-  function handle(e) {
-    const loginUser = { ...user };
-    loginUser[e.target.id] = e.target.value;
-    setUser(loginUser);
-  }
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   // show error message for incorrect username/password
   const [correctLogin, setCorrectLogin] = useState(true);
@@ -22,13 +14,13 @@ export const Right = () => {
   // redirect
   const navigate = useNavigate();
 
-  function submit(e) {
+  const submit = (e) => {
     e.preventDefault();
     Axios({
       method: "POST",
       data: {
-        username: user.username,
-        password: user.password,
+        username: username,
+        password: password,
       },
       withCredentials: true,
       url: "http://localhost:3001/users/login",
@@ -39,7 +31,7 @@ export const Right = () => {
         navigate("/dashboard");
       }
     });
-  }
+  };
 
   return (
     <div className="right">
@@ -57,9 +49,9 @@ export const Right = () => {
             placeholder="username"
             required
             // recording info to send to back end
-            onChange={(e) => handle(e)}
+            onChange={(e) => setUsername(e.target.value)}
             id="username"
-            value={user.username}
+            value={username}
           />
         </div>
         <div>
@@ -70,9 +62,9 @@ export const Right = () => {
             placeholder="password"
             required
             // recording info to send to back end
-            onChange={(e) => handle(e)}
+            onChange={(e) => setPassword(e.target.value)}
             id="password"
-            value={user.password}
+            value={password}
           />
         </div>
         <div>
