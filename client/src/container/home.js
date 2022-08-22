@@ -4,7 +4,7 @@ import { Bottom } from "../components/home/bottom";
 import "./home.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
-export const Home = () => {
+export const Home = ({ handleIsAuth }) => {
   return (
     <HelmetProvider>
       <div className="main">
@@ -13,7 +13,7 @@ export const Home = () => {
         </Helmet>
         <div className="container">
           <Left />
-          <Right />
+          <Right handleIsAuth={handleIsAuth} />
         </div>
         <div>
           <Bottom />

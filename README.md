@@ -23,17 +23,6 @@ If you come across any bugs, or find a page that doesn't work, I would be very g
 
 **V1.0 (Date):** Site launched.
 
-# Running the back end
-
-cd server
-npm run dev
-
-# Running the front end
-
-cd client
-npm start
-
 # To do
 
 - Fix protected routes problem
-- If user is logged in, do not allow them to visit home page and create account page

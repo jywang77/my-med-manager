@@ -6,7 +6,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 
-export const Dashboard = () => {
+export const Dashboard = ({ handleIsAuth }) => {
   // grab user id from back end
   const [linkedUser, setLinkedUser] = useState("");
 
@@ -41,7 +41,7 @@ export const Dashboard = () => {
         <Helmet>
           <title>myMedManager - Dashboard</title>
         </Helmet>
-        <NavBar />
+        <NavBar handleIsAuth={handleIsAuth} />
         <Today medArray={medArray} />
         <Reminder medArray={medArray} />
       </div>
