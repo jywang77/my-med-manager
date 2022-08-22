@@ -166,7 +166,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
     });
   };
 
-  // show/hide refill popup
+  // show/hide refill reminder popup
   const showRefillPopup = () => {
     const refillPopup = document.querySelector(".refillPopupEdit");
     refillPopup.style.display = "block";
@@ -186,10 +186,6 @@ export const EditMedication = ({ setShowEdit, medId }) => {
       hideRefillPopup();
     }
   }, [refill]);
-
-  // grab today's date
-  const today = new Date();
-  today.getDate();
 
   return (
     <div className="editMedication">
@@ -250,7 +246,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                   id="breakfast"
                   value="breakfast"
                   checked={breakfast}
-                  onChange={() => setBreakfast(!breakfast)}
+                  onChange={(e) => setBreakfast(e.target.checked)}
                 />
                 <label htmlFor="breakfast" className="addMedLabel">
                   breakfast
@@ -263,7 +259,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                   id="lunch"
                   value="lunch"
                   checked={lunch}
-                  onChange={() => setLunch(!lunch)}
+                  onChange={(e) => setLunch(e.target.checked)}
                 />
                 <label htmlFor="lunch" className="addMedLabel">
                   lunch
@@ -276,7 +272,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                   id="dinner"
                   value="dinner"
                   checked={dinner}
-                  onChange={() => setDinner(!dinner)}
+                  onChange={(e) => setDinner(e.target.checked)}
                 />
                 <label htmlFor="dinner" className="addMedLabel">
                   dinner
@@ -289,7 +285,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                   id="bedtime"
                   value="bedtime"
                   checked={bedtime}
-                  onChange={() => setBedtime(!bedtime)}
+                  onChange={(e) => setBedtime(e.target.checked)}
                 />
                 <label htmlFor="bedtime" className="addMedLabel">
                   bedtime
@@ -310,7 +306,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                 id="sun"
                 value="Sun"
                 checked={sun}
-                onChange={() => setSun(!sun)}
+                onChange={(e) => setSun(e.target.checked)}
               />
               <label htmlFor="sun" className="addMedLabel">
                 Sun
@@ -323,7 +319,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                 id="mon"
                 value="Mon"
                 checked={mon}
-                onChange={() => setMon(!mon)}
+                onChange={(e) => setMon(e.target.checked)}
               />
               <label htmlFor="mon" className="addMedLabel">
                 Mon
@@ -336,7 +332,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                 id="tues"
                 value="Tues"
                 checked={tues}
-                onChange={() => setTues(!tues)}
+                onChange={(e) => setTues(e.target.checked)}
               />
               <label htmlFor="tues" className="addMedLabel">
                 Tues
@@ -349,7 +345,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                 id="wed"
                 value="Wed"
                 checked={wed}
-                onChange={() => setWed(!wed)}
+                onChange={(e) => setWed(e.target.checked)}
               />
               <label htmlFor="wed" className="addMedLabel">
                 Wed
@@ -362,7 +358,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                 id="thurs"
                 value="Thurs"
                 checked={thurs}
-                onChange={() => setThurs(!thurs)}
+                onChange={(e) => setThurs(e.target.checked)}
               />
               <label htmlFor="thurs" className="addMedLabel">
                 Thurs
@@ -375,7 +371,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                 id="fri"
                 value="Fri"
                 checked={fri}
-                onChange={() => setFri(!fri)}
+                onChange={(e) => setFri(e.target.checked)}
               />
               <label htmlFor="fri" className="addMedLabel">
                 Fri
@@ -388,7 +384,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                 id="sat"
                 value="Sat"
                 checked={sat}
-                onChange={() => setSat(!sat)}
+                onChange={(e) => setSat(e.target.checked)}
               />
               <label htmlFor="sat" className="addMedLabel">
                 Sat
@@ -444,7 +440,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
                   selected={refillDate}
                   value={refillDate}
                   onChange={(date) => setRefillDate(date)}
-                  minDate={today}
+                  minDate={new Date()}
                   required={refill}
                 />
               </div>

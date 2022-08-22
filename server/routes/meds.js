@@ -92,7 +92,7 @@ router.get("/med/:id", isAuth, (req, res) => {
   Med.findById(
     req.params.id,
     (err, array) => {
-      if (err) console.error(err);
+      if (err) res.status(500).console.error(err);
       else {
         res.status(200).send(array);
       }
@@ -104,7 +104,7 @@ router.get("/med/:id", isAuth, (req, res) => {
 // get list of all medications for a user
 router.get("/all/:linkedUser", isAuth, (req, res) => {
   Med.find({ linkedUser: req.params.linkedUser }, (err, array) => {
-    if (err) console.error(err);
+    if (err) res.status(500).console.error(err);
     else {
       res.status(200).send(array);
     }
@@ -117,7 +117,7 @@ router.patch("/delete-refill/:id", isAuth, async (req, res) => {
     req.params.id,
     { reminderDate2: null },
     (err, cb) => {
-      if (err) console.error(err);
+      if (err) res.status(500).console.error(err);
       else {
         res.status(200).send(true);
       }

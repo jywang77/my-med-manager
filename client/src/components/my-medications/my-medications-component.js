@@ -50,7 +50,7 @@ export const MyMedicationsComponent = () => {
             <div>
               <button
                 className="addButton"
-                onClick={() => setShowAdd((prev) => !prev)}
+                onClick={() => setShowAdd((e) => !e)}
               >
                 <img className="addIcon" src={add} alt="add medication" />
               </button>
@@ -87,7 +87,7 @@ export const MyMedicationsComponent = () => {
                   <button
                     className="editButton"
                     onClick={() => {
-                      setShowEdit((prev) => !prev);
+                      setShowEdit((e) => !e);
                       setMedId(med._id);
                     }}
                   >
@@ -104,7 +104,9 @@ export const MyMedicationsComponent = () => {
         </div>
       </div>
       {showEdit && <EditMedication setShowEdit={setShowEdit} medId={medId} />}
-      {showAdd && <AddMedication setShowAdd={setShowAdd} />}
+      {showAdd && (
+        <AddMedication setShowAdd={setShowAdd} linkedUser={linkedUser} />
+      )}
     </div>
   );
 };

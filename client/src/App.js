@@ -1,10 +1,10 @@
 import "./App.css";
-import { Home } from "./container/home/home";
-import { CreateAccount } from "./container/create-account/create-account";
-import { Dashboard } from "./container/dashboard/dashboard";
-import { Calendar } from "./container/calendar/calendar";
-import { MyMedications } from "./container/my-medications/my-medications";
-import { Settings } from "./container/settings/settings";
+import { Home } from "./container/home";
+import { CreateAccount } from "./container/create-account";
+import { Dashboard } from "./container/dashboard";
+import { Calendar } from "./container/calendar";
+import { MyMedications } from "./container/my-medications";
+import { Settings } from "./container/settings";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoutes from "./ProtectedRoutes";
 

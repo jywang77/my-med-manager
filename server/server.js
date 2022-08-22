@@ -20,16 +20,10 @@ const {
 const IN_PROD = NODE_ENV === "production";
 
 // connect to mongodb database
-mongoose.connect(
-  process.env.DB_STRING,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  },
-  () => {
-    console.log("Mongoose is connected");
-  }
-);
+mongoose.connect(process.env.DB_STRING, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 // session setup
 const sessionStore = MongoStore.create({
@@ -82,6 +76,4 @@ app.use("/meds", medsRouter);
 app.use("/history", historyRouter);
 
 // port
-app.listen(PORT, () => {
-  console.log("Server started on port 3001");
-});
+app.listen(PORT);

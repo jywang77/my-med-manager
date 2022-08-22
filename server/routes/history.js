@@ -6,7 +6,7 @@ const isAuth = require("../resources/authMiddleware").isAuth;
 const router = express.Router();
 
 // add history
-router.post("/add", isAuth, async (req, res, next) => {
+router.post("/add", isAuth, async (req, res) => {
   const existingHistory = await History.findOne({
     linkedUser: req.body.linkedUser,
     linkedMed: req.body.linkedMed,
@@ -46,16 +46,16 @@ router.patch("/edit", isAuth, async (req, res) => {
 
     res.status(200).send(updatedHistory);
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).console.error(err);
   }
 });
 
-// get checkbox info for a medication
+// get checkbox info
 router.get("/med/:linkedUser/:date", isAuth, async (req, res) => {
   History.find(
     { linkedUser: req.params.linkedUser, date: req.params.date },
     (err, array) => {
-      if (err) console.error(err);
+      if (err) res.status(500).console.error(err);
       else {
         res.status(200).send(array);
       }

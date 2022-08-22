@@ -37,7 +37,4 @@ npm start
 
 - Fix protected routes problem
 - If user is logged in, do not allow them to visit home page and create account page
-
-review:
-
-- have not looked over my-medications yet in components
+- Username: cannot contain spaces and symbols, password: cannot be empty

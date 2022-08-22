@@ -11,12 +11,12 @@ const router = express.Router();
 
 // login
 router.post("/login", (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) return next(err);
+  passport.authenticate("local", (err, user) => {
+    if (err) res.status(500).console.error(err);
     if (!user) res.status(200).send(false);
     else {
       req.logIn(user, (err) => {
-        if (err) return next(err);
+        if (err) res.status(500).console.error(err);
         res.status(200).send(true);
       });
     }
@@ -57,9 +57,7 @@ router.post("/create", async (req, res) => {
 // logout
 router.get("/logout", isAuth, (req, res) => {
   req.logout(function (err) {
-    if (err) {
-      throw err;
-    }
+    if (err) res.status(500).console.error(err);
     res.status(200).send(req.isAuthenticated());
   });
 });
@@ -91,7 +89,7 @@ router.patch("/change-name/:id", isAuth, async (req, res) => {
 
     res.status(200).send(updatedUser);
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).console.error(err);
   }
 });
 
@@ -114,7 +112,7 @@ router.patch("/change-username/:id", isAuth, async (req, res) => {
 
       res.status(200).send(updatedUser);
     } catch (err) {
-      res.status(500).send(err);
+      res.status(500).console.error(err);
     }
   }
 });
@@ -133,7 +131,7 @@ router.patch("/change-password/:id", isAuth, async (req, res) => {
       req.body.currentPassword,
       user.password,
       async (err, result) => {
-        if (err) throw err;
+        if (err) res.status(500).console.error(err);
 
         // if passwords do not match, return false to front end
         if (!result) {
@@ -151,7 +149,7 @@ router.patch("/change-password/:id", isAuth, async (req, res) => {
 
             res.status(200).send("Password updated successfully.");
           } catch (err) {
-            res.status(500).send(err);
+            res.status(500).console.error(err);
           }
         }
       }
@@ -178,7 +176,7 @@ router.patch("/change-email/:id", isAuth, async (req, res) => {
 
       res.status(200).send(updatedUser);
     } catch (err) {
-      res.status(500).send(err);
+      res.status(500).console.error(err);
     }
   }
 });
