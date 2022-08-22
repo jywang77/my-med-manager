@@ -25,21 +25,22 @@ router.post("/login", (req, res, next) => {
 
 // create account
 router.post("/create", async (req, res) => {
+  const format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+  const badUsername = format.test(req.body.username);
   const existingUsername = await User.findOne({ username: req.body.username });
   const existingEmail = await User.findOne({ email: req.body.email });
   const matchPassword = req.body.password === req.body.password2;
 
-  if (existingUsername || existingEmail || !matchPassword) {
-    const errorArray = {
+  if (badUsername || existingUsername || existingEmail || !matchPassword) {
+    res.status(200).send({
+      badUsername: badUsername,
       uniqueUsername: existingUsername,
       uniqueEmail: existingEmail,
       matchPassword: matchPassword,
-    };
-
-    res.status(200).send(errorArray);
+    });
   }
 
-  if (!existingUsername && !existingEmail && matchPassword) {
+  if (!badUsername && !existingUsername && !existingEmail && matchPassword) {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     const newUser = new User({
@@ -97,10 +98,16 @@ router.patch("/change-username/:id", isAuth, async (req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) return res.status(404).console.error("Error: user not found");
 
+  const format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+  const badUsername = format.test(req.body.username);
   const existingUsername = await User.findOne({ username: req.body.username });
-  if (existingUsername) {
-    res.status(200).send(true);
-  } else {
+  if (existingUsername || badUsername) {
+    res.status(200).send({
+      badUsername: badUsername,
+      existingUsername: existingUsername,
+    });
+  }
+  if (!existingUsername && !badUsername) {
     try {
       updatedUser = await User.findByIdAndUpdate(
         req.params.id,
@@ -121,10 +128,15 @@ router.patch("/change-password/:id", isAuth, async (req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) return res.status(404).console.error("Error: user not found");
 
-  // make sure new password matches new password 2
   const matchPassword = req.body.newPassword === req.body.newPassword2;
-  if (!matchPassword) {
-    res.status(200).send("Passwords do not match.");
+  const noPassword = req.body.newPassword.length === 0;
+
+  if (!matchPassword || noPassword) {
+    res.status(200).send({
+      matchPassword: matchPassword,
+      noPassword: noPassword,
+      rightPassword: true,
+    });
   } else {
     // make sure current password matches password in database
     bcrypt.compare(
@@ -132,12 +144,13 @@ router.patch("/change-password/:id", isAuth, async (req, res) => {
       user.password,
       async (err, result) => {
         if (err) res.status(500).console.error(err);
-
-        // if passwords do not match, return false to front end
         if (!result) {
-          res.status(200).send(false);
+          res.status(200).send({
+            matchPassword: matchPassword,
+            noPassword: noPassword,
+            rightPassword: false,
+          });
         } else {
-          // if passwords match, update new password and send success message to front end
           try {
             updatedUser = await User.findByIdAndUpdate(
               req.params.id,
@@ -147,7 +160,11 @@ router.patch("/change-password/:id", isAuth, async (req, res) => {
               { new: true }
             );
 
-            res.status(200).send("Password updated successfully.");
+            res.status(200).send({
+              matchPassword: matchPassword,
+              noPassword: noPassword,
+              rightPassword: true,
+            });
           } catch (err) {
             res.status(500).console.error(err);
           }
@@ -187,7 +204,7 @@ router.delete("/delete-account/:id", isAuth, async (req, res) => {
 
   // make sure password matches password in database
   bcrypt.compare(req.body.password, user.password, async (err, result) => {
-    if (err) throw err;
+    if (err) res.status(500).console.error(err);
 
     // if passwords do not match, return false to front end
     if (!result) {

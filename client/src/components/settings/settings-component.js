@@ -38,9 +38,11 @@ export const SettingsComponent = () => {
 
   // conditions for showing/hiding error messages
   const [existingUsername, setExistingUsername] = useState(null);
+  const [badUsername, setBadUsername] = useState(null);
   const [existingEmail, setExistingEmail] = useState(null);
   const [rightPassword, setRightPassword] = useState(true);
   const [matchPassword, setMatchPassword] = useState(true);
+  const [noPassword, setNoPassword] = useState(null);
   const [rightDeletePassword, setRightDeletePassword] = useState(true);
 
   // change name button
@@ -82,11 +84,13 @@ export const SettingsComponent = () => {
       url: `http://localhost:3001/users/change-username/${id}`,
     }).then((res) => {
       // if existing username, show error message
-      if (res.data === true) {
-        setExistingUsername(res.data);
+      if (res.data.existingUsername || res.data.badUsername) {
+        setExistingUsername(res.data.existingUsername);
+        setBadUsername(res.data.badUsername);
       } else {
         setUsername(res.data.username);
         setExistingUsername(false);
+        setBadUsername(false);
         setNewUsername("");
 
         // 'successfully changed' message + fade away
@@ -116,22 +120,19 @@ export const SettingsComponent = () => {
       withCredentials: true,
       url: `http://localhost:3001/users/change-password/${id}`,
     }).then((res) => {
-      // if passwords do not match, show error message
-      if (res.data === "Passwords do not match.") {
-        setMatchPassword(false);
-      } else {
-        setMatchPassword(true);
+      setMatchPassword(res.data.matchPassword);
+      setNoPassword(res.data.noPassword);
+
+      if (res.data.rightPassword === false) {
+        setRightPassword(false);
       }
 
-      // if current password incorrect, show error message
-      if (res.data === false) {
-        setRightPassword(res.data);
-      } else {
+      if (
+        res.data.matchPassword === true &&
+        res.data.noPassword === false &&
+        res.data.rightPassword === true
+      ) {
         setRightPassword(true);
-      }
-
-      // if all correct, show success message
-      if (res.data === "Password updated successfully.") {
         setCurrentPassword("");
         setNewPassword("");
         setNewPassword2("");
@@ -250,6 +251,9 @@ export const SettingsComponent = () => {
               <div className={"error" + (existingUsername ? " show" : "")}>
                 Error: Username already exists.
               </div>
+              <div className={"error" + (badUsername ? " show" : "")}>
+                Error: Username cannot contain spaces or special characters.
+              </div>
               <div className="successMessage s2">Changed successfully.</div>
             </div>
             <div>
@@ -320,6 +324,9 @@ export const SettingsComponent = () => {
             </div>
             <div className={"error" + (rightPassword ? "" : " show")}>
               Error: Current password incorrect.
+            </div>
+            <div className={"error" + (noPassword ? " show" : "")}>
+              Error: Password must be at least one character in length.
             </div>
             <div className="successMessage s3">Changed successfully.</div>
           </div>

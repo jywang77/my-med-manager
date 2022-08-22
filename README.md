@@ -37,4 +37,3 @@ npm start
 
 - Fix protected routes problem
 - If user is logged in, do not allow them to visit home page and create account page
-- Username: cannot contain spaces and symbols, password: cannot be empty

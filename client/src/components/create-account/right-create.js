@@ -13,6 +13,7 @@ export const RightCreate = () => {
   const [uniqueUsername, setUniqueUsername] = useState(null);
   const [uniqueEmail, setUniqueEmail] = useState(null);
   const [matchPassword, setMatchPassword] = useState(true);
+  const [badUsername, setBadUsername] = useState(null);
   const [success, setSuccess] = useState(false);
 
   // make sure form requirements are fulfilled before allowing you to submit the form
@@ -32,6 +33,7 @@ export const RightCreate = () => {
       setUniqueUsername(res.data.uniqueUsername);
       setUniqueEmail(res.data.uniqueEmail);
       setMatchPassword(res.data.matchPassword);
+      setBadUsername(res.data.badUsername);
 
       if (res.data === true) {
         setSuccess(res.data);
@@ -42,6 +44,7 @@ export const RightCreate = () => {
         setUniqueEmail(null);
         setUniqueUsername(null);
         setMatchPassword(true);
+        setBadUsername(false);
       }
     });
   }
@@ -51,6 +54,9 @@ export const RightCreate = () => {
       {/* form */}
       <form onSubmit={(e) => submit(e)}>
         <div>
+          <p className={"error" + (badUsername ? " show" : "")}>
+            Error: Username cannot contain spaces or special characters.
+          </p>
           <p className={"error" + (uniqueUsername ? " show" : "")}>
             Error: Username already in use.
           </p>
