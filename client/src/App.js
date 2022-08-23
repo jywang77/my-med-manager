@@ -8,12 +8,12 @@ import { Settings } from "./container/settings";
 import { NotFound } from "./container/not-found";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
 
-  const handleIsAuth = (run) => {
+  const handleIsAuth = () => {
     Axios({
       method: "GET",
       withCredentials: true,
@@ -23,7 +23,9 @@ function App() {
       console.log(res.data);
     });
   };
-  handleIsAuth();
+  useEffect(() => {
+    handleIsAuth();
+  }, []);
 
   return (
     <div className="App">

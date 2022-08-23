@@ -25,7 +25,7 @@ export const Right = ({ handleIsAuth }) => {
       setCorrectLogin(res.data);
 
       if (res.data === true) {
-        handleIsAuth("login");
+        handleIsAuth();
       }
     });
   };

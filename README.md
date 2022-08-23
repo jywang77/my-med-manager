@@ -25,4 +25,4 @@ If you come across any bugs, or find a page that doesn't work, I would be very g
 
 # To do
 
-- Fix protected routes problem
+- Fix protected routes problem: when logged in, keeps redirecting. when logged out, error messages (axios)

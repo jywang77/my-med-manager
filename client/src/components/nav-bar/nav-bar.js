@@ -12,7 +12,7 @@ export const NavBar = ({ handleIsAuth }) => {
       url: "http://localhost:3001/users/logout",
     }).then((res) => {
       if (!res.data) {
-        handleIsAuth("logout");
+        handleIsAuth();
       }
     });
   }
