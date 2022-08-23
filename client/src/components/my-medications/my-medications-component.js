@@ -6,20 +6,33 @@ import { AddMedication } from "./add-medication";
 import { EditMedication } from "./edit-medication";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const MyMedicationsComponent = () => {
-  // grab user id from back end
+  const navigate = useNavigate();
   const [linkedUser, setLinkedUser] = useState("");
 
+  // protect route
   useEffect(() => {
     Axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:3001/users/user",
+      url: "http://localhost:3001/users/isauth",
     }).then((res) => {
-      setLinkedUser(res.data._id.toString());
+      if (res.data === false) {
+        navigate("/");
+      } else {
+        // grab user id from back end
+        Axios({
+          method: "GET",
+          withCredentials: true,
+          url: "http://localhost:3001/users/user",
+        }).then((res) => {
+          setLinkedUser(res.data._id.toString());
+        });
+      }
     });
-  }, []);
+  }, [navigate]);
 
   // use the user id to query all medications for user and place in array
   const [medArray, setMedArray] = useState([]);

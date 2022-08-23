@@ -2,26 +2,7 @@ import "./today.css";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 
-export const Today = ({ medArray }) => {
-  // grab name and user id from back end
-  const [name, setName] = useState("");
-  const [linkedUser, setLinkedUser] = useState("");
-
-  useEffect(() => {
-    Axios({
-      method: "GET",
-      withCredentials: true,
-      url: "http://localhost:3001/users/user",
-    }).then((res) => {
-      if (res.data.name) {
-        setName(res.data.name);
-      } else {
-        setName(res.data.username);
-      }
-      setLinkedUser(res.data._id.toString());
-    });
-  }, []);
-
+export const Today = ({ medArray, linkedUser, name }) => {
   // decides if greeting is good morning, good afternoon, or good evening
   const today = new Date();
   const time = today.getHours();

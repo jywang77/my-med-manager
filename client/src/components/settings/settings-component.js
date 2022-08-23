@@ -4,28 +4,40 @@ import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 export const SettingsComponent = () => {
-  // grabbing and displaying current user information from back end
+  const navigate = useNavigate();
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
 
+  // protect route
   useEffect(() => {
     Axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:3001/users/user",
+      url: "http://localhost:3001/users/isauth",
     }).then((res) => {
-      setId(res.data._id.toString());
-      if (res.data.name) {
-        setName(res.data.name);
+      if (res.data === false) {
+        navigate("/");
       } else {
-        setName(res.data.username);
+        // grabbing and displaying current user information from back end
+        Axios({
+          method: "GET",
+          withCredentials: true,
+          url: "http://localhost:3001/users/user",
+        }).then((res) => {
+          setId(res.data._id.toString());
+          if (res.data.name) {
+            setName(res.data.name);
+          } else {
+            setName(res.data.username);
+          }
+          setUsername(res.data.username);
+          setEmail(res.data.email);
+        });
       }
-      setUsername(res.data.username);
-      setEmail(res.data.email);
     });
-  }, []);
+  }, [navigate]);
 
   // storing information entered into form
   const [newName, setNewName] = useState("");
@@ -185,8 +197,6 @@ export const SettingsComponent = () => {
   };
 
   // delete account
-  const navigate = useNavigate();
-
   const handleDeleteAccount = async () => {
     await Axios({
       method: "DELETE",
