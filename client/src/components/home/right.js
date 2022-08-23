@@ -1,8 +1,9 @@
 import "./right.css";
 import Axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export const Right = ({ handleIsAuth }) => {
+export const Right = () => {
   // storing information entered into login form (username and password)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -11,6 +12,8 @@ export const Right = ({ handleIsAuth }) => {
   const [correctLogin, setCorrectLogin] = useState(true);
 
   // redirect
+  const navigate = useNavigate();
+
   const submit = (e) => {
     e.preventDefault();
     Axios({
@@ -25,7 +28,7 @@ export const Right = ({ handleIsAuth }) => {
       setCorrectLogin(res.data);
 
       if (res.data === true) {
-        handleIsAuth();
+        navigate("/dashboard");
       }
     });
   };

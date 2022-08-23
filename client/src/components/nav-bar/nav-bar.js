@@ -2,9 +2,11 @@ import "./nav-bar.css";
 import logo from "./images/favicon.svg";
 import { NavLink } from "react-router-dom";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export const NavBar = ({ handleIsAuth }) => {
+export const NavBar = () => {
   // redirect
+  const navigate = useNavigate();
   function logOut() {
     Axios({
       method: "GET",
@@ -12,7 +14,7 @@ export const NavBar = ({ handleIsAuth }) => {
       url: "http://localhost:3001/users/logout",
     }).then((res) => {
       if (!res.data) {
-        handleIsAuth();
+        navigate("/");
       }
     });
   }

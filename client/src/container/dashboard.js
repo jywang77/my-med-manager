@@ -5,8 +5,24 @@ import { Reminder } from "../components/dashboard/reminder";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { useState, useEffect } from "react";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-export const Dashboard = ({ handleIsAuth }) => {
+export const Dashboard = () => {
+  // protect route
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    Axios({
+      method: "GET",
+      withCredentials: true,
+      url: "http://localhost:3001/users/isauth",
+    }).then((res) => {
+      if (res.data === false) {
+        navigate("/");
+      }
+    });
+  }, [navigate]);
+
   // grab user id from back end
   const [linkedUser, setLinkedUser] = useState("");
 
@@ -41,7 +57,7 @@ export const Dashboard = ({ handleIsAuth }) => {
         <Helmet>
           <title>myMedManager - Dashboard</title>
         </Helmet>
-        <NavBar handleIsAuth={handleIsAuth} />
+        <NavBar />
         <Today medArray={medArray} />
         <Reminder medArray={medArray} />
       </div>
