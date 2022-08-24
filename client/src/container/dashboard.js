@@ -17,7 +17,7 @@ export const Dashboard = () => {
     Axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:3001/users/isauth",
+      url: "/users/isauth",
     }).then((res) => {
       if (res.data === false) {
         navigate("/");
@@ -26,7 +26,7 @@ export const Dashboard = () => {
         Axios({
           method: "GET",
           withCredentials: true,
-          url: "http://localhost:3001/users/user",
+          url: "/users/user",
         }).then((res) => {
           if (res.data.name) {
             setName(res.data.name);
@@ -47,7 +47,7 @@ export const Dashboard = () => {
       Axios({
         method: "GET",
         withCredentials: true,
-        url: `http://localhost:3001/meds/all/${linkedUser}`,
+        url: `/meds/all/${linkedUser}`,
       }).then((res) => {
         setMedArray(res.data);
       });

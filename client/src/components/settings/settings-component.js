@@ -15,7 +15,7 @@ export const SettingsComponent = () => {
     Axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:3001/users/isauth",
+      url: "/users/isauth",
     }).then((res) => {
       if (res.data === false) {
         navigate("/");
@@ -24,7 +24,7 @@ export const SettingsComponent = () => {
         Axios({
           method: "GET",
           withCredentials: true,
-          url: "http://localhost:3001/users/user",
+          url: "/users/user",
         }).then((res) => {
           setId(res.data._id.toString());
           if (res.data.name) {
@@ -59,13 +59,13 @@ export const SettingsComponent = () => {
 
   // change name button
   const handleSubmitName = async () => {
-    await Axios({
+    Axios({
       method: "PATCH",
       data: {
         name: newName,
       },
       withCredentials: true,
-      url: `http://localhost:3001/users/change-name/${id}`,
+      url: `/users/change-name/${id}`,
     }).then((res) => {
       setName(res.data.name);
 
@@ -87,13 +87,13 @@ export const SettingsComponent = () => {
 
   // change username button
   const handleSubmitUsername = async () => {
-    await Axios({
+    Axios({
       method: "PATCH",
       data: {
         username: newUsername,
       },
       withCredentials: true,
-      url: `http://localhost:3001/users/change-username/${id}`,
+      url: `/users/change-username/${id}`,
     }).then((res) => {
       // if existing username, show error message
       if (res.data.existingUsername || res.data.badUsername) {
@@ -122,7 +122,7 @@ export const SettingsComponent = () => {
   // change password button
   const handleSubmitPassword = async () => {
     // displays error messages if passwords don't match
-    await Axios({
+    Axios({
       method: "PATCH",
       data: {
         currentPassword: currentPassword,
@@ -130,7 +130,7 @@ export const SettingsComponent = () => {
         newPassword2: newPassword2,
       },
       withCredentials: true,
-      url: `http://localhost:3001/users/change-password/${id}`,
+      url: `/users/change-password/${id}`,
     }).then((res) => {
       setMatchPassword(res.data.matchPassword);
       setNoPassword(res.data.noPassword);
@@ -166,13 +166,13 @@ export const SettingsComponent = () => {
   // change email button
   const handleSubmitEmail = async (e) => {
     e.preventDefault();
-    await Axios({
+    Axios({
       method: "PATCH",
       data: {
         email: newEmail,
       },
       withCredentials: true,
-      url: `http://localhost:3001/users/change-email/${id}`,
+      url: `/users/change-email/${id}`,
     }).then((res) => {
       // if existing email, show error message
       if (res.data === true) {
@@ -198,13 +198,13 @@ export const SettingsComponent = () => {
 
   // delete account
   const handleDeleteAccount = async () => {
-    await Axios({
+    Axios({
       method: "DELETE",
       data: {
         password: deletePassword,
       },
       withCredentials: true,
-      url: `http://localhost:3001/users/delete-account/${id}`,
+      url: `/users/delete-account/${id}`,
     }).then((res) => {
       if (res.data === false) {
         setRightDeletePassword(res.data);

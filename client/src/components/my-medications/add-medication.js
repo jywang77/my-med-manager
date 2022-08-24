@@ -89,7 +89,7 @@ export const AddMedication = ({ setShowAdd, linkedUser }) => {
         notes: notes,
       },
       withCredentials: true,
-      url: "http://localhost:3001/meds/add",
+      url: "/meds/add",
     }).then((res) => {
       if (res.data) {
         setShowAdd(false);

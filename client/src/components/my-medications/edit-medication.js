@@ -13,7 +13,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
     Axios({
       method: "GET",
       withCredentials: true,
-      url: `http://localhost:3001/meds/med/${medId}`,
+      url: `/meds/med/${medId}`,
     }).then((res) => {
       setMed(res.data);
     });
@@ -141,7 +141,7 @@ export const EditMedication = ({ setShowEdit, medId }) => {
         notes: notes,
       },
       withCredentials: true,
-      url: `http://localhost:3001/meds/edit/${medId}`,
+      url: `/meds/edit/${medId}`,
     }).then((res) => {
       if (res.data) {
         setShowEdit(false);
@@ -154,10 +154,10 @@ export const EditMedication = ({ setShowEdit, medId }) => {
   const [showDelete, setShowDelete] = useState(false);
 
   const handleDelete = async () => {
-    await Axios({
+    Axios({
       method: "DELETE",
       withCredentials: true,
-      url: `http://localhost:3001/meds/delete/${medId}`,
+      url: `/meds/delete/${medId}`,
     }).then((res) => {
       if (res.data === true) {
         setShowEdit(false);

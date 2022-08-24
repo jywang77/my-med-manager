@@ -15,7 +15,7 @@ export const Home = () => {
     Axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:3001/users/isauth",
+      url: "/users/isauth",
     }).then((res) => {
       if (res.data === true) {
         navigate("/dashboard");

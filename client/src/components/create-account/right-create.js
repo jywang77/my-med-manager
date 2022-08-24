@@ -28,7 +28,7 @@ export const RightCreate = () => {
         password2: password2,
       },
       withCredentials: true,
-      url: "http://localhost:3001/users/create",
+      url: "/users/create",
     }).then((res) => {
       setUniqueUsername(res.data.uniqueUsername);
       setUniqueEmail(res.data.uniqueEmail);

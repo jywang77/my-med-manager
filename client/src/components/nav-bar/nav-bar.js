@@ -11,7 +11,7 @@ export const NavBar = () => {
     Axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:3001/users/logout",
+      url: "/users/logout",
     }).then((res) => {
       if (!res.data) {
         navigate("/");

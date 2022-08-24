@@ -23,7 +23,7 @@ export const Right = () => {
         password: password,
       },
       withCredentials: true,
-      url: "http://localhost:3001/users/login",
+      url: "/users/login",
     }).then((res) => {
       setCorrectLogin(res.data);
 

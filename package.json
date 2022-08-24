@@ -1,7 +1,7 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
+  "name": "my-med-manager",
+  "version": "1.0",
+  "description": "A simple medication compliance manager made using MongoDB, ExpressJS, React, and NodeJS",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,8 +9,8 @@
     "dev": "nodemon server",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["pharmacy", "medication", "compliance"],
+  "author": "Joy Wang",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -107,7 +107,7 @@ export const Today = ({ medArray, linkedUser, name }) => {
         checked: checked,
       },
       withCredentials: true,
-      url: "http://localhost:3001/history/add",
+      url: "/history/add",
     }).then((res) => {
       if (res.data === true) {
         Axios({
@@ -120,7 +120,7 @@ export const Today = ({ medArray, linkedUser, name }) => {
             checked: checked,
           },
           withCredentials: true,
-          url: "http://localhost:3001/history/edit",
+          url: "/history/edit",
         });
       }
     });
@@ -134,7 +134,7 @@ export const Today = ({ medArray, linkedUser, name }) => {
       Axios({
         method: "GET",
         withCredentials: true,
-        url: `http://localhost:3001/history/med/${linkedUser}/${new Date().toDateString()}`,
+        url: `/history/med/${linkedUser}/${new Date().toDateString()}`,
       }).then((res) => {
         setCheckboxHistory(res.data);
       });

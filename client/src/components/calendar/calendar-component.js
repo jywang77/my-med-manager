@@ -12,7 +12,7 @@ export const CalendarComponent = () => {
     Axios({
       method: "GET",
       withCredentials: true,
-      url: "http://localhost:3001/users/isauth",
+      url: "/users/isauth",
     }).then((res) => {
       if (res.data === false) {
         navigate("/");
@@ -21,7 +21,7 @@ export const CalendarComponent = () => {
         Axios({
           method: "GET",
           withCredentials: true,
-          url: "http://localhost:3001/users/user",
+          url: "/users/user",
         }).then((res) => {
           setLinkedUser(res.data._id.toString());
         });
@@ -37,7 +37,7 @@ export const CalendarComponent = () => {
       Axios({
         method: "GET",
         withCredentials: true,
-        url: `http://localhost:3001/meds/all/${linkedUser}`,
+        url: `/meds/all/${linkedUser}`,
       }).then((res) => {
         setMedArray(res.data);
       });

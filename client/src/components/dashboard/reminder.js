@@ -31,7 +31,7 @@ export const Reminder = ({ medArray }) => {
     Axios({
       method: "PATCH",
       withCredentials: true,
-      url: `http://localhost:3001/meds/delete-refill/${med._id}`,
+      url: `/meds/delete-refill/${med._id}`,
     }).then((res) => {
       if (res.data === true) {
         setMed({});
