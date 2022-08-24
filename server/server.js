@@ -7,12 +7,13 @@ require("dotenv").config();
 const cookieParser = require("cookie-parser");
 const MongoStore = require("connect-mongo");
 const passport = require("passport");
+const path = require("path");
 
 const app = express();
 
 // defaults
 const {
-  PORT = 3001,
+  PORT = process.env.PORT || 3001,
   NODE_ENV = "development",
   SESS_LIFETIME = 1000 * 60 * 60 * 24, // 1 day
 } = process.env;
@@ -81,7 +82,12 @@ app.use("/users", usersRouter);
 app.use("/meds", medsRouter);
 app.use("/history", historyRouter);
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
 // port
-app.listen(PORT, () => {
-  console.log("Server started on port 3001");
-});
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

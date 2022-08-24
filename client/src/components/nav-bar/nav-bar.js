@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 export const NavBar = () => {
   // redirect
   const navigate = useNavigate();
-  function logOut() {
+  const logOut = () => {
     Axios({
       method: "GET",
       withCredentials: true,
@@ -17,7 +17,7 @@ export const NavBar = () => {
         navigate("/");
       }
     });
-  }
+  };
 
   return (
     <div className="navBar">
@@ -70,9 +70,7 @@ export const NavBar = () => {
       </div>
       {/* log out */}
       <div className="logout">
-        <NavLink to="/">
-          <button onClick={logOut} className="logoutButton" />
-        </NavLink>
+        <button onClick={logOut} className="logoutButton" />
         <span className="tooltipText logOutTooltip">log out</span>
       </div>
     </div>
