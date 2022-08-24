@@ -40,8 +40,6 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
       sameSite: true,
-      // remove secure flag during testing/dev
-      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
     },
   })
