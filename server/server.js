@@ -11,15 +11,6 @@ const path = require("path");
 
 const app = express();
 
-// defaults
-const {
-  PORT = process.env.PORT || 3001,
-  NODE_ENV = "development",
-  SESS_LIFETIME = 1000 * 60 * 60 * 24, // 1 day
-} = process.env;
-
-const IN_PROD = NODE_ENV === "production";
-
 // connect to mongodb database
 mongoose.connect(
   process.env.DB_STRING,
@@ -47,9 +38,10 @@ app.use(
     secret: process.env.SESS_SECRET,
     store: sessionStore,
     cookie: {
-      maxAge: SESS_LIFETIME,
+      maxAge: 1000 * 60 * 60 * 24,
       sameSite: true,
-      secure: IN_PROD,
+      // remove secure flag during testing/dev
+      secure: process.env.NODE_ENV === "production",
       httpOnly: true,
     },
   })
@@ -90,4 +82,6 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // port
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(process.env.PORT || 3001, () =>
+  console.log(`Server started on port ${process.env.PORT || 3001}`)
+);
