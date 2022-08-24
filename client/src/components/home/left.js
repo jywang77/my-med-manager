@@ -1,5 +1,5 @@
 import "./left.css";
-import title from "./images/title.svg";
+import title from "./images/title.png";
 
 export const Left = () => {
   return (
