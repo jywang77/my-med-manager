@@ -1,8 +1,8 @@
 # Welcome to myMedManager!
 
-This GitHub repository hosts all the source code for the website, as well as previous commits as I worked on the site. myMedManager is currently live at https://my-med-manager.herokuapp.com/. Feel free to make an account and explore the features! Desktop or laptop is recommended for viewing the site, since mobile isn't currently supported.
+This GitHub repository hosts all the source code for the website, as well as previous commits as I worked on the site. myMedManager is currently live at https://mymedmanager.cyclic.app/. Feel free to make an account and explore the features! Desktop or laptop is recommended for viewing the site, since mobile isn't currently supported.
 
-The initial loading time to access the site may be long (~30 seconds to a minute) because I am currently using a free hosting service that will turn off the server if the site traffic is low. The loading time allows the server to reboot. Thank you for your patience!
+The initial loading time to access the site may be long because I am currently using a free hosting service. Thank you for your patience!
 
 ## Video
 
@@ -21,5 +21,5 @@ If you come across any bugs, or find a page that doesn't work, I would be very g
 
 # Patch notes
 
-**V1.0 (Aug 24, 2022):** Site launched.  
-**V2.0 (Dec 24, 2022):** Site redeployed to new hosting service. Heroku free tier now defunct, moved to Cyclic.sh.
+**V1.0 (Aug 24, 2022):** Site launched at https://my-med-manager.herokuapp.com/.  
+**V2.0 (Dec 24, 2022):** Site redeployed to new hosting service. Heroku free tier is now defunct, so hosting was moved to Cyclic.sh.
