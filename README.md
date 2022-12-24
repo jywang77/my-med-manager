@@ -21,5 +21,5 @@ If you come across any bugs, or find a page that doesn't work, I would be very g
 
 # Patch notes
 
-**V1.0 (Aug 24, 2022):** Site launched.
+**V1.0 (Aug 24, 2022):** Site launched.  
 **V2.0 (Dec 24, 2022):** Site redeployed to new hosting service. Heroku free tier now defunct, moved to Cyclic.sh.
