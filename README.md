@@ -4,6 +4,8 @@ This GitHub repository hosts all the source code for the website, as well as pre
 
 The initial loading time to access the site may be long because I am currently using a free hosting service. Thank you for your patience!
 
+Figma: https://www.figma.com/file/wea5HiQk4kJSusQlvyh7Yi/myMedManager?node-id=0%3A1&t=BFCVrLdlxU89uvva-0
+
 ## Video
 
 You are welcome to watch the brief video I filmed that outlines the various features of the site. This video can be found here: https://youtu.be/GWTiuHPNMWQ
